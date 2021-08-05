@@ -1,5 +1,5 @@
 
-import Home from './pages/ads/Home'
+import Home from './pages/ads/Index'
 import ShowAd from './pages/ads/ShowAd'
 
 export default [

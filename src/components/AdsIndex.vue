@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <b-container>
       <!-- RESPONSIVE GRID -->
       <b-row>
         <b-col sm="6" md="4" lg="3" xl="2" class="mt-5">
@@ -34,7 +34,7 @@
           </div>
         </b-col>
       </b-row>
-    </div>
+    </b-container>
   </div>
 </template>
 
