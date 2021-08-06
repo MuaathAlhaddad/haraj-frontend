@@ -2,8 +2,8 @@
   <div>
     <div class="container">
       <!-- RESPONSIVE GRID -->
-      <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mt-5">
+      <b-row>
+        <b-col sm="6" md="4" lg="3" xl="2" class="mt-5">
           <div>
             <h6>All Catergories</h6>
           </div>
@@ -24,16 +24,16 @@
           <p>Kasapero</p>
           <p>Hosha</p>
           <p>South Somalia</p>
-        </div>
+        </b-col>
 
-        <div class="col-sm-6 col-md-8 col-lg-9 col-xl-10 mt-2">
+        <b-col sm="6" md="8" lg="9" xl="10" class="mt-2">
           <!-- TOP ALIGNED (DEFAULT) -->
           <div v-for="(ad, index) in ads" :key="index">
             <AdItem :ad="ad" />
             <hr style="width:100%;text-align:left;margin-left:0" />
           </div>
-        </div>
-      </div>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>

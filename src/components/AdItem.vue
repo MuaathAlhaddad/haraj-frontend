@@ -14,32 +14,32 @@
           }}</router-link>
         </h6>
 
-        <div class="row">
-          <div class="col-sm-9 ">
-            <div class="row">
-              <div class="col-8 col-sm-6">
+        <b-row>
+          <b-col sm="9">
+            <b-row>
+              <b-col class="col-8" sm="6">
                 <i class="fa fa-usd"> {{ ad.price }}</i>
-              </div>
-              <div class="col-4 col-sm-6">
+              </b-col>
+              <b-col class="col-4" sm="6">
                 <i class="fa fa-clock-o">
                   amer
                 </i>
-              </div>
-            </div>
+              </b-col>
+            </b-row>
             <br />
 
-            <div class="row">
-              <div class="col-8 col-sm-6">
+            <b-row>
+              <b-col sm="6" class="col-8">
                 <i class="fa fa-user"> Amer</i>
-              </div>
-              <div class="col-4 col-sm-6">
+              </b-col>
+              <b-col sm="6" class="col-4">
                 <i class="fa fa-map-marker">
                   Magadisgu
                 </i>
-              </div>
-            </div>
-          </div>
-        </div>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
       </div>
       <div>
         <i class="fa fa-usd"> {{ ad.price }}</i>
