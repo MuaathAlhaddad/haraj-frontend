@@ -1,6 +1,8 @@
 
 import Home from './pages/ads/Index'
 import ShowAd from './pages/ads/ShowAd'
+import UserProfile from './pages/UserProfile';
+import SellerProfile from './pages/SellerProfile';
 
 export default [
     { path: '/', component: Home },
@@ -15,9 +17,16 @@ export default [
         path: '/ads/:id',
         name: 'ads-show',
         components: { default: ShowAd },
-        props: {
-            header: { colorOnScroll: 400 },
-            footer: { backgroundColor: 'black' }
-        }
+    },
+    {
+        path: '/user/:id',
+        name: 'user-profile',
+        components: { default: UserProfile },
+
+    },    {
+        path: '/seller/:id',
+        name: 'seller-profile',
+        components: { default: SellerProfile },
+
     },
 ]
