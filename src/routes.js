@@ -15,7 +15,7 @@ export default [
     },
     {
         path: '/ads/:id',
-        name: 'ads-show',
+        name: 'ad-show',
         components: { default: ShowAd },
     },
     {

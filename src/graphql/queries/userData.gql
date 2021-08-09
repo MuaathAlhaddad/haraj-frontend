@@ -1,0 +1,90 @@
+query {
+  user(id: 1) {
+    name
+    gender
+    phone_no
+    email
+    created_at
+    email_verified_at
+    confirmed_at
+    deleted_at
+    remember_token
+    updated_at
+    country {
+      name
+      code
+      phone_code
+    }
+
+    state {
+      name
+    }
+
+    ads {
+      data {
+        id
+        name
+        description
+        price
+        quantity
+        sku
+        negotiable
+        warranty
+        favorited
+        created_at
+        user {
+          name
+          country {
+            code
+            name
+            phone_code
+          }
+          state {
+            name
+          }
+        }
+        comments {
+          data {
+            body
+            user {
+              name
+            }
+          }
+        }
+        reports {
+          data {
+            name
+            type
+            created_at
+          }
+        }
+      }
+    }
+
+    reviews {
+      data {
+        body
+        star
+        reports {
+          data {
+            name
+            type
+          }
+        }
+      }
+    }
+
+    comments {
+      data {
+        body
+        created_at
+        user {
+          name
+        }
+        ad {
+          name
+        }
+      }
+    }
+  }
+}

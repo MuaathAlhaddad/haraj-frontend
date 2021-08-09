@@ -28,10 +28,32 @@
 
         <b-col sm="6" md="8" lg="9" xl="10" class="mt-2">
           <!-- TOP ALIGNED (DEFAULT) -->
-          <div v-for="(ad, index) in ads" :key="index">
-            <AdItem :ad="ad" />
-            <hr style="width:100%;text-align:left;margin-left:0" />
-          </div>
+          <ApolloQuery :query="(gql) => allAds">
+            <!-- TODO -->
+
+            <template v-slot="{ result: { loading, error, data } }">
+              <!-- Loading -->
+              <div v-if="loading" class="loading apollo"><loading-icon /></div>
+
+              <!-- Error -->
+              <div v-else-if="error" class="error apollo">
+                <loading-icon />
+              </div>
+
+              <!-- Result -->
+              <div v-else-if="data" class="result apollo">
+                <div v-for="(ad, index) in data.ads.data" :key="index">
+                  <AdItem :ad="ad" />
+                  <hr style="width:100%;text-align:left;margin-left:0" />
+                </div>
+              </div>
+
+              <!-- No result -->
+              <div v-else class="no-result apollo">
+                <loading-icon />
+              </div>
+            </template>
+          </ApolloQuery>
         </b-col>
       </b-row>
     </b-container>
@@ -39,23 +61,14 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
 import AdItem from "./AdItem.vue";
 
+import allAds from "../graphql/queries/ads.gql";
+import LoadingIcon from "../components/LoadingIcon.vue";
 export default {
-  components: { AdItem },
-  apollo: {
-    // Simple query that will update the 'hello' vue property
-    ads: gql`
-      query {
-        ads {
-          id
-          name
-          description
-          price
-        }
-      }
-    `,
+  components: { AdItem, LoadingIcon },
+  data() {
+    return { allAds };
   },
 };
 </script>

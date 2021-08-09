@@ -1,0 +1,42 @@
+query {
+  ads {
+    data {
+      id
+      name
+      description
+      price
+      quantity
+      sku
+      negotiable
+      warranty
+      favorited
+      created_at
+      user {
+        name
+        country {
+          code
+          name
+          phone_code
+        }
+        state {
+          name
+        }
+      }
+      comments {
+        data {
+          body
+          user {
+            name
+          }
+        }
+      }
+      reports {
+        data {
+          name
+          type
+          created_at
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+query($id: ID!) {
+  ad(id: $id) {
+    name
+    description
+    price
+    created_at
+    user {
+      name
+      country {
+        name
+      }
+      state {
+        name
+      }
+      reviews {
+        data {
+          body
+          star
+
+          created_at
+        }
+      }
+    }
+    comments {
+      data {
+        body
+        user {
+          name
+        }
+        created_at
+      }
+    }
+  }
+}
