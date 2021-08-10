@@ -3,6 +3,7 @@ import Home from './pages/ads/Index'
 import ShowAd from './pages/ads/ShowAd'
 import UserProfile from './pages/UserProfile';
 import SellerProfile from './pages/SellerProfile';
+import CreateAd from './pages/CreateAd'
 
 export default [
     { path: '/', component: Home },
@@ -23,10 +24,17 @@ export default [
         name: 'user-profile',
         components: { default: UserProfile },
 
-    },    {
+    },
+    {
         path: '/seller/:id',
         name: 'seller-profile',
         components: { default: SellerProfile },
+
+    },
+    {
+        path: '/create-ad',
+        name: 'create-ad',
+        components: { default: CreateAd },
 
     },
 ]
