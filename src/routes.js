@@ -1,8 +1,9 @@
 
-import Home from './pages/ads/Index'
+import AdsList from './pages/ads/Index'
 import ShowAd from './pages/ads/ShowAd'
 import UserProfile from './pages/UserProfile';
 import SellerProfile from './pages/SellerProfile';
+import Home from './pages/Home';
 import CreateAd from './pages/CreateAd'
 import Signup from './pages/authPages/Signup';
 import Login from './pages/authPages/SignIn';
@@ -12,7 +13,7 @@ export default [
     {
         path: '/ads',
         name: 'ads-index',
-        components: { default: Home },
+        components: { default: AdsList },
 
 
     },
