@@ -24,9 +24,9 @@
 
             <div class="media-body">
               <h6>
-                <router-link :to="{ path: `ads/${ad.id}` }">{{
-                  ad.name
-                }}</router-link>
+                <router-link :to="{ path: `ads/${ad.id}` }">
+                  {{ ad.title }}
+                </router-link>
               </h6>
 
               <b-row>

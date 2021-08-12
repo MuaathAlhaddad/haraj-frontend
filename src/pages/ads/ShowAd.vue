@@ -18,7 +18,7 @@
             <b-row>
               <b-col>
                 <b-col class="mb-3 mt-4" col lg="4"
-                  ><h4 class="titleAd">{{ data.ad.name }}</h4></b-col
+                  ><h4 class="titleAd">{{ data.ad.title }}</h4></b-col
                 >
                 <b-col class="m-1 bg-white" col lg="4" style="border:1px solid"
                   >Taxonamies</b-col

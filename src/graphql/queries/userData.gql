@@ -23,10 +23,9 @@ query {
     ads {
       data {
         id
-        name
+        title
         description
         price
-        quantity
         sku
         negotiable
         warranty
