@@ -41,7 +41,7 @@
                   placeholder="Description"
                 ></b-form-textarea>
               </b-form-group>
-              <label for="price">Price</label>
+              <label for="price" required>Price</label>
 
               <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
@@ -99,15 +99,13 @@ export default {
   data() {
     return {
       form: {
-        email: "",
         title: "",
         description: "",
         price: null,
         negotiable: false,
         category: null,
         city: null,
-        tag: null,
-        checked: [],
+        tag: "",
       },
       categories: [
         { text: "Select One", value: null },
@@ -140,7 +138,7 @@ export default {
     },
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.$emit("passAdDetails", this.form);
     },
   },
 };

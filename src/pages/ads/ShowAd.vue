@@ -1,8 +1,7 @@
 <template>
   <div>
     <ApolloQuery :query="(gql) => adItem" :variables="{ id: $route.params.id }">
-      <!-- TODO -->
-
+ 
       <template v-slot="{ result: { loading, error, data } }">
         <!-- Loading -->
         <div v-if="loading" class="loading apollo"><loading-icon /></div>
@@ -17,12 +16,14 @@
           <b-container class="bv-example-row mt-3 background-main-div">
             <b-row>
               <b-col>
-                <b-col class="mb-3 mt-4" col lg="4"
-                  ><h4 class="titleAd">{{ data.ad.name }}</h4></b-col
-                >
+                <b-col class="mb-3 mt-4" col lg="4">
+                  <h4 class="titleAd">
+                    {{ data.ad.name }}
+                  </h4>
+                </b-col>
                 <b-col class="m-1 bg-white" col lg="4" style="border:1px solid"
-                  >Taxonamies</b-col
-                >
+                  >Taxonamies
+                </b-col>
 
                 <b-row class="mb-3">
                   <b-col>
@@ -30,8 +31,8 @@
                   </b-col>
                   <b-col class="m-1" col lg="4"
                     >Price:
-                    <span class="text-info">{{ data.ad.price }}</span></b-col
-                  >
+                    <span class="text-info">{{ data.ad.price }}</span>
+                  </b-col>
                 </b-row>
                 <b-col style="border:1px solid">
                   <div>
@@ -100,8 +101,9 @@
                             name: 'seller-profile',
                             params: { userId: `{{ data.ad.user.id }}` },
                           }"
-                          >{{ data.ad.user.name }}</router-link
                         >
+                          {{ data.ad.user.name }}
+                        </router-link>
                       </p>
                       <b-row class="mb-3">
                         <b-col style="max-width: 20rem; " md="4" class="p-3"

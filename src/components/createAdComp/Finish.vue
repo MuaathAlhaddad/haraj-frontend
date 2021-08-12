@@ -3,8 +3,9 @@
     <b-container class="bv-example-row mt-3">
       <b-card bg-variant="light">
         <b-card-text>
+          {{ newAd }}
           <div>
-            <b-form @submit="onSubmit" @reset="onReset">
+            <b-form @submit="onSubmit">
               <b-card
                 bg-variant="light"
                 title="Click here to post your ad"
@@ -22,48 +23,11 @@
 
 <script>
 export default {
+  props: ["newAd"],
   data() {
-    return {
-      form: {
-        email: "",
-        title: "",
-        description: "",
-        price: null,
-        negotiable: false,
-        category: null,
-        city: null,
-        tag: null,
-        checked: [],
-      },
-      categories: [
-        { text: "Select One", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
-      cities: [
-        { text: "Select city", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
-    };
+    return {};
   },
   methods: {
-    detail() {
-      this.switchButton = 0;
-    },
-    review() {
-      this.switchButton = 1;
-    },
-    comments() {
-      this.switchButton = 2;
-    },
-    finish() {
-      this.switchButton = 4;
-    },
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));

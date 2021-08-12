@@ -2,6 +2,10 @@
   <b-col cols="9" lg="9" md="9" sm="9" xs="12">
     <b-container class="bv-example-row mt-3">
       <b-card bg-variant="light" header="Terms Agreement">
+        <alert-erorr
+          v-if="error"
+          :message="'You have to accept the agreement!'"
+        />
         <b-card-text>
           <div>
             <div>
@@ -25,14 +29,16 @@
                 </div>
               </b-card>
             </div>
-            <b-form-checkbox class="my-3 mr-sm-2 mb-sm-0"
-              >Remember me</b-form-checkbox
-            >
+            <b-form-checkbox v-model="agreed" class="my-3 mr-sm-2 mb-sm-0">
+              I am agreed
+            </b-form-checkbox>
+
             <div class="submit-btn">
-              <b-button class="btn1 m-1" type="submit">Back</b-button>
-              <b-button class="btn2" type="submit">Next</b-button>
+              <!-- <b-button class="btn1 m-1" type="submit">Back</b-button> -->
+              <b-button v-on:click="submitTerms" class="btn2" type="submit"
+                >Next</b-button
+              >
             </div>
-            <b-form @submit="onSubmit" @reset="onReset"> </b-form>
           </div>
         </b-card-text>
       </b-card>
@@ -41,7 +47,25 @@
 </template>
 
 <script>
-export default {};
+import AlertErorr from "../AlertErorr.vue";
+export default {
+  components: { AlertErorr },
+  data() {
+    return {
+      agreed: null,
+      error: null,
+    };
+  },
+  methods: {
+    submitTerms() {
+      if (this.agreed) {
+        this.$emit("passTerm", this.agreed);
+      } else {
+        this.error = true;
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>

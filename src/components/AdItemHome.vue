@@ -3,9 +3,13 @@
     <b-card img-src="https://placekitten.com/500/350" img-alt="Image" img-top>
       <b-card-text>
         <b-row class="d-flex justify-content-between mx-1">
-          <h6 class="titleAd">Car for sell</h6>
+          <router-link :to="{ path: `/1` }">
+            <h6 class="titleAd">Car for sell</h6>
+          </router-link>
           <!-- <div><i class="fa fa-user"> Amer</i></div> -->
-          <div><i class="fa fa-usd"> 200</i></div>
+          <div>
+            <i class="fa fa-usd"> 200</i>
+          </div>
         </b-row>
       </b-card-text>
       <b-card-text>
@@ -15,7 +19,9 @@
       </b-card-text>
 
       <template #footer>
-        <div class="text-center"><b-button>View</b-button></div>
+        <div class="text-center">
+          <b-button>View</b-button>
+        </div>
       </template>
     </b-card>
     <br />

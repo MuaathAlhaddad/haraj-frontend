@@ -2,31 +2,35 @@
   <div>
     <b-container class="bv-example-row my-5">
       <b-row>
-        <b-col cols="12" class="my-5 text-center">
-          <b-row class="d-flex justify-content-center find-section">
+        <b-col cols="12" class="my-5 text-center" style="border:2px solid">
+          <div>
             <div>
-              <b-form-select
-                id="inline-form-custom-select-pref"
-                class="mb-2 mr-sm-2 mb-sm-0"
-                :options="[
-                  { text: 'Choose...', value: null },
-                  'One',
-                  'Two',
-                  'Three',
-                ]"
-                :value="null"
-              ></b-form-select>
+              <b-row class="d-flex justify-content-center find-section">
+                <div>
+                  <b-form-select
+                    id="inline-form-custom-select-pref"
+                    class="mb-2 mr-sm-2 mb-sm-0"
+                    :options="[
+                      { text: 'Choose...', value: null },
+                      'One',
+                      'Two',
+                      'Three',
+                    ]"
+                    :value="null"
+                  ></b-form-select>
+                </div>
+                <!--Input-->
+                <div>
+                  <b-form-input
+                    id="inline-form-input-search"
+                    class="mb-2 mr-sm-2 mb-sm-0"
+                    placeholder="Search"
+                  ></b-form-input>
+                </div>
+                <div><b-button>Find</b-button></div>
+              </b-row>
             </div>
-            <!--Input-->
-            <div>
-              <b-form-input
-                id="inline-form-input-search"
-                class="mb-2 mr-sm-2 mb-sm-0"
-                placeholder="Search"
-              ></b-form-input>
-            </div>
-            <div><b-button>Find</b-button></div>
-          </b-row>
+          </div>
         </b-col>
 
         <b-col cols="12"
@@ -100,7 +104,9 @@
             <template v-slot:header>
               <b-row class="d-flex justify-content-between">
                 <div class="ml-2">Latest ads</div>
-                <div class="mr-2"><a href="">View all ads</a></div>
+                <div class="mr-2">
+                  <router-link :to="{ path: `ads` }">View all ads</router-link>
+                </div>
               </b-row>
             </template>
 
@@ -139,7 +145,5 @@ export default {
 }
 .more {
   height: 60px !important;
-}
-.find-section {
 }
 </style>

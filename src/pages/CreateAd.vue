@@ -6,48 +6,48 @@
           <b-col col lg="4" md="12" sm="12" xs="12">
             <b-button-group>
               <b-button
-                v-bind="switchButton"
                 class="custom-size-button2"
-                v-bind:class="[
-                  switchButton == 0 ? 'conditionalBtn' : 'normalBtn',
-                ]"
-                v-on:click="detail"
-                >Ad Details</b-button
+                :class="switchButton == 0 ? 'conditionalBtn' : 'normalBtn'"
               >
+                Ad Details
+              </b-button>
+
               <b-button
                 class="custom-size-button2"
-                v-bind:class="[
-                  switchButton == 1 ? 'conditionalBtn' : 'normalBtn',
-                ]"
-                v-bind="switchButton"
-                v-on:click="review"
-                >Photos</b-button
+                :class="switchButton == 1 ? 'conditionalBtn' : 'normalBtn'"
               >
+                Photos
+              </b-button>
+
               <b-button
                 class="custom-size-button2"
-                v-bind:class="[
-                  switchButton == 2 ? 'conditionalBtn' : 'normalBtn',
-                ]"
-                v-on:click="comments"
-                >Terms</b-button
+                :class="switchButton == 2 ? 'conditionalBtn' : 'normalBtn'"
               >
+                Terms
+              </b-button>
+
               <b-button
                 class="custom-size-button2"
-                v-bind:class="[
-                  switchButton == 3 ? 'conditionalBtn' : 'normalBtn',
-                ]"
-                v-on:click="finish"
-                >Finish</b-button
+                :class="switchButton == 3 ? 'conditionalBtn' : 'normalBtn'"
               >
-            </b-button-group></b-col
-          >
+                Finish
+              </b-button>
+            </b-button-group>
+          </b-col>
         </b-row>
       </b-container>
       <b-row class="mb-5">
-        <Details v-if="switchButton == 0" />
-        <photos v-if="switchButton == 1" />
-        <terms v-if="switchButton == 2" />
-        <finish v-if="switchButton == 3" />
+        <Details
+          v-if="switchButton == 0"
+          v-on:passAdDetails="addDetails($event)"
+        />
+
+        <photos v-if="switchButton == 1" v-on:passPhotos="addPhotos($event)" />
+
+        <terms v-if="switchButton == 2" v-on:passTerm="postAd($event)" />
+
+        <finish v-if="switchButton == 3" :newAd="details" />
+
         <b-col cols="12" lg="3" md="3" sm="12" class="mt-3">
           <b-card border-variant="info" header="Notes">
             <b-card-text>
@@ -77,49 +77,28 @@ export default {
   data() {
     return {
       switchButton: 0,
-      form: {
-        email: "",
-        title: "",
-        description: "",
-        price: null,
-        negotiable: false,
-        category: null,
-        city: null,
-        tag: null,
-        checked: [],
-      },
-      categories: [
-        { text: "Select One", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
-      cities: [
-        { text: "Select city", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
+      details: null,
+      photos: null,
+      terms: null,
     };
   },
   methods: {
-    detail() {
-      this.switchButton = 0;
-    },
-    review() {
+    //// Recieving the data from the emit functions
+    addDetails(data) {
+      this.details = data;
       this.switchButton = 1;
+      console.log(data);
     },
-    comments() {
+    addPhotos(data) {
+      this.photos = data.name;
       this.switchButton = 2;
     },
-    finish() {
+    postAd(data) {
+      this.terms = data;
       this.switchButton = 3;
-    },
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+
+      this.details["photos"] = this.photos;
+      console.log(this.details);
     },
   },
 };

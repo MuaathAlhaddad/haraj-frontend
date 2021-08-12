@@ -1,20 +1,20 @@
 <template>
   <b-col cols="9" lg="9" md="9" sm="9" xs="12">
     <b-container class="bv-example-row mt-3">
-      <b-card bg-variant="light" header="Add Photos">
+      <b-card bg-variant="light" header="Ad Details">
         <b-card-text>
-          <div class="drag-box text-center">
+          <div>
+            <alert-erorr :message="'You have to upload photos!'" v-if="alert" />
             <b-form-file
-              v-model="file1"
-              :state="Boolean(file1)"
-              placeholder="Choose or drop photos..."
+              v-model="photos"
+              :state="Boolean(photos)"
+              placeholder="Choose a file or drop it here..."
               drop-placeholder="Drop file here..."
             ></b-form-file>
           </div>
         </b-card-text>
         <div class="submit-btn">
-          <b-button class="btn1 m-1" type="submit">Back</b-button>
-          <b-button class="btn2" type="submit">Next</b-button>
+          <b-button v-on:click="submitPhotos" type="submit">Next</b-button>
         </div>
       </b-card>
     </b-container>
@@ -22,28 +22,23 @@
 </template>
 
 <script>
+import AlertErorr from "../AlertErorr.vue";
 export default {
+  components: { AlertErorr },
   data() {
     return {
-      file1: null,
+      photos: null,
+      alert: null,
     };
   },
   methods: {
-    detail() {
-      this.switchButton = 0;
-    },
-    review() {
-      this.switchButton = 1;
-    },
-    comments() {
-      this.switchButton = 2;
-    },
-    finish() {
-      this.switchButton = 4;
-    },
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+    submitPhotos() {
+      if (this.photos == null) {
+        this.alert = true;
+        console.log("Photos should not be not");
+      } else {
+        this.$emit("passPhotos", this.photos);
+      }
     },
   },
 };
@@ -51,20 +46,18 @@ export default {
 
 <style scoped>
 .drag-box {
-  position: relative;
-  top: 120px;
-  height: 300px !important;
+  height: 400px !important;
 }
 .submit-btn {
   text-align: center;
   max-width: 100%;
 }
-.submit-btn .btn1 {
-  background-color: #747474;
-  width: 100px;
-}
-.submit-btn .btn2 {
+.submit-btn button {
   background-color: #4f9da6;
-  width: 100px;
+  width: 250px;
 }
 </style>
+
+<!-- TODO: 
+  - We need to work on how to store files to the local storage.
+-->
