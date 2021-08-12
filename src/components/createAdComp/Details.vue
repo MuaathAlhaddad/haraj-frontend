@@ -4,7 +4,7 @@
       <b-card bg-variant="light" header="Ad Details">
         <b-card-text>
           <div>
-            <b-form @submit="onSubmit" @reset="onReset">
+            <b-form @submit="onSubmit">
               <b-form-group
                 id="input-group-1"
                 label="Category:"

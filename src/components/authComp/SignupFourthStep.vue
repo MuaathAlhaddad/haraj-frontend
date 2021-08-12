@@ -1,6 +1,7 @@
 <template>
-  <b-col cols="9" lg="9" md="9" sm="9" xs="12">
+  <b-col class="my-2 reg-form" cols="12">
     <b-container class="bv-example-row mt-3">
+      <progress-bar :value="100" />
       <b-card bg-variant="light" header="Terms Agreement">
         <b-card-text>
           <div>
@@ -28,11 +29,6 @@
             <b-form-checkbox class="my-3 mr-sm-2 mb-sm-0"
               >Remember me</b-form-checkbox
             >
-            <div class="submit-btn">
-              <b-button class="btn1 m-1" type="submit">Back</b-button>
-              <b-button class="btn2" type="submit">Next</b-button>
-            </div>
-            <b-form @submit="onSubmit" @reset="onReset"> </b-form>
           </div>
         </b-card-text>
       </b-card>
@@ -41,20 +37,8 @@
 </template>
 
 <script>
-export default {};
+import ProgressBar from "../ProgressBar.vue";
+export default {
+  components: { ProgressBar },
+};
 </script>
-
-<style scoped>
-.submit-btn {
-  text-align: center;
-  max-width: 100%;
-}
-.submit-btn .btn1 {
-  background-color: #747474;
-  width: 100px;
-}
-.submit-btn .btn2 {
-  background-color: #4f9da6;
-  width: 100px;
-}
-</style>

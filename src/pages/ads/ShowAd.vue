@@ -37,7 +37,6 @@
                   <div>
                     <b-carousel
                       id="carousel-1"
-                      v-model="slide"
                       :interval="4000"
                       controls
                       indicators
@@ -45,8 +44,6 @@
                       img-width="1024"
                       img-height="480"
                       style="text-shadow: 1px 1px 2px #333;"
-                      @sliding-start="onSlideStart"
-                      @sliding-end="onSlideEnd"
                     >
                       <!-- Text slides with image -->
                       <b-carousel-slide
@@ -181,28 +178,26 @@
               <b-col col lg="4" md="12" sm="12" xs="12">
                 <b-button-group>
                   <b-button
-                    v-bind="switchButton"
                     class="custom-size-button2"
-                    v-bind:class="[
-                      switchButton == 0 ? 'conditionalBtn' : 'normalBtn',
-                    ]"
+                    v-bind:class="
+                      switchButton == 0 ? 'conditionalBtn' : 'normalBtn'
+                    "
                     v-on:click="detail"
                     >Details</b-button
                   >
                   <b-button
                     class="custom-size-button2"
-                    v-bind:class="[
-                      switchButton == 1 ? 'conditionalBtn' : 'normalBtn',
-                    ]"
-                    v-bind="switchButton"
+                    v-bind:class="
+                      switchButton == 1 ? 'conditionalBtn' : 'normalBtn'
+                    "
                     v-on:click="review"
                     >Reviews</b-button
                   >
                   <b-button
                     class="custom-size-button2"
-                    v-bind:class="[
-                      switchButton == 2 ? 'conditionalBtn' : 'normalBtn',
-                    ]"
+                    v-bind:class="
+                      switchButton == 2 ? 'conditionalBtn' : 'normalBtn'
+                    "
                     v-on:click="comments"
                     >Comments</b-button
                   >
