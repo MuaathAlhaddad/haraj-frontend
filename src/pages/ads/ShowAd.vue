@@ -1,7 +1,6 @@
 <template>
   <div>
     <ApolloQuery :query="(gql) => adItem" :variables="{ id: $route.params.id }">
- 
       <template v-slot="{ result: { loading, error, data } }">
         <!-- Loading -->
         <div v-if="loading" class="loading apollo"><loading-icon /></div>
@@ -16,11 +15,9 @@
           <b-container class="bv-example-row mt-3 background-main-div">
             <b-row>
               <b-col>
-                <b-col class="mb-3 mt-4" col lg="4">
-                  <h4 class="titleAd">
-                    {{ data.ad.name }}
-                  </h4>
-                </b-col>
+                <b-col class="mb-3 mt-4" col lg="4"
+                  ><h4 class="titleAd">{{ data.ad.title }}</h4></b-col
+                >
                 <b-col class="m-1 bg-white" col lg="4" style="border:1px solid"
                   >Taxonamies
                 </b-col>

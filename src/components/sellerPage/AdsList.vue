@@ -17,7 +17,7 @@
                   name: 'ad-show',
                   params: { userId: `{{  ad.id }}` },
                 }"
-                >{{ ad.name }}</router-link
+                >{{ ad.title }}</router-link
               >
             </h6>
 

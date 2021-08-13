@@ -58,6 +58,4 @@ export default {
 }
 </style>
 
-<!-- TODO: 
-  - We need to work on how to store files to the local storage.
--->
+<!-- TODO: We need to work on how to store files to the local storage.-->
