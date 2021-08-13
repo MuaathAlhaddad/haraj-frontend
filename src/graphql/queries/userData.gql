@@ -6,7 +6,7 @@ query {
     email
     created_at
     email_verified_at
-    confirmed_at
+    phone_verified_at
     deleted_at
     remember_token
     updated_at
