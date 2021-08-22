@@ -1,0 +1,9 @@
+query {
+  states {
+    name
+    country {
+      code
+      name
+    }
+  }
+}

@@ -1,53 +1,86 @@
 <template>
   <div>
+    <alert-erorr :message="'Make sure to fill the details'" v-if="alert" />
     <b-col class="my-2 reg-form" cols="12">
       <progress-bar :value="30" />
-      <b-form-group id="input-group-1" label="Country:" label-for="input-1">
-        <b-form-select
-          id="input-1"
-          v-model="form.country"
-          :options="countries"
-          required
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        id="input-group-2"
-        label="Phone Number:"
-        label-for="input-2"
-      >
-        <b-form-input
-          id="input-2"
-          v-model="form.phone"
-          placeholder="Ex: 0122125"
-          required
-        ></b-form-input>
-      </b-form-group>
+
+      <b-form @submit.stop.prevent="onSubmit">
+        <b-form-group id="phone" label="Phone" label-for="phone">
+          <b-input-group class="mb-2">
+            <b-input-group-prepend is-text>
+              +60
+            </b-input-group-prepend>
+            <b-form-input
+              id="phone"
+              name="phone"
+              type="number"
+              v-model="$v.form.phone.$model"
+              :state="validateState('phone')"
+              aria-describedby="input-1-live-feedback"
+            >
+            </b-form-input>
+          </b-input-group>
+
+          <b-form-invalid-feedback id="input-1-live-feedback">
+            This is a required field and must be number! characters.
+          </b-form-invalid-feedback>
+        </b-form-group>
+        <div class="submit-btn">
+          <b-button type="submit">Get the Code</b-button>
+        </div>
+      </b-form>
     </b-col>
   </div>
 </template>
 
 <script>
 import ProgressBar from "../ProgressBar.vue";
+import AlertErorr from "../AlertErorr.vue";
+import { validationMixin } from "vuelidate";
+import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
+  mixins: [validationMixin],
   name: "signup-first",
-  components: { ProgressBar },
+  components: { ProgressBar, AlertErorr },
+  validations: {
+    form: {
+      phone: {
+        required,
+        minLength: minLength(10),
+      },
+    },
+  },
   data() {
     return {
-      switchButton: 0,
       form: {
-        country: null,
+        phone: null,
       },
-      countries: [
-        { text: "select your country", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
+
+      alert: null,
     };
   },
-  methods: {},
+  methods: {
+    validateState(value) {
+      const { $dirty, $error } = this.$v.form[value];
+      return $dirty ? !$error : null;
+    },
+    onSubmit() {
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      } else {
+        this.$emit("switchToVerification", this.form.phone);
+      }
+    },
+  },
+
+  // mounted() {
+  //   var finalArray = this.$props.countriesData.map(function(obj) {
+  //     return obj.name;
+  //   });
+  //   this.countries = finalArray;
+  // },
 };
 </script>
 <style scoped></style>

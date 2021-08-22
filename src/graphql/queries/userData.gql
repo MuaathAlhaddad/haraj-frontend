@@ -81,7 +81,7 @@ query {
           name
         }
         ad {
-          name
+          title
         }
       }
     }

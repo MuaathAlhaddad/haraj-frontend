@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import { createProvider } from './vue-apollo'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
@@ -20,6 +21,8 @@ Vue.use(BootstrapVue)
 
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
+Vue.use(Vuelidate)
 
 // Use packages
 Vue.use(VueResource);

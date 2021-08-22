@@ -1,0 +1,15 @@
+query {
+  countries {
+    data {
+      id
+      name
+      code
+      phone_code
+      states {
+        data {
+          name
+        }
+      }
+    }
+  }
+}

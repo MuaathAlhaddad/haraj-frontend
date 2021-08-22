@@ -1,5 +1,5 @@
 <template>
-  <b-col cols="9" lg="9" md="9" sm="9" xs="12">
+  <b-col cols="9" lg="9" md="12" sm="12" xs="12">
     <b-container class="bv-example-row mt-3">
       <b-card bg-variant="light" header="Ad Details">
         <b-card-text>
@@ -72,6 +72,11 @@
                 ></b-form-select>
               </b-form-group>
 
+              <span v-for="(tag, index) in tags" :key="index" class="mr-1">
+                <b-badge variant="info">
+                  {{ tag }} <span @click="removeTag(index)">x</span>
+                </b-badge>
+              </span>
               <b-form-group
                 id="input-group-6"
                 label="Tags:"
@@ -80,7 +85,11 @@
                 <b-form-input
                   id="input-6"
                   v-model="form.tag"
-                  placeholder="car-motor-tyota"
+                  type="text"
+                  placeholder="Enter a Tag"
+                  @keydown.enter="addTag"
+                  @keydown.188="addTag"
+                  @keydown.delete="removeLastTag"
                 ></b-form-input>
               </b-form-group>
               <div class="submit-btn">
@@ -91,13 +100,17 @@
         </b-card-text>
       </b-card>
     </b-container>
+    {{ cities }}
   </b-col>
 </template>
 
 <script>
 export default {
+  props: ["states"],
   data() {
     return {
+      tags: [],
+
       form: {
         title: "",
         description: "",
@@ -114,13 +127,7 @@ export default {
         "cccccccc",
         "dddddd",
       ],
-      cities: [
-        { text: "Select city", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
+      cities: [],
     };
   },
   methods: {
@@ -140,6 +147,32 @@ export default {
       event.preventDefault();
       this.$emit("passAdDetails", this.form);
     },
+
+    ///Tags methods
+    addTag(event) {
+      event.preventDefault();
+      var val = event.target.value.trim();
+      if (val.length > 0) {
+        this.tags.push(val);
+        event.target.value = "";
+      }
+    },
+    removeTag(index) {
+      this.tags.splice(index, 1);
+    },
+    removeLastTag(event) {
+      if (event.target.value.length === 0) {
+        this.removeTag(this.tags.length - 1);
+      }
+    },
+    //end of tags methods
+  },
+
+  mounted() {
+    var finalArray = this.$props.states.map(function(obj) {
+      return obj.name;
+    });
+    this.cities = finalArray;
   },
 };
 </script>

@@ -1,9 +1,11 @@
 <template>
   <div>
     <b-container>
-      <!-- RESPONSIVE GRID -->
+      <upp-catergories />
+      <hr />
+      <index-search />
       <b-row>
-        <b-col sm="6" md="4" lg="3" xl="2" class="mt-5">
+        <b-col sm="4" md="12" lg="2" xl="2" class="mt-5">
           <div>
             <h6>All Catergories</h6>
           </div>
@@ -26,7 +28,7 @@
           <p>South Somalia</p>
         </b-col>
 
-        <b-col sm="6" md="8" lg="9" xl="10" class="mt-2">
+        <b-col sm="12" md="12" lg="9" xl="10" class="mt-2">
           <!-- TOP ALIGNED (DEFAULT) -->
           <ApolloQuery :query="(gql) => allAds">
             <!-- TODO -->
@@ -65,8 +67,10 @@ import AdItem from "./AdItem.vue";
 
 import allAds from "../graphql/queries/ads.gql";
 import LoadingIcon from "../components/LoadingIcon.vue";
+import UppCatergories from "../components/UppCatergories.vue";
+import IndexSearch from "../components/IndexSearch.vue";
 export default {
-  components: { AdItem, LoadingIcon },
+  components: { AdItem, LoadingIcon, UppCatergories, IndexSearch },
   data() {
     return { allAds };
   },

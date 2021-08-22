@@ -1,5 +1,5 @@
 <template>
-  <b-col cols="9" lg="9" md="9" sm="9" xs="12">
+  <b-col cols="9" lg="9" md="12" sm="12" xs="12">
     <b-container class="bv-example-row mt-3">
       <b-card bg-variant="light">
         <b-card-text>

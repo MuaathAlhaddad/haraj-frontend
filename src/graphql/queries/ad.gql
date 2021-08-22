@@ -1,6 +1,6 @@
 query($id: ID!) {
   ad(id: $id) {
-    name
+    title
     description
     price
     created_at

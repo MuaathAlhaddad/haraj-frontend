@@ -7,27 +7,69 @@
           <div>
             <b-card class="user-small-card" bg-variant="light">
               <div class="bg-dark p-2 text-light">
-                Personal Home
+                Profile
               </div>
               <hr />
-              <h6>MY ADS</h6>
+
               <b-row class="p-2 mb-1 bg-white text-dark">
-                <b-col> My ads</b-col>
-                <b-col class="text-right">
-                  <span class="bg-dark text-white pl-1 pr-2 rounded ">10</span>
+                <b-col class="text-center">
+                  <b-button
+                    size="sm"
+                    variant="outline-dark"
+                    class="button"
+                    v-on:click="switchButton = 0"
+                  >
+                    <b-icon icon="person-fill" aria-hidden="true"></b-icon>
+                    Profile
+                  </b-button>
+                </b-col>
+              </b-row>
+              <b-row class="p-2 mb-1 bg-white text-dark">
+                <b-col class="text-center">
+                  <b-button
+                    size="sm"
+                    variant="outline-dark"
+                    class="button"
+                    v-on:click="switchButton = 2"
+                  >
+                    <b-icon icon="archive-fill" aria-hidden="true"></b-icon>
+                    Ads
+                  </b-button>
                 </b-col>
               </b-row>
 
-              <b-row class="p-2 mb-1 bg-white text-dark">
-                <b-col> Favourite</b-col>
-                <b-col class="text-right">
-                  <span class="bg-dark text-white pl-1 pr-2 rounded">10</span>
+              <b-row class="p-2 mb-1 bg-white text-dark ">
+                <b-col class="text-center">
+                  <b-button
+                    size="sm"
+                    class="button"
+                    variant="outline-dark"
+                    v-on:click="switchButton = 1"
+                  >
+                    <b-icon
+                      icon="heart-fill"
+                      variant="danger"
+                      aria-hidden="true"
+                    ></b-icon>
+                    Favourite
+                  </b-button>
                 </b-col>
               </b-row>
               <b-row class="p-2 mb-1 bg-white text-dark">
-                <b-col> Inboxs</b-col>
-                <b-col class="text-right">
-                  <span class="bg-dark text-white pl-1 pr-2 rounded">10</span>
+                <b-col class="text-center">
+                  <b-button
+                    size="sm"
+                    variant="outline-dark"
+                    class="button"
+                    v-on:click="switchButton = 0"
+                  >
+                    <b-icon
+                      icon="inboxes-fill"
+                      variant="info"
+                      aria-hidden="true"
+                    ></b-icon>
+                    Inbox
+                  </b-button>
                 </b-col>
               </b-row>
               <div class="text-center mt-5">
@@ -38,9 +80,16 @@
         </b-col>
 
         <!-- User account Details-->
-
-        <b-col cols="12" lg="8" xl="8" sm="12" md="8" class="user-info-div"
-          ><div class="m-3">
+        <b-col
+          cols="12"
+          lg="8"
+          xl="8"
+          sm="12"
+          md="8"
+          class="user-info-div"
+          v-if="switchButton == 0"
+        >
+          <div class="m-3">
             <h4>Muaadh Ali</h4>
             <p>your last logged at: 12 July 2021</p>
           </div>
@@ -181,13 +230,18 @@
             </b-form>
           </div>
         </b-col>
+        <favorite v-if="switchButton == 1" />
+        <ads v-if="switchButton == 2" />
       </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
+import Favorite from "../components/userPage/Favorite.vue";
+import Ads from "../components/userPage/Ads.vue";
 export default {
+  components: { Favorite, Ads },
   data() {
     return {
       form: {
@@ -197,7 +251,7 @@ export default {
         phone: "",
         gender: [],
       },
-
+      switchButton: 2,
       show: true,
     };
   },
@@ -232,5 +286,8 @@ export default {
   background-color: #e2e2e2 !important;
   height: 500px;
   border-radius: 30px;
+}
+.button {
+  width: 100px !important;
 }
 </style>
