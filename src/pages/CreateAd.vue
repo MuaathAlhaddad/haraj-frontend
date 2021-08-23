@@ -46,7 +46,7 @@
           <Details
             v-if="switchButton == 0"
             v-on:passAdDetails="addDetails($event)"
-            :states="cities.states.data"
+            :states="cities.states"
           />
 
           <photos

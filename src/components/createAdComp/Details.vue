@@ -69,7 +69,8 @@
                   v-model="form.city"
                   :options="cities"
                   required
-                ></b-form-select>
+                >
+                </b-form-select>
               </b-form-group>
 
               <span v-for="(tag, index) in tags" :key="index" class="mr-1">
@@ -100,7 +101,6 @@
         </b-card-text>
       </b-card>
     </b-container>
-    {{ cities }}
   </b-col>
 </template>
 

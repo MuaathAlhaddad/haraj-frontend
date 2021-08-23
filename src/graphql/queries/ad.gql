@@ -31,6 +31,11 @@ query {
         created_at
       }
     }
+    taxomomyContents {
+      data {
+        title
+      }
+    }
   }
 }
 

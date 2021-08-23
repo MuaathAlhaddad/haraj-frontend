@@ -14,8 +14,22 @@
               <b-col class="mb-3 mt-4" col lg="4"
                 ><h4 class="titleAd">{{ ad.ad.title }}</h4></b-col
               >
-              <b-col class="m-1 bg-white" col lg="4" style="border:1px solid"
-                >Taxonamies
+              <b-col class="m-1 bg-white" lg="6" style="border:1px solid">
+                <router-link to="ads">
+                  <span> {{ ad.ad.taxomomyContents.data[0].title }}</span>
+                </router-link>
+                >
+                <router-link to="ads">
+                  <span> {{ ad.ad.taxomomyContents.data[1].title }}</span>
+                </router-link>
+                >
+                <router-link to="ads">
+                  <span> {{ ad.ad.taxomomyContents.data[2].title }}</span>
+                </router-link>
+                >
+                <router-link to="ads">
+                  <span> {{ ad.ad.taxomomyContents.data[3].title }}</span>
+                </router-link>
               </b-col>
 
               <b-row class="mb-3">
