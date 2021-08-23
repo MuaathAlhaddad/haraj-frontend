@@ -1,9 +1,10 @@
-query($id: ID!) {
-  ad(id: $id) {
+query {
+  ad(where: { column: ID, value: 1 }) {
     title
     description
     price
     created_at
+    favorited
     user {
       name
       country {
@@ -32,3 +33,5 @@ query($id: ID!) {
     }
   }
 }
+
+#  TODO: Fix the error of not define the datatype of value

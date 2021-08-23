@@ -1,0 +1,5 @@
+mutation($id: ID!, $favorited: Boolean!) {
+  favouriteAd(input: { id: $id, favorited: $favorited }) {
+    id
+  }
+}
