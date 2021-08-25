@@ -1,5 +1,7 @@
-mutation($id: ID!, $favorited: Boolean!) {
-  favouriteAd(input: { id: $id, favorited: $favorited }) {
+mutation {
+  createFavorite(
+    input: { favoriteable_id: 1, favoriteable_type: ad, user: { connect: 1 } }
+  ) {
     id
   }
 }

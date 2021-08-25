@@ -6,13 +6,17 @@
         :key="index"
       >
         <div class="text-center m-1">
-          <b-button variant="info">
+          <b-button
+            variant="info"
+            v-on:click="selectedCatergory = catergory.title"
+          >
             <b-badge variant="light">
               <i :class="icons[index]"></i> {{ catergory.title }}
             </b-badge>
           </b-button>
         </div>
       </div>
+      {{ selectedCatergory }}
     </b-row>
   </b-card>
 </template>
@@ -34,6 +38,7 @@ export default {
         "fa fa-tree",
         "fa fa-black-tie",
       ],
+      selectedCatergory: "dfdf",
     };
   },
 };

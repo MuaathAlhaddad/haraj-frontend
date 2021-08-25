@@ -7,8 +7,6 @@ query {
       price
       sku
       negotiable
-      warranty
-      favorited
       created_at
       user {
         name

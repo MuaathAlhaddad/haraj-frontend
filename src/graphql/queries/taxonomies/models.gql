@@ -1,0 +1,7 @@
+query {
+  taxonomyContent(where: { column: TITLE, operator: EQ, value: "cars" }) {
+    models {
+      title
+    }
+  }
+}

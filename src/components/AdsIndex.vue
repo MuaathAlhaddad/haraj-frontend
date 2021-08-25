@@ -21,12 +21,15 @@
 
             <template v-else>
               <upp-catergories :catergories="catergories" />
+              <sub-catergories-one :brands="brands" />
+              <sub-catergories-two :models="models" />
             </template>
 
             <hr />
             <index-search />
             <b-row>
               <SideCatergories :catergories="catergories" />
+
               <b-col sm="12" md="12" lg="9" xl="10" class="mt-2">
                 <!-- TOP ALIGNED (DEFAULT) -->
 
@@ -57,8 +60,14 @@ import UppCatergories from "../components/UppCatergories.vue";
 import SideCatergories from "../components/SideCatergories.vue";
 import IndexSearch from "../components/IndexSearch.vue";
 import Catergories from "../graphql/queries/taxonomies/categories.gql";
+import Brands from "../graphql/queries/taxonomies/brands.gql";
+import Models from "../graphql/queries/taxonomies/models.gql";
+import SubCatergoriesOne from "./SubCatergoriesOne.vue";
+import SubCatergoriesTwo from "./SubCatergoriesTwo.vue";
 
 const allCategories = Catergories;
+const allBrands = Brands;
+const allModels = Models;
 export default {
   components: {
     AdItem,
@@ -66,17 +75,37 @@ export default {
     UppCatergories,
     IndexSearch,
     SideCatergories,
+    SubCatergoriesOne,
+    SubCatergoriesTwo,
   },
   data() {
     return {
       allAds,
       loadingCatergories: 0,
       catergories: [],
+      brands: [],
     };
   },
   apollo: {
     catergories: {
       query: allCategories,
+      loadingKey: "loadingCatergories",
+      update(data) {
+        return data;
+      },
+    },
+    brands: {
+      query: allBrands,
+      loadingKey: "loadingCatergories",
+      variables: {
+        catergoryName: "devices",
+      },
+      update(data) {
+        return data;
+      },
+    },
+    models: {
+      query: allModels,
       loadingKey: "loadingCatergories",
       update(data) {
         return data;

@@ -15,21 +15,10 @@
                 ><h4 class="titleAd">{{ ad.ad.title }}</h4></b-col
               >
               <b-col class="m-1 bg-white" lg="6" style="border:1px solid">
-                <router-link to="ads">
+                <!-- <router-link to="ads">
                   <span> {{ ad.ad.taxomomyContents.data[0].title }}</span>
-                </router-link>
-                >
-                <router-link to="ads">
-                  <span> {{ ad.ad.taxomomyContents.data[1].title }}</span>
-                </router-link>
-                >
-                <router-link to="ads">
-                  <span> {{ ad.ad.taxomomyContents.data[2].title }}</span>
-                </router-link>
-                >
-                <router-link to="ads">
-                  <span> {{ ad.ad.taxomomyContents.data[3].title }}</span>
-                </router-link>
+                </router-link> -->
+                taxonomies
               </b-col>
 
               <b-row class="mb-3">
@@ -250,22 +239,23 @@ export default {
   methods: {
     favoriteAd() {
       this.isFavorited = !this.isFavorited;
-      let favAd = this.isFavorited;
-      this.$apollo
-        .mutate({
-          // Query
-          mutation: FavoriteAd,
-          // Parameters
-          variables: {
-            id: 1,
-            favorited: favAd,
-          },
-        })
-        .then(() => {})
-        .catch((error) => {
-          this.error = true;
-          console.error(error);
-        });
+      if (this.isFavorited) {
+        this.$apollo
+          .mutate({
+            mutation: FavoriteAd,
+            //  variables: {
+            //   favorite_id: 1,
+            //   user_id: 1,
+            // },
+          })
+          .then(() => {})
+          .catch((error) => {
+            this.error = true;
+            console.error(error);
+          });
+      } else {
+        console.log("Deleted");
+      }
     },
   },
   mounted() {},
@@ -273,6 +263,9 @@ export default {
     ad: {
       query: adData,
       loadingKey: "loadingAd",
+      variables: {
+        adID: 1,
+      },
       update(data) {
         this.isFavorited = data.ad.favorited;
         return data;

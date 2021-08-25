@@ -1,0 +1,9 @@
+query($catergoryName: String!) {
+  taxonomyContent(
+    where: { column: TITLE, operator: LIKE, value: $catergoryName }
+  ) {
+    brands {
+      title
+    }
+  }
+}

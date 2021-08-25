@@ -1,10 +1,9 @@
-query {
-  ad(where: { column: ID, value: 1 }) {
+query($adID: mixed!) {
+  ad(where: { column: ID, operator: EQ, value: $adID }) {
     title
     description
     price
     created_at
-    favorited
     user {
       name
       country {
@@ -31,7 +30,7 @@ query {
         created_at
       }
     }
-    taxomomyContents {
+    taxonomyContents {
       data {
         title
       }
