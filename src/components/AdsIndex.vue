@@ -1,93 +1,108 @@
 <template>
   <div>
-    <ApolloQuery :query="(gql) => allAds">
-      <!-- TODO -->
+    <!-- Result -->
 
-      <template v-slot="{ result: { loading, error, data } }">
-        <!-- Loading -->
-        <div v-if="loading" class="loading apollo"><loading-icon /></div>
-
-        <!-- Error -->
-        <div v-else-if="error" class="error apollo">
-          <loading-icon />
-        </div>
-
-        <!-- Result -->
-        <div v-else-if="data" class="result apollo">
-          <b-container>
-            <template v-if="loadingCatergories">
-              <div></div>
-            </template>
-
-            <template v-else>
-              <upp-catergories :catergories="catergories" />
-              <sub-catergories-one :brands="brands" />
-              <sub-catergories-two :models="models" />
-            </template>
-
-            <hr />
-            <index-search />
-            <b-row>
-              <SideCatergories :catergories="catergories" />
-
-              <b-col sm="12" md="12" lg="9" xl="10" class="mt-2">
-                <!-- TOP ALIGNED (DEFAULT) -->
-
-                <div v-for="(ad, index) in data.ads.data" :key="index">
-                  <AdItem :ad="ad" />
-                  <hr style="width:100%;text-align:left;margin-left:0" />
-                </div>
-              </b-col>
-            </b-row>
-          </b-container>
-        </div>
-
-        <!-- No result -->
-        <div v-else class="no-result apollo">
+    <b-container>
+      <template v-if="loadingCatergories">
+        <div>
           <loading-icon />
         </div>
       </template>
-    </ApolloQuery>
+
+      <template v-else>
+        <upp-catergories
+          :harajs="harajs"
+          v-on:selectedHaraj="getBrands($event)"
+        />
+        <sub-catergories-one
+          :brands="brands"
+          v-if="switchBrands"
+          v-on:selectedBrand="getModels($event)"
+        />
+        <sub-catergories-two
+          :models="models"
+          v-if="switchModels"
+          v-on:selectedModel="getAds($event)"
+        />
+        <hr />
+        <index-search />
+        <b-row>
+          <b-col sm="12" md="12" lg="9" xl="10" class="mt-2">
+            <div v-for="(ad, index) in ads.ads.data" :key="index">
+              <AdItem :ad="ad" />
+              <hr style="width:100%;text-align:left;margin-left:0" />
+            </div>
+          </b-col>
+        </b-row>
+      </template>
+    </b-container>
   </div>
 </template>
 
 <script>
 import AdItem from "./AdItem.vue";
-
-import allAds from "../graphql/queries/ads.gql";
 import LoadingIcon from "../components/LoadingIcon.vue";
 import UppCatergories from "../components/UppCatergories.vue";
-import SideCatergories from "../components/SideCatergories.vue";
 import IndexSearch from "../components/IndexSearch.vue";
-import Catergories from "../graphql/queries/taxonomies/categories.gql";
-import Brands from "../graphql/queries/taxonomies/brands.gql";
-import Models from "../graphql/queries/taxonomies/models.gql";
 import SubCatergoriesOne from "./SubCatergoriesOne.vue";
 import SubCatergoriesTwo from "./SubCatergoriesTwo.vue";
 
-const allCategories = Catergories;
-const allBrands = Brands;
-const allModels = Models;
+///queries
+import Ads from "../graphql/queries/ads.gql";
+import Harajs from "../graphql/queries/taxonomies/harajs.gql";
+import Brands from "../graphql/queries/taxonomies/brands.gql";
+import Models from "../graphql/queries/taxonomies/models.gql";
+
+let allCategories = Harajs;
+
+let allBrands = Brands;
+let allModels = Models;
+let allAds = Ads;
 export default {
   components: {
     AdItem,
     LoadingIcon,
     UppCatergories,
     IndexSearch,
-    SideCatergories,
     SubCatergoriesOne,
     SubCatergoriesTwo,
   },
   data() {
     return {
-      allAds,
+      ads: [],
       loadingCatergories: 0,
-      catergories: [],
+      harajs: [],
       brands: [],
+      models: [],
+      switchBrands: null,
+      switchModels: null,
+      selectedHaraj: null,
+      selectedBrand: null,
+      selectModel: null,
     };
   },
   apollo: {
-    catergories: {
+    ads: {
+      query: allAds,
+      loadingKey: "loadingCatergories",
+      variables() {
+        if (this.selectModel != null) {
+          return {
+            valueName: this.selectModel,
+            operator: "LIKE",
+          };
+        } else {
+          return {
+            valueName: "%%",
+            operator: "LIKE",
+          };
+        }
+      },
+      update(data) {
+        return data;
+      },
+    },
+    harajs: {
       query: allCategories,
       loadingKey: "loadingCatergories",
       update(data) {
@@ -97,19 +112,60 @@ export default {
     brands: {
       query: allBrands,
       loadingKey: "loadingCatergories",
-      variables: {
-        catergoryName: "devices",
+
+      variables() {
+        return {
+          catergoryName: this.selectedHaraj,
+          operator: "LIKE",
+        };
+      },
+      skip() {
+        if (this.selectedHaraj == null) {
+          return true;
+        }
       },
       update(data) {
-        return data;
+        if (this.selectedHaraj != null) {
+          this.switchBrands = true;
+          return data;
+        }
       },
     },
     models: {
       query: allModels,
       loadingKey: "loadingCatergories",
-      update(data) {
-        return data;
+      variables() {
+        return {
+          model: this.selectModel,
+          operator: "LIKE",
+        };
       },
+      skip() {
+        if (this.selectedBrand == null) {
+          return true;
+        }
+      },
+      update(data) {
+        if (this.selectedBrand != null) {
+          this.switchModels = true;
+          return data;
+        }
+      },
+    },
+  },
+  methods: {
+    getBrands(haraj) {
+      this.selectModel = null;
+      this.selectedHaraj = haraj;
+      this.switchModels = false;
+    },
+    getModels(brand) {
+      this.selectedBrand = brand;
+      this.switchModels = true;
+    },
+    getAds(model) {
+      this.selectModel = this.selectedHaraj;
+      console.log(model);
     },
   },
 };

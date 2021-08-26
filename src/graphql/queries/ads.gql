@@ -1,5 +1,7 @@
-query {
-  ads {
+query($operator: SQLOperator, $valueName: Mixed) {
+  ads(
+    taxonomyContents: { column: TITLE, operator: $operator, value: $valueName }
+  ) {
     data {
       id
       title

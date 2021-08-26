@@ -1,5 +1,5 @@
-query($adID: mixed!) {
-  ad(where: { column: ID, operator: EQ, value: $adID }) {
+query($operator: SQLOperator, $adID: Mixed) {
+  ad(where: { column: ID, operator: $operator, value: $adID }) {
     title
     description
     price

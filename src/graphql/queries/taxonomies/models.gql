@@ -1,5 +1,7 @@
-query {
-  taxonomyContent(where: { column: TITLE, operator: EQ, value: "cars" }) {
+query($operator: SQLOperator, $model: Mixed) {
+  taxonomyContent(
+    where: { column: TITLE, operator: $operator, value: $model }
+  ) {
     models {
       title
     }

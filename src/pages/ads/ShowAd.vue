@@ -224,6 +224,7 @@ import Comment from "../../components/AdComments.vue";
 import adItem from "../../graphql/queries/ad.gql";
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
+
 const adData = adItem;
 export default {
   components: { Review, Details, Comment, LoadingIcon },
@@ -264,7 +265,8 @@ export default {
       query: adData,
       loadingKey: "loadingAd",
       variables: {
-        adID: 1,
+        adID: 2,
+        operator: "EQ",
       },
       update(data) {
         this.isFavorited = data.ad.favorited;

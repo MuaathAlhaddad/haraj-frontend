@@ -1,6 +1,6 @@
-query($catergoryName: String!) {
+query($operator: SQLOperator, $catergoryName: Mixed) {
   taxonomyContent(
-    where: { column: TITLE, operator: LIKE, value: $catergoryName }
+    where: { column: TITLE, operator: $operator, value: $catergoryName }
   ) {
     brands {
       title

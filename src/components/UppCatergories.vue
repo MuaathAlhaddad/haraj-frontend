@@ -1,29 +1,23 @@
 <template>
   <b-card class="mt-5">
     <b-row>
-      <div
-        v-for="(catergory, index) in catergories.taxonomyContents.data"
-        :key="index"
-      >
+      <div v-for="(haraj, index) in harajs.taxonomyContents.data" :key="index">
         <div class="text-center m-1">
-          <b-button
-            variant="info"
-            v-on:click="selectedCatergory = catergory.title"
-          >
+          <b-button variant="info" v-on:click="selectedHaraj(haraj.title)">
             <b-badge variant="light">
-              <i :class="icons[index]"></i> {{ catergory.title }}
+              <i :class="icons[index]"></i> {{ haraj.title }}
             </b-badge>
           </b-button>
         </div>
       </div>
-      {{ selectedCatergory }}
+      {{ selected }}
     </b-row>
   </b-card>
 </template>
 
 <script>
 export default {
-  props: ["catergories"],
+  props: ["harajs"],
   data() {
     return {
       icons: [
@@ -38,8 +32,15 @@ export default {
         "fa fa-tree",
         "fa fa-black-tie",
       ],
-      selectedCatergory: "dfdf",
+      selected: "",
     };
+  },
+
+  methods: {
+    selectedHaraj(haraj) {
+      console.log(haraj);
+      this.$emit("selectedHaraj", haraj);
+    },
   },
 };
 </script>

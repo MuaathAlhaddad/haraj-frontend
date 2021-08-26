@@ -6,7 +6,7 @@
         :key="index"
       >
         <div>
-          <b-button class="m-1">
+          <b-button class="m-1" v-on:click="selectedModel(model.title)">
             {{ model.title }}
           </b-button>
         </div>
@@ -16,7 +16,9 @@
           v-for="(model, index) in models.taxonomyContent.models"
           :key="index"
         >
-          <b-dropdown-item href="#">{{ model.title }}</b-dropdown-item>
+          <b-dropdown-item v-on:click="selectedModel(model.title)"
+            >{{ model.title }}
+          </b-dropdown-item>
         </div>
       </b-dropdown>
     </b-row>
@@ -40,8 +42,13 @@ export default {
         "fa fa-tree",
         "fa fa-black-tie",
       ],
-      selectedModel: "All",
+      selected: "All",
     };
+  },
+  methods: {
+    selectedModel(model) {
+      this.$emit("selectedModel", model);
+    },
   },
 };
 </script>
