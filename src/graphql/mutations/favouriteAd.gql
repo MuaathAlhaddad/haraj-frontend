@@ -1,6 +1,10 @@
-mutation {
+mutation($ad_Id: Int!, $user_Id: ID!) {
   createFavorite(
-    input: { favoriteable_id: 1, favoriteable_type: ad, user: { connect: 1 } }
+    input: {
+      favoriteable_id: $ad_Id
+      favoriteable_type: ad
+      user: { connect: $user_Id }
+    }
   ) {
     id
   }

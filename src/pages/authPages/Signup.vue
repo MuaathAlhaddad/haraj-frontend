@@ -149,7 +149,9 @@ export default {
               state: data.state,
             },
           })
-          .then(() => {})
+          .then(() => {
+            this.switchButton = 3;
+          })
           .catch((error) => {
             this.error = true;
             console.error(error);

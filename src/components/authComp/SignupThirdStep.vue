@@ -199,18 +199,18 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       } else {
-      const stateID = this.$props.SomaStates.find(
+        
+        const stateID = this.$props.SomaStates.find(
           (element) => element.name == this.form.state
         );
+        console.log(this.form);
         this.$props.newUser.name = this.form.name;
         this.$props.newUser.email = this.form.email;
         this.$props.newUser.password = this.form.password;
         this.$props.newUser.gender = this.form.gender;
         this.$props.newUser.state = stateID.id;
-        
 
-     
-      this.$emit("finishedStep", this.$props.newUser);
+        this.$emit("finishedStep", this.$props.newUser);
       }
     },
   },

@@ -1,0 +1,5 @@
+mutation($favorite_id: ID!) {
+  deleteFavorite(id: $favorite_id) {
+    id
+  }
+}

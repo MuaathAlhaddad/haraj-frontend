@@ -20,7 +20,7 @@
         </b-form-group>
 
         <div class="submit-btn">
-          <b-button type="submit">Finish</b-button>
+          <b-button type="submit">Next</b-button>
         </div>
       </b-form>
     </b-col>

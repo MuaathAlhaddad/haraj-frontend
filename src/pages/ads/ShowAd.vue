@@ -224,6 +224,7 @@ import Comment from "../../components/AdComments.vue";
 import adItem from "../../graphql/queries/ad.gql";
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
+import DeleteFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
 
 const adData = adItem;
 export default {
@@ -234,20 +235,22 @@ export default {
       switchButton: "0",
       loadingAd: 0,
       isFavorited: null,
+      routeParam: this.$route.params.id,
     };
   },
 
   methods: {
     favoriteAd() {
       this.isFavorited = !this.isFavorited;
+      console.log(this.isFavorited);
       if (this.isFavorited) {
         this.$apollo
           .mutate({
             mutation: FavoriteAd,
-            //  variables: {
-            //   favorite_id: 1,
-            //   user_id: 1,
-            // },
+            variables: {
+              ad_Id: 2,
+              user_Id: 1,
+            },
           })
           .then(() => {})
           .catch((error) => {
@@ -255,6 +258,18 @@ export default {
             console.error(error);
           });
       } else {
+        this.$apollo
+          .mutate({
+            mutation: DeleteFavoriteAd,
+            variables: {
+              favorite_id: 11,
+            },
+          })
+          .then(() => {})
+          .catch((error) => {
+            this.error = true;
+            console.error(error);
+          });
         console.log("Deleted");
       }
     },
@@ -264,9 +279,11 @@ export default {
     ad: {
       query: adData,
       loadingKey: "loadingAd",
-      variables: {
-        adID: 2,
-        operator: "EQ",
+      variables() {
+        return {
+          adID: this.routeParam,
+          operator: "EQ",
+        };
       },
       update(data) {
         this.isFavorited = data.ad.favorited;
