@@ -46,7 +46,8 @@
           <Details
             v-if="switchButton == 0"
             v-on:passAdDetails="addDetails($event)"
-            :states="cities.states"
+            :states="cities.country.states"
+            :harajs="harajs.taxonomyContents.data"
           />
 
           <photos
@@ -55,8 +56,6 @@
           />
 
           <terms v-if="switchButton == 2" v-on:passTerm="postAd($event)" />
-
-          <finish v-if="switchButton == 3" :newAd="details" />
 
           <b-col cols="12" lg="3" md="3" sm="12" class="mt-3">
             <b-card border-variant="info" header="Notes">
@@ -80,17 +79,19 @@
 
 <script>
 import Details from "../components/createAdComp/Details.vue";
-import Finish from "../components/createAdComp/Finish.vue";
 import Photos from "../components/createAdComp/Photos.vue";
 import Terms from "../components/createAdComp/Terms.vue";
 import LoadingIcon from "../components/LoadingIcon.vue";
-import states from "../graphql/queries/states.gql";
+import states from "../graphql/queries/somaliaState.gql";
+import Harajs from "../graphql/queries/taxonomies/harajs.gql";
+import CreateAd from "../graphql/mutations/createAd.gql";
 
 //// store the gql data in variables
+const harajs = Harajs;
 const cities = states;
 
 export default {
-  components: { Details, Photos, Terms, Finish, LoadingIcon },
+  components: { Details, Photos, Terms, LoadingIcon },
   data() {
     return {
       switchButton: 0,
@@ -98,6 +99,7 @@ export default {
       photos: null,
       terms: null,
       value: "",
+      harajs: [],
       ads: "",
       cities: [],
       loading: 0,
@@ -114,12 +116,28 @@ export default {
       this.photos = data.name;
       this.switchButton = 2;
     },
-    postAd(data) {
-      this.terms = data;
-      this.switchButton = 3;
-
+    postAd() {
       this.details["photos"] = this.photos;
-      console.log(this.details);
+      this.$apollo
+        .mutate({
+          // Query
+          mutation: CreateAd,
+          // Parameters
+          variables: {
+            title: this.details.title,
+            description: this.details.description,
+            price: parseFloat(this.details.price),
+            negotiable: this.details.negotiable,
+            userId: 1,
+            catergories: this.details.taxonomyContents,
+          },
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
     },
   },
 
@@ -129,6 +147,15 @@ export default {
     cities: {
       // GraphQL query
       query: cities,
+      // Will update the 'loading' attribute
+      // +1 when a new query is loading
+      // -1 when a query is completed
+      loadingKey: "loading",
+      update: (data) => data,
+    },
+    harajs: {
+      // GraphQL query
+      query: harajs,
       // Will update the 'loading' attribute
       // +1 when a new query is loading
       // -1 when a query is completed

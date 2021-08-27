@@ -38,4 +38,3 @@ query($operator: SQLOperator, $adID: Mixed) {
   }
 }
 
-#  TODO: Fix the error of not define the datatype of value

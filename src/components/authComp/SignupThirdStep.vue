@@ -135,6 +135,7 @@
         </b-card-text>
       </b-card>
     </b-container>
+    {{ SomaStates }}
   </b-col>
 </template>
 
@@ -199,7 +200,6 @@ export default {
       if (this.$v.form.$anyError) {
         return;
       } else {
-        
         const stateID = this.$props.SomaStates.find(
           (element) => element.name == this.form.state
         );

@@ -4,6 +4,7 @@ query($operator: SQLOperator, $catergoryName: Mixed) {
   ) {
     brands {
       title
+      id
     }
   }
 }

@@ -1,6 +1,7 @@
 query {
   taxonomyContents {
     data {
+      id
       title
     }
   }

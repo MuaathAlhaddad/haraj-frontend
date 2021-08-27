@@ -4,6 +4,7 @@ query($operator: SQLOperator, $model: Mixed) {
   ) {
     models {
       title
+      id
     }
   }
 }

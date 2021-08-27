@@ -5,18 +5,42 @@
         <b-card-text>
           <div>
             <b-form @submit="onSubmit">
-              <b-form-group
-                id="input-group-1"
-                label="Category:"
-                label-for="input-1"
-              >
-                <b-form-select
-                  id="input-1"
-                  v-model="form.category"
-                  :options="categories"
-                  required
-                ></b-form-select>
-              </b-form-group>
+              <template v-if="loadingCatergories">
+                <div>
+                  <loading-icon />
+                </div>
+              </template>
+              <template v-else>
+                <b-form-group
+                  id="input-group-1"
+                  label="Category:"
+                  label-for="input-1"
+                >
+                  <b-form-select
+                    id="input-1"
+                    v-model="form.category"
+                    :options="categories"
+                    required
+                  ></b-form-select>
+                </b-form-group>
+                <b-form-group label="Brands:" v-if="switchBrands">
+                  <b-form-select
+                    id="input-1"
+                    v-model="form.brand"
+                    :options="brands"
+                    required
+                  >
+                  </b-form-select>
+                </b-form-group>
+                <b-form-group label="Models:" v-if="switchModels">
+                  <b-form-select
+                    id="input-1"
+                    v-model="form.model"
+                    :options="models"
+                    required
+                  ></b-form-select>
+                </b-form-group>
+              </template>
               <b-form-group
                 id="input-group-2"
                 label="Ad Title:"
@@ -48,7 +72,7 @@
                   <i class="fa fa-usd" aria-hidden="true"></i>
                 </b-input-group-prepend>
                 <b-form-input
-                  type="text"
+                  type="number"
                   placeholder="$100"
                   id="input-4"
                   v-model="form.price"
@@ -101,50 +125,119 @@
         </b-card-text>
       </b-card>
     </b-container>
+    {{ modelsObjects }}
   </b-col>
 </template>
 
 <script>
+import Brands from "../../graphql/queries/taxonomies/brands.gql";
+import Models from "../../graphql/queries/taxonomies/models.gql";
+import LoadingIcon from "../LoadingIcon.vue";
+
+const allBrands = Brands;
+const allModels = Models;
 export default {
-  props: ["states"],
+  props: ["states", "harajs"],
+  components: { LoadingIcon },
   data() {
     return {
       tags: [],
-
       form: {
         title: "",
         description: "",
         price: null,
         negotiable: false,
+        brand: null,
         category: null,
+        model: null,
         city: null,
-        tag: "",
+        tags: [],
+        taxonomyContents: [],
       },
-      categories: [
-        { text: "Select One", value: null },
-        "aaaaaaa",
-        "bbbbbbb",
-        "cccccccc",
-        "dddddd",
-      ],
+      switchBrands: false,
+      switchModels: false,
+      loadingCatergories: 0,
       cities: [],
+      categories: [],
+      brands: [],
+      models: [],
+      brandsObjects: null,
+      modelsObjects: null,
     };
   },
+  apollo: {
+    brands: {
+      query: allBrands,
+      loadingKey: "loadingCatergories",
+
+      variables() {
+        return {
+          catergoryName: this.form.category,
+          operator: "LIKE",
+        };
+      },
+      skip() {
+        if (this.form.category == null) {
+          return true;
+        }
+      },
+      update(data) {
+        if (this.form.category != null) {
+          this.brandsObjects = data;
+          this.switchBrands = true;
+          var finalBrands = data.taxonomyContent.brands.map(function(obj) {
+            return obj.title;
+          });
+
+          return (this.cities = finalBrands);
+        }
+      },
+    },
+    models: {
+      query: allModels,
+      loadingKey: "loadingCatergories",
+
+      variables() {
+        return {
+          model: "%cars%",
+          operator: "LIKE",
+        };
+      },
+      skip() {
+        if (this.form.brand == null) {
+          return true;
+        }
+      },
+      update(data) {
+        if (this.form.brand != null) {
+          this.modelsObjects = data;
+          this.switchModels = true;
+          var finalModels = data.taxonomyContent.models.map(function(obj) {
+            return obj.title;
+          });
+
+          return (this.models = finalModels);
+        }
+      },
+    },
+  },
   methods: {
-    detail() {
-      this.switchButton = 0;
-    },
-    review() {
-      this.switchButton = 1;
-    },
-    comments() {
-      this.switchButton = 2;
-    },
-    finish() {
-      this.switchButton = 4;
-    },
     onSubmit(event) {
       event.preventDefault();
+
+      // eslint-disable-next-line no-unused-vars
+      const category = this.$props.harajs.find(
+        (element) => element.title == this.form.category
+      );
+      const brand = this.brandsObjects.taxonomyContent.brands.find(
+        (element) => element.title == this.form.brand
+      );
+      const model = this.modelsObjects.taxonomyContent.models.find(
+        (element) => element.title == this.form.model
+      );
+
+      this.form.taxonomyContents.push(category.id, brand.id, model.id);
+      console.log(this.form);
       this.$emit("passAdDetails", this.form);
     },
 
@@ -154,6 +247,7 @@ export default {
       var val = event.target.value.trim();
       if (val.length > 0) {
         this.tags.push(val);
+        this.form.tags.push(val);
         event.target.value = "";
       }
     },
@@ -169,10 +263,14 @@ export default {
   },
 
   mounted() {
-    var finalArray = this.$props.states.map(function(obj) {
+    var finalStates = this.$props.states.map(function(obj) {
       return obj.name;
     });
-    this.cities = finalArray;
+    this.cities = finalStates;
+    var finalHarajs = this.$props.harajs.map(function(obj) {
+      return obj.title;
+    });
+    this.categories = finalHarajs;
   },
 };
 </script>

@@ -36,7 +36,7 @@
             <div class="submit-btn">
               <!-- <b-button class="btn1 m-1" type="submit">Back</b-button> -->
               <b-button v-on:click="submitTerms" class="btn2" type="submit"
-                >Next</b-button
+                >Post</b-button
               >
             </div>
           </div>

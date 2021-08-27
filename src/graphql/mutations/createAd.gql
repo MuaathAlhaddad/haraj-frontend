@@ -1,0 +1,36 @@
+mutation(
+  $title: String!
+  $description: String!
+  $price: Float!
+  $negotiable: Boolean
+  $userId: ID!
+  $catergories: [ID!]
+) {
+  createAd(
+    input: {
+      title: $title
+      description: $description
+      price: $price
+      negotiable: $negotiable
+      user: { connect: $userId }
+      taxonomyContents: { connect: $catergories }
+    }
+  ) {
+    id
+    sku
+    title
+    description
+    price
+    negotiable
+    created_at
+    user {
+      id
+      name
+    }
+    taxonomyContents {
+      data {
+        title
+      }
+    }
+  }
+}
