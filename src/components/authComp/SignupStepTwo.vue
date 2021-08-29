@@ -2,7 +2,7 @@
   <div>
     <alert-erorr :message="'Make sure to fill the details'" v-if="alert" />
     <b-col class="my-2 reg-form" cols="12">
-      <progress-bar :value="30" />
+      <progress-bar :value="60" />
 
       <b-form @submit.stop.prevent="onSubmit">
         <b-form-group id="phone" label="Phone" label-for="phone">
@@ -26,7 +26,7 @@
           </b-form-invalid-feedback>
         </b-form-group>
         <div class="submit-btn">
-          <b-button type="submit">Get the Code</b-button>
+          <b-button type="submit">Verify</b-button>
         </div>
       </b-form>
     </b-col>

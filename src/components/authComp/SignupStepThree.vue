@@ -2,7 +2,7 @@
   <div>
     <b-col class="my-2 reg-form" cols="12">
       <alert-erorr :message="'Invalid Code!'" v-if="alert" />
-      <progress-bar :value="60" />
+      <progress-bar :value="90" />
       <b-form @submit.stop.prevent="onSubmit">
         <b-form-group id="code" label="Verification Code" label-for="code">
           <b-form-input
@@ -20,7 +20,7 @@
         </b-form-group>
 
         <div class="submit-btn">
-          <b-button type="submit">Next</b-button>
+          <b-button type="submit">Submit</b-button>
         </div>
       </b-form>
     </b-col>

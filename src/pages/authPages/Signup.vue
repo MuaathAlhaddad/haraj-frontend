@@ -14,20 +14,23 @@
               ><h4 class="titleAd">SIGN UP</h4>
               <hr />
               <alert-erorr :message="message" v-if="alert" />
-              <signup-first
+
+              <signup-step-one
+                v-if="switchButton == 0"
+                :newUser="newUser"
+                v-on:moveToSecondStep="moveToStepTwo($event)"
+                :SomaStates="states.country.states"
+              />
+              <signup-step-two
                 v-if="switchButton == 0"
                 v-on:switchToVerification="moveToVerification($event)"
               />
-              <signup-second-step
-                v-if="switchButton == 1"
-                v-on:verifyReg="moveTodetails($event)"
+
+              <signup-step-three
+                v-if="switchButton == 0"
+                v-on:verifyReg="signUp($event)"
               />
-              <signup-third-step
-                v-if="switchButton == 2"
-                :newUser="newUser"
-                v-on:finishedStep="moveToFinish($event)"
-                :SomaStates="states.country.states"
-              />
+
               <signup-fourth-step v-if="switchButton == 3" />
               <hr />
             </b-col>
@@ -39,28 +42,32 @@
 </template>
 
 <script>
-import SignupFirst from "../../components/authComp/SignupFirst.vue";
 import SignupFourthStep from "../../components/authComp/SignupFourthStep.vue";
-import SignupSecondStep from "../../components/authComp/SignupSecondStep.vue";
-import SignupThirdStep from "../../components/authComp/SignupThirdStep.vue";
+
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import SomaliaStates from "../../graphql/queries/somaliaState.gql";
+// eslint-disable-next-line no-unused-vars
 import CreateUser from "../../graphql/mutations/auth/createUser.gql";
-import VerifyUser from "../../graphql/mutations/auth/phoneVerification.gql";
+// eslint-disable-next-line no-unused-vars
+import VerifyUsser from "../../graphql/mutations/auth/phoneVerification.gql";
+// eslint-disable-next-line no-unused-vars
 import UpdateUser from "../../graphql/mutations/updateUser.gql";
 import AlertErorr from "../../components/AlertErorr.vue";
+import SignupStepOne from "../../components/authComp/SignupStepOne.vue";
+import SignupStepTwo from "../../components/authComp/SignupStepTwo.vue";
+import SignupStepThree from "../../components/authComp/SignupStepThree.vue";
 
 /// Get  queries
 const somaliaStates = SomaliaStates;
 
 export default {
   components: {
-    SignupFirst,
-    SignupSecondStep,
-    SignupThirdStep,
     SignupFourthStep,
     LoadingIcon,
     AlertErorr,
+    SignupStepOne,
+    SignupStepTwo,
+    SignupStepThree,
   },
 
   data() {
@@ -80,85 +87,88 @@ export default {
   methods: {
     moveToVerification(data) {
       const phone = data;
-      this.$apollo
-        .mutate({
-          // Query
-          mutation: CreateUser,
-          // Parameters
-          variables: {
-            phone_no: "+60" + phone,
-          },
-        })
-        .then((data) => {
-          this.newUser = data.data.createUser;
-          if (this.newUser.id != null) {
-            this.phone = phone;
-            this.switchButton = 1;
-          }
-        })
-        .catch((errors) => {
-          let { graphQLErrors } = errors;
-          if (graphQLErrors[0].extensions.category === "validation") {
-            this.message =
-              "Make sure you have entered a correct validation & you have not used this number before!";
-            this.alert = true;
-          }
-        });
+      // this.$apollo
+      //   .mutate({
+      //     // Query
+      //     mutation: CreateUser,
+      //     // Parameters
+      //     variables: {
+      //       phone_no: "+60" + phone,
+      //     },
+      //   })
+      //   .then((data) => {
+      //     this.newUser = data.data.createUser;
+      //     if (this.newUser.id != null) {
+      //       this.phone = phone;
+      //       this.switchButton = 1;
+      //     }
+      //   })
+      //   .catch((errors) => {
+      //     let { graphQLErrors } = errors;
+      //     if (graphQLErrors[0].extensions.category === "validation") {
+      //       this.message =
+      //         "Make sure you have entered a correct validation & you have not used this number before!";
+      //       this.alert = true;
+      //     }
+      //   });
+      console.log(phone);
     },
-    moveTodetails(value) {
+    signUp(value) {
       const code = value;
-      const phone = this.phone;
+      // const phone = this.phone;
 
-      this.$apollo
-        .mutate({
-          // Query
-          mutation: VerifyUser,
-          // Parameters
-          variables: {
-            verification_code: code,
-            phone_no: "+60" + phone,
-          },
-        })
-        .then((data) => {
-          if (data.data.verifyOTP == "verified") {
-            this.newUser.phone_no = "+60" + phone;
-            this.switchButton = 2;
-          } else {
-            this.message = "Wrong Validation!";
-            this.alert = true;
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      // this.$apollo
+      //   .mutate({
+      //     // Query
+      //     mutation: VerifyUser,
+      //     // Parameters
+      //     variables: {
+      //       verification_code: code,
+      //       phone_no: "+60" + phone,
+      //     },
+      //   })
+      //   .then((data) => {
+      //     if (data.data.verifyOTP == "verified") {
+      //       this.newUser.phone_no = "+60" + phone;
+      //       this.switchButton = 2;
+      //     } else {
+      //       this.message = "Wrong Validation!";
+      //       this.alert = true;
+      //     }
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      console.log(code);
     },
 
-    moveToFinish(data) {
-      try {
-        this.$apollo
-          .mutate({
-            // Query
-            mutation: UpdateUser,
-            // Parameters
-            variables: {
-              id: data.id,
-              name: data.name,
-              email: data.email,
-              password: data.password,
-              gender: data.gender,
-              state: data.state,
-            },
-          })
-          .then(() => {
-            this.switchButton = 3;
-          })
-          .catch((error) => {
-            this.error = true;
-            console.error(error);
-          });
-      } catch (e) {
-        console.log(e);
-      }
+    moveToStepTwo(data) {
+      // try {
+      //   this.$apollo
+      //     .mutate({
+      //       // Query
+      //       mutation: UpdateUser,
+      //       // Parameters
+      //       variables: {
+      //         id: data.id,
+      //         name: data.name,
+      //         email: data.email,
+      //         password: data.password,
+      //         gender: data.gender,
+      //         state: data.state,
+      //       },
+      //     })
+      //     .then(() => {
+      //       this.switchButton = 3;
+      //     })
+      //     .catch((error) => {
+      //       this.error = true;
+      //       console.error(error);
+      //     });
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      console.log(data);
     },
   },
   apollo: {

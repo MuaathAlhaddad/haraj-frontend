@@ -1,7 +1,7 @@
 <template>
   <b-col class="my-2 reg-form" cols="12">
     <b-container class="bv-example-row mt-3">
-      <progress-bar :value="90" />
+      <progress-bar :value="30" />
 
       <b-card bg-variant="light" header="Ad Details">
         <b-card-text>
@@ -135,7 +135,6 @@
         </b-card-text>
       </b-card>
     </b-container>
-    {{ SomaStates }}
   </b-col>
 </template>
 
@@ -146,7 +145,7 @@ import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
 export default {
   mixins: [validationMixin],
   components: { ProgressBar },
-  props: ["newUser", "SomaStates"],
+  props: ["SomaStates"],
   validations: {
     form: {
       name: {
@@ -188,6 +187,13 @@ export default {
         gender: null,
         state: null,
       },
+      userDetails: {
+        name: null,
+        email: null,
+        password: null,
+        gender: null,
+        state: null,
+      },
     };
   },
   methods: {
@@ -203,14 +209,14 @@ export default {
         const stateID = this.$props.SomaStates.find(
           (element) => element.name == this.form.state
         );
-        console.log(this.form);
-        this.$props.newUser.name = this.form.name;
-        this.$props.newUser.email = this.form.email;
-        this.$props.newUser.password = this.form.password;
-        this.$props.newUser.gender = this.form.gender;
-        this.$props.newUser.state = stateID.id;
 
-        this.$emit("finishedStep", this.$props.newUser);
+        this.userDetails.name = this.form.name;
+        this.userDetails.email = this.form.email;
+        this.userDetails.password = this.form.password;
+        this.userDetails.gender = this.form.gender;
+        this.userDetails.state = stateID.id;
+ 
+        this.$emit("moveToSecondStep", this.userDetails);
       }
     },
   },
