@@ -13,4 +13,17 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.generalBackgroundOrange {
+  background-color: #f05e23 !important;
+}
+.generalColorOrange {
+  color: #f05e23 !important;
+}
+.generalBackgroundBrown {
+  background-color: #3d2314 !important;
+}
+.generalColorBrown {
+  color: #3d2314 !important;
+}
+</style>

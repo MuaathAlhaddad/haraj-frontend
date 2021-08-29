@@ -26,7 +26,9 @@
           </b-form-invalid-feedback>
         </b-form-group>
         <div class="submit-btn">
-          <b-button type="submit">Verify</b-button>
+          <b-button type="submit" class="generalBackgroundBrown"
+            >Verify</b-button
+          >
         </div>
       </b-form>
     </b-col>

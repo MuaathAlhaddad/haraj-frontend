@@ -19,10 +19,10 @@
           <b-col sm="9">
             <b-row>
               <b-col class="col-8" sm="6">
-                <i class="fa fa-usd"> {{ adData.price }}</i>
+                <i class="fa fa-usd generalColorBrown"> {{ adData.price }}</i>
               </b-col>
               <b-col class="col-4" sm="6">
-                <i class="fa fa-clock-o">
+                <i class="fa fa-clock-o generalColorBrown">
                   {{ adData.created_at }}
                 </i>
               </b-col>
@@ -31,10 +31,12 @@
 
             <b-row>
               <b-col sm="6" class="col-8">
-                <i class="fa fa-user"> {{ adData.user.name }}</i>
+                <i class="fa fa-user generalColorBrown">
+                  {{ adData.user.name }}</i
+                >
               </b-col>
               <b-col sm="6" class="col-4">
-                <i class="fa fa-map-marker">
+                <i class="fa fa-map-marker generalColorBrown">
                   {{ adData.user.country.name }}
                 </i>
               </b-col>
@@ -43,7 +45,7 @@
         </b-row>
       </div>
       <div>
-        <i class="fa fa-usd"> {{ adData.price }}</i>
+        <i class="fa fa-usd generalColorBrown"> {{ adData.price }}</i>
       </div>
     </div>
   </div>

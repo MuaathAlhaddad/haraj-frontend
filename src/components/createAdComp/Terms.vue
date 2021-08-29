@@ -35,7 +35,10 @@
 
             <div class="submit-btn">
               <!-- <b-button class="btn1 m-1" type="submit">Back</b-button> -->
-              <b-button v-on:click="submitTerms" class="btn2" type="submit"
+              <b-button
+                v-on:click="submitTerms"
+                class="btn2 generalBackgroundBrown"
+                type="submit"
                 >Post</b-button
               >
             </div>

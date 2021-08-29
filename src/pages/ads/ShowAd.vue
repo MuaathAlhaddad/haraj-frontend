@@ -8,11 +8,13 @@
 
     <template v-else>
       <div>
-        <b-container class="bv-example-row mt-3 background-main-div">
+        <b-container
+          class="bv-example-row mt-3 generalColorBrown background-main-div"
+        >
           <b-row>
             <b-col>
               <b-col class="mb-3 mt-4" col lg="4"
-                ><h4 class="titleAd">{{ ad.ad.title }}</h4></b-col
+                ><h4 class="generalColorBrown">{{ ad.ad.title }}</h4></b-col
               >
               <b-col class="m-1 bg-white" lg="6" style="border:1px solid">
                 <!-- <router-link to="ads">
@@ -120,8 +122,10 @@
                   </b-media>
                 </ul>
                 <hr />
-                <b-button block variant="info">XXXXXX0325</b-button>
-                <b-button block variant="outline-secondary"
+                <b-button block class="generalBackgroundBrown"
+                  >XXXXXX0325</b-button
+                >
+                <b-button block variant="outline-danger"
                   >Send a message</b-button
                 >
               </b-card>
@@ -184,7 +188,7 @@
                 <b-button
                   class="custom-size-button2"
                   v-bind:class="
-                    switchButton == 0 ? 'conditionalBtn' : 'normalBtn'
+                    switchButton == 0 ? 'generalBackgroundBrown' : 'normalBtn'
                   "
                   v-on:click="switchButton = 0"
                   >Details</b-button
@@ -192,7 +196,7 @@
                 <b-button
                   class="custom-size-button2"
                   v-bind:class="
-                    switchButton == 1 ? 'conditionalBtn' : 'normalBtn'
+                    switchButton == 1 ? 'generalBackgroundBrown' : 'normalBtn'
                   "
                   v-on:click="switchButton = 1"
                   >Reviews</b-button
@@ -200,7 +204,7 @@
                 <b-button
                   class="custom-size-button2"
                   v-bind:class="
-                    switchButton == 2 ? 'conditionalBtn' : 'normalBtn'
+                    switchButton == 2 ? 'generalBackgroundBrown' : 'normalBtn'
                   "
                   v-on:click="switchButton = 2"
                   >Comments</b-button
@@ -296,13 +300,10 @@ export default {
 <style scoped>
 .background-main-div {
   background-color: #f5f5f5;
-  border: 3px solid #4f9da6;
+  border: 3px solid #3d2314;
   border-radius: 10px;
 }
 
-.titleAd {
-  color: #336699;
-}
 .custom-size-button1 {
   width: 200px !important;
 }
@@ -319,7 +320,7 @@ export default {
 }
 
 .normalBtn {
-  background-color: #747474;
+  background-color: #96847d;
 }
 
 .conditionalBtn {

@@ -14,7 +14,12 @@
           </div>
         </b-card-text>
         <div class="submit-btn">
-          <b-button v-on:click="submitPhotos" type="submit">Next</b-button>
+          <b-button
+            v-on:click="submitPhotos"
+            class="generalBackgroundBrown"
+            type="submit"
+            >Next</b-button
+          >
         </div>
       </b-card>
     </b-container>

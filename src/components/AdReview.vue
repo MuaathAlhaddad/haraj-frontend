@@ -3,7 +3,7 @@
     <b-container class="bv-example-row">
       <div class="row">
         <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto"
-          ><h4 class="titleAd">Reviews</h4></b-col
+          ><h4 class="generalColorBrown">Reviews</h4></b-col
         >
       </div>
       <div id="review">
@@ -28,19 +28,37 @@
                     <b-col col lg="2">
                       <h6 class="pb-2"></h6>
                       <p>
-                        <i class="fa fa-clock-o" aria-hidden="true" />
+                        <i
+                          class="fa fa-clock-o generalColorBrown"
+                          aria-hidden="true"
+                        />
                       </p>
                     </b-col>
                     <b-col>
-                      <i class="fa fa-star" aria-hidden="true" />
-                      <i class="fa fa-star" aria-hidden="true" />
-                      <i class="fa fa-star" aria-hidden="true" />
-                      <i class="fa fa-star" aria-hidden="true" />
+                      <i
+                        class="fa fa-star generalColorBrown"
+                        aria-hidden="true"
+                      />
+                      <i
+                        class="fa fa-star generalColorBrown"
+                        aria-hidden="true"
+                      />
+                      <i
+                        class="fa fa-star generalColorBrown"
+                        aria-hidden="true"
+                      />
+                      <i
+                        class="fa fa-star generalColorBrown"
+                        aria-hidden="true"
+                      />
                     </b-col>
 
                     <b-col cols="12" md="auto">
                       {{ review.created_at }}
-                      <i class="fa fa-flag" aria-hidden="true" />
+                      <i
+                        class="fa fa-flag generalColorBrown"
+                        aria-hidden="true"
+                      />
                     </b-col>
                   </b-row>
                   <b-col>
@@ -69,8 +87,5 @@ export default {
   padding: 30px;
   margin-bottom: 100px;
   width: 100%;
-}
-.titleAd {
-  color: #336699;
 }
 </style>

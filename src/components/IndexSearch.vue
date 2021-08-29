@@ -25,7 +25,7 @@
               placeholder="Search"
             ></b-form-input>
           </div>
-          <div><b-button>Find</b-button></div>
+          <div><b-button class="generalBackgroundBrown">Find</b-button></div>
         </b-row>
       </div>
     </div>

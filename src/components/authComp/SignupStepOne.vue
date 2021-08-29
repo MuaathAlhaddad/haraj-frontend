@@ -128,7 +128,11 @@
               </b-form-group>
 
               <div class="text-center">
-                <b-button class=" text-center" type="submit">Next</b-button>
+                <b-button
+                  class=" text-center generalBackgroundBrown"
+                  type="submit"
+                  >Next</b-button
+                >
               </div>
             </b-form>
           </div>
@@ -215,7 +219,7 @@ export default {
         this.userDetails.password = this.form.password;
         this.userDetails.gender = this.form.gender;
         this.userDetails.state = stateID.id;
- 
+
         this.$emit("moveToSecondStep", this.userDetails);
       }
     },

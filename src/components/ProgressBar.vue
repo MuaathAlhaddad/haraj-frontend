@@ -4,7 +4,7 @@
       variant="dark"
       :value="value"
       :max="100"
-      class="mb-3"
+      class="mb-3z"
       animated
     ></b-progress>
   </div>

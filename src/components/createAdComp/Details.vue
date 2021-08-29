@@ -118,7 +118,9 @@
                 ></b-form-input>
               </b-form-group>
               <div class="submit-btn">
-                <b-button type="submit">Next</b-button>
+                <b-button class="generalBackgroundBrown" type="submit"
+                  >Next</b-button
+                >
               </div>
             </b-form>
           </div>
@@ -281,7 +283,6 @@ export default {
   max-width: 100%;
 }
 .submit-btn button {
-  background-color: #4f9da6;
   width: 250px;
 }
 </style>

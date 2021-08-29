@@ -13,28 +13,36 @@
               <b-button-group>
                 <b-button
                   class="custom-size-button2"
-                  :class="switchButton == 0 ? 'conditionalBtn' : 'normalBtn'"
+                  :class="
+                    switchButton == 0 ? 'generalBackgroundBrown' : 'normalBtn'
+                  "
                 >
                   Ad Details
                 </b-button>
 
                 <b-button
                   class="custom-size-button2"
-                  :class="switchButton == 1 ? 'conditionalBtn' : 'normalBtn'"
+                  :class="
+                    switchButton == 1 ? 'generalBackgroundBrown' : 'normalBtn'
+                  "
                 >
                   Photos
                 </b-button>
 
                 <b-button
                   class="custom-size-button2"
-                  :class="switchButton == 2 ? 'conditionalBtn' : 'normalBtn'"
+                  :class="
+                    switchButton == 2 ? 'generalBackgroundBrown' : 'normalBtn'
+                  "
                 >
                   Terms
                 </b-button>
 
                 <b-button
                   class="custom-size-button2"
-                  :class="switchButton == 3 ? 'conditionalBtn' : 'normalBtn'"
+                  :class="
+                    switchButton == 3 ? 'generalBackgroundBrown' : 'normalBtn'
+                  "
                 >
                   Finish
                 </b-button>
@@ -58,7 +66,7 @@
           <terms v-if="switchButton == 2" v-on:passTerm="postAd($event)" />
 
           <b-col cols="12" lg="3" md="3" sm="12" class="mt-3">
-            <b-card border-variant="info" header="Notes">
+            <b-card border-variant="dark" header="Notes">
               <b-card-text>
                 <ul>
                   <li>Write a note</li>
@@ -183,18 +191,6 @@ export default {
 }
 
 .normalBtn {
-  background-color: #747474;
-}
-
-.conditionalBtn {
-  background-color: #4f9da6;
-}
-.submit-btn {
-  text-align: center;
-  max-width: 100%;
-}
-.submit-btn button {
-  background-color: #4f9da6;
-  width: 250px;
+  background-color: #96847d;
 }
 </style>

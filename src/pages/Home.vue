@@ -5,7 +5,7 @@
         <b-container class="mb-2">
           <b-row>
             <b-col cols="3"></b-col>
-            <b-col cols="5" class="py-2 searchBox">
+            <b-col cols="5" class="py-2 generalBackgroundOrange">
               <div>
                 <div>
                   <b-row class="d-flex justify-content-center find-section">
@@ -30,7 +30,9 @@
                         placeholder="Search"
                       ></b-form-input>
                     </div>
-                    <div><b-button>Find</b-button></div>
+                    <div>
+                      <b-button class="generalBackgroundBrown">Find</b-button>
+                    </div>
                   </b-row>
                 </div>
               </div>
@@ -153,7 +155,6 @@ export default {
 }
 
 .searchBox {
-  background-color: #071e2f;
   border-radius: 30px;
 }
 </style>
