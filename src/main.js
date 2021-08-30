@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import App from './App.vue'
+import store from './store'
 import { createProvider } from './vue-apollo'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import VueResource from 'vue-resource'
@@ -40,5 +41,6 @@ Vue.config.productionTip = false
 new Vue({
   apolloProvider: createProvider(),
   render: h => h(App),
-  router: router
+  store,
+  router: router,
 }).$mount('#app')

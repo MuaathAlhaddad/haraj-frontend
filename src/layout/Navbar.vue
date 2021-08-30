@@ -2,25 +2,36 @@
   <div>
     <b-navbar class="generalBackgroundOrange" toggleable="md" type="light">
       <b-navbar-brand class="d-md-none">
-        <h5 class="text-light">Logo</h5>
+        <div class="bg-light">
+          <img v-bind:src="logo" width="80px" />
+        </div>
       </b-navbar-brand>
       <b-navbar-toggle target="collapse-area"></b-navbar-toggle>
       <b-collapse id="collapse-area" is-nav>
         <b-navbar-nav class="pl-5">
           <b-nav-item>
-            <img v-bind:src="'../assets/' + logo" />
-          </b-nav-item>
-        </b-navbar-nav>
-
-        <b-navbar-nav class="ml-auto" v-if="!userId">
-          <b-nav-item>
-            <router-link :to="{ path: `/login` }">
-              <h5 class="text-light">login</h5>
+            <router-link :to="{ path: `/` }">
+              <div class="bg-light">
+                <img v-bind:src="logo" width="100px" />
+              </div>
             </router-link>
           </b-nav-item>
         </b-navbar-nav>
 
-        <b-navbar-nav class="d-md-block mx-auto" v-if="userId">
+        <b-navbar-nav class="ml-auto" v-if="!isAuth">
+          <b-nav-item>
+            <router-link :to="{ path: `/login` }">
+              <b-button class="generalBackgroundBrown">Login</b-button>
+            </router-link>
+          </b-nav-item>
+          <b-nav-item>
+            <router-link :to="{ path: `/signup` }">
+              <b-button class="generalBackgroundBrown">Sign Up</b-button>
+            </router-link>
+          </b-nav-item>
+        </b-navbar-nav>
+
+        <b-navbar-nav class="d-md-block mx-auto" v-if="isAuth">
           <b-nav-text variant="light">
             <b-nav-item-dropdown no-caret>
               <template #button-content>
@@ -34,9 +45,7 @@
                 </b-button>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#" @click="logout()"
-                >logout</b-dropdown-item
-              >
+              <b-dropdown-item @click="logoutUser()">logout</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-nav-text>
 
@@ -68,7 +77,7 @@
             </b-button>
           </b-nav-text>
         </b-navbar-nav>
-        <b-navbar-nav v-if="userId">
+        <b-navbar-nav v-if="isAuth">
           <router-link :to="{ path: `/create-ad` }">
             <b-button
               class="add-post mr-5 generalBackgroundBrown"
@@ -83,12 +92,26 @@
   </div>
 </template>
 <script>
+import Logo from "../assets/logo.png";
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      logo: "logo.png",
-      userId: true,
+      logo: Logo,
     };
+  },
+  methods: {
+    ...mapActions({
+      logout: "Auth/logout",
+    }),
+    logoutUser() {
+      this.logout();
+    },
+  },
+  computed: {
+    ...mapGetters({
+      isAuth: "Auth/isAuth",
+    }),
   },
 };
 </script>

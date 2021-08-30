@@ -15,13 +15,13 @@ export default {
 
 <style>
 .generalBackgroundOrange {
-  background-color: #f05e23 !important;
+  background-color: #3d2314 !important;
 }
 .generalColorOrange {
   color: #f05e23 !important;
 }
 .generalBackgroundBrown {
-  background-color: #3d2314 !important;
+  background-color: #f05e23 !important;
 }
 .generalColorBrown {
   color: #3d2314 !important;

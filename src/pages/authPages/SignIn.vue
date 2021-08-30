@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -57,9 +58,12 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      login: "Auth/login",
+    }),
     onSubmit(event) {
       event.preventDefault();
-      alert(JSON.stringify(this.form));
+      this.login(this.form);
     },
   },
 };
