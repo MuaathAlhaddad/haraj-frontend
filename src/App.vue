@@ -48,7 +48,7 @@ export default {
 
 <style>
 .generalBackgroundOrange {
-  background-color: #3d2314 !important;
+  background-color: ghostwhite !important;
 }
 .generalColorOrange {
   color: #f05e23 !important;
