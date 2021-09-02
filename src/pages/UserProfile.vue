@@ -240,6 +240,8 @@
 <script>
 import Favorite from "../components/userPage/Favorite.vue";
 import Ads from "../components/userPage/Ads.vue";
+import store from "../store/Auth";
+
 export default {
   components: { Favorite, Ads },
   data() {
@@ -254,6 +256,13 @@ export default {
       switchButton: 2,
       show: true,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    if (store.state.authStatus) {
+      next();
+    } else {
+      next("login");
+    }
   },
   methods: {
     onSubmit(event) {

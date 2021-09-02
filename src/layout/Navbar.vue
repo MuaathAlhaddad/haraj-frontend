@@ -36,7 +36,7 @@
             <b-nav-item-dropdown no-caret>
               <template #button-content>
                 <b-button variant="light" class="mr-3">
-                  Amer
+                  {{ user.name }}
                   <b-icon
                     icon="person-circle"
                     class="generalColorBrown"
@@ -111,6 +111,7 @@ export default {
   computed: {
     ...mapGetters({
       isAuth: "Auth/isAuth",
+      user: "Auth/user",
     }),
   },
 };

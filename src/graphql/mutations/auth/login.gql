@@ -1,0 +1,6 @@
+mutation {
+  login(input: { phone_no: "09818596040", password: "password" }) {
+    access_token
+    token_type
+  }
+}

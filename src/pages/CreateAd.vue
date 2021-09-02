@@ -93,11 +93,11 @@ import LoadingIcon from "../components/LoadingIcon.vue";
 import states from "../graphql/queries/somaliaState.gql";
 import Harajs from "../graphql/queries/taxonomies/harajs.gql";
 import CreateAd from "../graphql/mutations/createAd.gql";
+import store from "../store/Auth";
 
 //// store the gql data in variables
 const harajs = Harajs;
 const cities = states;
-
 export default {
   components: { Details, Photos, Terms, LoadingIcon },
   data() {
@@ -112,6 +112,13 @@ export default {
       cities: [],
       loading: 0,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    if (store.state.authStatus) {
+      next();
+    } else {
+      next("login");
+    }
   },
   methods: {
     //// Recieving the data from the emit functions

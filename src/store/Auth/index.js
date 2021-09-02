@@ -1,45 +1,50 @@
+
 const state = {
-    user: {},
+    user: null,
     authStatus: false,
+    apollo_token: null,
     token: localStorage.getItem("apollo-token") || null
 };
+
 const getters = {
     user: state => state.user,
-    authStatus: state => !!state.token,
-    isAuth: state => state.authStatus,
-
-
+    isAuth: state => !!state.user,
+    authStatus: state => !!state.user,
 };
-const actions = {
-    login({ commit }, userData) {
-        commit('LOGIN_USER', {
-            user: userData
-        });
-        commit('SET_TOKEN', '12123236551');
-    },
-    // eslint-disable-next-line no-unused-vars
-    logout({ commit }) {
 
+const actions = {
+    async login({ commit }, token) {
+        commit('SET_TOKEN', token);
+        await localStorage.setItem('apollo-token', "Bearer " + token)
+    },
+    async currentUser({ commit }, userDetails) {
+        await commit('CURRENT_USER', userDetails);
+    },
+
+    logout({ commit }) {
         commit('LOGOUT');
+        localStorage.clear()
+        sessionStorage.clear()
+        window.location.reload()
 
     }
 };
 const mutations = {
-    LOGIN_USER(state, payload) {
-        state.user = payload.user;
+    CURRENT_USER(state, payload) {
+        state.user = payload
         state.authStatus = true;
+        console.log(state.user)
     },
     SET_TOKEN(state, payload) {
-        state.authStatus = payload;
+        state.token = payload;
     },
+
     LOGOUT(state) {
         state.user = {};
         state.authStatus = false;
         state.token = null;
     }
 };
-
-
 
 export default {
     state,

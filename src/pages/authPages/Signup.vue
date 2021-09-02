@@ -56,6 +56,7 @@ import AlertErorr from "../../components/AlertErorr.vue";
 import SignupStepOne from "../../components/authComp/SignupStepOne.vue";
 import SignupStepTwo from "../../components/authComp/SignupStepTwo.vue";
 import SignupStepThree from "../../components/authComp/SignupStepThree.vue";
+import store from "../../store/Auth";
 
 /// Get  queries
 const somaliaStates = SomaliaStates;
@@ -83,6 +84,13 @@ export default {
       message: null,
       validationErrors: null,
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    if (!store.state.authStatus) {
+      return next();
+    } else {
+      next("/");
+    }
   },
   methods: {
     moveToVerification(data) {

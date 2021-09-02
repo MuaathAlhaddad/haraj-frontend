@@ -47,15 +47,26 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import Login from "../../graphql/mutations/auth/login.gql";
+import store from "../../store/Auth";
+
 export default {
   data() {
     return {
       form: {
         email: null,
         password: null,
+        loading: 0,
       },
     };
+  },
+  beforeRouteEnter(to, from, next) {
+    if (to.path == "/login" && !store.state.authStatus) {
+      return next("/login");
+    } else {
+      return next();
+    }
   },
   methods: {
     ...mapActions({
@@ -63,8 +74,24 @@ export default {
     }),
     onSubmit(event) {
       event.preventDefault();
-      this.login(this.form);
+      this.$apollo
+        .mutate({
+          mutation: Login,
+        })
+        .then((data) => {
+          this.login(data.data.login.access_token);
+          window.location.reload();
+          this.$router.go(-1);
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
     },
+  },
+  computed: {
+    ...mapGetters({
+      isAuth: "Auth/isAuth",
+    }),
   },
 };
 </script>
