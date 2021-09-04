@@ -1,3 +1,8 @@
 mutation($verification_code: String!, $phone_no: String!) {
-  verifyOTP(verification_code: $verification_code, phone_no: $phone_no)
+  verifyOTP(verification_code: $verification_code, phone_no: $phone_no) {
+    data {
+      message
+      status
+    }
+  }
 }

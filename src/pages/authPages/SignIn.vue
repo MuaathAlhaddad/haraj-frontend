@@ -124,7 +124,6 @@ export default {
         .then((data) => {
           this.login(data.data.login.access_token);
           this.$router.push("/");
-          location.reload(true);
         })
         .catch((errors) => {
           let { graphQLErrors } = errors;
