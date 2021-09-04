@@ -9,7 +9,12 @@ import Signup from './pages/authPages/Signup';
 import Login from './pages/authPages/SignIn';
 
 export default [
-    { path: '/', component: Home },
+    {
+        path: '/', component: Home,
+        meta: {
+            requiresAuth: true
+        }
+    },
     {
         path: '/ads',
         name: 'ads-index',
@@ -21,11 +26,15 @@ export default [
         path: '/ads/:id',
         name: 'ad-show',
         components: { default: ShowAd },
+
     },
     {
         path: '/user/:id',
         name: 'user-profile',
         components: { default: UserProfile },
+        meta: {
+            requiresAuth: true
+        }
 
     },
     {
@@ -33,23 +42,29 @@ export default [
         name: 'seller-profile',
         components: { default: SellerProfile },
 
+
     },
     {
         path: '/create-ad',
         name: 'create-ad',
         components: { default: CreateAd },
-
+        meta: {
+            requiresAuth: true
+        }
     },
     {
         path: '/signup',
         name: 'signup',
         components: { default: Signup },
 
+
+
     },
     {
         path: '/login',
         name: 'login',
         components: { default: Login },
+
 
     },
 ]

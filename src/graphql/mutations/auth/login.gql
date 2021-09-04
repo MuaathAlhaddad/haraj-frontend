@@ -1,5 +1,5 @@
-mutation {
-  login(input: { phone_no: "09818596040", password: "password" }) {
+mutation ($phone_no:String! $password:String!){
+  login(input: { phone_no:$phone_no, password: $password }) {
     access_token
     token_type
   }

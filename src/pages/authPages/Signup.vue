@@ -47,6 +47,8 @@ import SignupFourthStep from "../../components/authComp/SignupFourthStep.vue";
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import SomaliaStates from "../../graphql/queries/somaliaState.gql";
 // eslint-disable-next-line no-unused-vars
+import { mapActions, mapGetters } from "vuex";
+// eslint-disable-next-line no-unused-vars
 import CreateUser from "../../graphql/mutations/auth/createUser.gql";
 // eslint-disable-next-line no-unused-vars
 import VerifyUsser from "../../graphql/mutations/auth/phoneVerification.gql";
@@ -178,6 +180,14 @@ export default {
       // }
       console.log(data);
     },
+
+    checkUser() {
+      var user = localStorage.getItem("user");
+      console.log(user);
+      if (user != "false") {
+        this.$router.go(-1);
+      }
+    },
   },
   apollo: {
     ////// Get Countries
@@ -193,6 +203,15 @@ export default {
     //     loadingKey: "loadingCountries",
     //     update: (data) => data,
     //   },
+  },
+
+  created() {
+    this.checkUser();
+  },
+  computed: {
+    ...mapGetters({
+      user: "Auth/user",
+    }),
   },
 };
 </script>

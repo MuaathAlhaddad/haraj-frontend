@@ -19,6 +19,8 @@ const actions = {
     },
     async currentUser({ commit }, userDetails) {
         await commit('CURRENT_USER', userDetails);
+        await localStorage.setItem('user', !!userDetails)
+
     },
 
     logout({ commit }) {
