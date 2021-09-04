@@ -24,6 +24,9 @@
           v-if="switchModels"
           v-on:selectedModel="getAds($event)"
         />
+        <hr>
+        <categories-test />
+
         <hr />
         <index-search />
         <b-row>
@@ -52,6 +55,7 @@ import Ads from "../graphql/queries/ads.gql";
 import Harajs from "../graphql/queries/taxonomies/harajs.gql";
 import Brands from "../graphql/queries/taxonomies/brands.gql";
 import Models from "../graphql/queries/taxonomies/models.gql";
+import CategoriesTest from "@/components/CategoriesTest";
 
 let allCategories = Harajs;
 
@@ -60,6 +64,7 @@ let allModels = Models;
 let allAds = Ads;
 export default {
   components: {
+    CategoriesTest,
     AdItem,
     LoadingIcon,
     UppCatergories,
@@ -170,4 +175,3 @@ export default {
   },
 };
 </script>
-<style scoped></style>
