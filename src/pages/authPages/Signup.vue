@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="loadingStates">
+    <template v-if="loading">
       <div>
         <loading-icon />
       </div>
@@ -51,11 +51,13 @@ import SomaliaStates from "../../graphql/queries/somaliaState.gql";
 import { mapActions, mapGetters } from "vuex";
 import CreateUser from "../../graphql/mutations/auth/createUser.gql";
 import VerifyUser from "../../graphql/mutations/auth/phoneVerification.gql";
-import UpdateUser from "../../graphql/mutations/updateUser.gql";
+import SignupUser from "../../graphql/mutations/signupUser.gql";
 import AlertErorr from "../../components/AlertErorr.vue";
 import SignupStepOne from "../../components/authComp/SignupStepOne.vue";
 import SignupStepTwo from "../../components/authComp/SignupStepTwo.vue";
 import SignupStepThree from "../../components/authComp/SignupStepThree.vue";
+import Login from "../../graphql/mutations/auth/login.gql";
+import ValidateEmail from "../../graphql/mutations/auth/validateEmail.gql";
 
 /// Get  queries
 const somaliaStates = SomaliaStates;
@@ -76,7 +78,7 @@ export default {
       phone: null,
       states: [],
       users: [],
-      loadingStates: 0,
+      loading: 0,
       newUser: null,
       verifiedCode: null,
       alert: false,
@@ -89,8 +91,26 @@ export default {
     moveToStepTwo(userDetails) {
       this.newUser = userDetails;
       console.log(this.newUser);
-
-      this.switchButton = 1;
+      this.$apollo
+        .mutate({
+          // Query
+          mutation: ValidateEmail,
+          // Parameters
+          variables: {
+            email: this.newUser.email,
+          },
+        })
+        .then(() => {
+          this.alert = false;
+          this.switchButton = 1;
+        })
+        .catch((errors) => {
+          let { graphQLErrors } = errors;
+          if (graphQLErrors[0].extensions.category === "validation") {
+            this.message = "This email has already been taken.";
+            this.alert = true;
+          }
+        });
     },
     moveToVerification(data) {
       const phone = data;
@@ -98,6 +118,9 @@ export default {
         .mutate({
           // Query
           mutation: CreateUser,
+
+          loadingKey: "loading",
+
           // Parameters
           variables: {
             phone_no: "+60" + phone,
@@ -106,18 +129,31 @@ export default {
         .then((data) => {
           if (data.data.sendOTP.data.status == "200") {
             this.phone = phone;
+            this.alert = false;
             this.switchButton = 2;
           }
         })
         .catch((errors) => {
           let { graphQLErrors } = errors;
-          if (graphQLErrors[0].extensions.category === "validation") {
-            this.message = "Invalid Credentials!";
+          if (
+            graphQLErrors[0].extensions.validation.phone_no[0] ===
+            "The phone no format is invalid."
+          ) {
+            this.message = "The phone no format is invalid!";
+            this.alert = true;
+          } else if (
+            graphQLErrors[0].extensions.validation.phone_no[0] ===
+            "The phone no has already been taken."
+          ) {
+            this.message = "The phone no has already been taken.";
             this.alert = true;
           }
         });
       console.log(phone);
     },
+    ...mapActions({
+      login: "Auth/login",
+    }),
     signUp(value) {
       const code = value;
       const phone = this.phone;
@@ -138,20 +174,35 @@ export default {
             this.$apollo
               .mutate({
                 // Query
-                mutation: UpdateUser,
+                mutation: SignupUser,
                 // Parameters
                 variables: {
                   name: this.newUser.name,
-                  phone_no: "+601121288754",
+                  phone_no: "+60" + phone,
                   email: this.newUser.email,
                   password: this.newUser.password,
                   gender: this.newUser.gender,
-                  // state: 3223,
+                  state: parseInt(this.newUser.state),
                 },
               })
               .then((data) => {
                 console.log(data);
-                this.switchButton = 1;
+                this.$apollo
+                  .mutate({
+                    mutation: Login,
+                    variables: {
+                      phone_no: "+60" + phone,
+                      password: this.newUser.password,
+                    },
+                  })
+                  .then((data) => {
+                    this.login(data.data.login.access_token);
+                    this.alert = false;
+                    this.$router.push("/");
+                  })
+                  .catch((errors) => {
+                    console.log(errors);
+                  });
               })
               .catch((errors) => {
                 let { graphQLErrors } = errors;
@@ -182,7 +233,7 @@ export default {
     ////// Get Countries
     states: {
       query: somaliaStates,
-      loadingKey: "loadingStates",
+      loadingKey: "loading",
       update: (data) => data,
     },
 

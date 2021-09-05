@@ -4,6 +4,7 @@ mutation(
   $email: String
   $password: String
   $gender: String
+  $state: ID!
 ) {
   createUser(
     input: {
@@ -13,7 +14,7 @@ mutation(
       password: $password
       gender: $gender
       country: { connect: 201 }
-      state: { connect: 3223 }
+      state: { connect: $state }
     }
   ) {
     id
