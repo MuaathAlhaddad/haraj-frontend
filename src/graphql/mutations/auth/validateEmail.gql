@@ -1,0 +1,6 @@
+mutation($email: String!) {
+  validateEmail(email: $email) {
+    id
+    name
+  }
+}

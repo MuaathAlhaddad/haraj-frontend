@@ -16,6 +16,8 @@ const actions = {
     async login({ commit }, token) {
         commit('SET_TOKEN', token);
         await localStorage.setItem('apollo-token', "Bearer " + token)
+        window.location.reload()
+
     },
     async currentUser({ commit }, userDetails) {
         await commit('CURRENT_USER', userDetails);
@@ -27,6 +29,7 @@ const actions = {
         commit('LOGOUT');
         localStorage.clear()
         sessionStorage.clear()
+        localStorage.setItem('user', false)
         window.location.reload()
 
     }

@@ -1,16 +1,8 @@
 mutation($phone_no: String!) {
-  createUser(input: { phone_no: $phone_no, country: { connect: 1 } }) {
-    id
-    name
-    email
-    phone_no
-    state {
-      id
-      name
-    }
-    country {
-      id
-      name
+  sendOTP(phone_no: $phone_no) {
+    data {
+      status
+      message
     }
   }
 }

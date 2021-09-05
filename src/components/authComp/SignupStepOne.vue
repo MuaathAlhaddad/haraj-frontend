@@ -3,7 +3,7 @@
     <b-container class="bv-example-row mt-3">
       <progress-bar :value="30" />
 
-      <b-card bg-variant="light" header="Ad Details">
+      <b-card bg-variant="light" header="User Details">
         <b-card-text>
           <div>
             <b-form @submit.stop.prevent="onSubmit">
