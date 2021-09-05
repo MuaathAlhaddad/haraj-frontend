@@ -1,6 +1,5 @@
 <template>
   <div>
-    <font-awesome-icon :icon="['far', 'fa-cars']" />
     <b-row class="wrap" ref="wrap">
         <b-tabs v-model="tabIndex" >
           <b-tab v-for="(haraj, index) in harajs" :key="haraj.id" :title-link-class="linkClass(index)" lazy>

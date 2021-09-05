@@ -12,14 +12,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Routes from './routes'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
+import { faVuejs } from '@fortawesome/free-brands-svg-icons';
+library.add(faVuejs)
 
-library.add(faUserSecret)
+library.add(fas)
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
