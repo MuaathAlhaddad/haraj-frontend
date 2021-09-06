@@ -1,28 +1,24 @@
 <template>
-  <b-card class="">
-    <b-row>
-      <div
-        v-for="(model, index) in models.taxonomyContent.models.slice(0, 15)"
-        :key="index"
-      >
-        <div>
-          <b-button class="m-1" v-on:click="selectedModel(model.title)">
-            {{ model.title }}
-          </b-button>
-        </div>
-      </div>
-      <b-dropdown id="dropdown-right" right text="All" variant="dark">
-        <div
+  <div>
+    <div>
+      <b-tabs>
+        <b-tab
           v-for="(model, index) in models.taxonomyContent.models"
-          :key="index"
+          :key="model.id"
+          :title-link-class="linkSubClass(index)"
         >
-          <b-dropdown-item v-on:click="selectedModel(model.title)"
-            >{{ model.title }}
-          </b-dropdown-item>
-        </div>
-      </b-dropdown>
-    </b-row>
-  </b-card>
+          <template #title>
+            <span
+              style="min-height: 22px;"
+              v-on:click="selectedModel(model.title)"
+            >
+              {{ model.title }}
+            </span>
+          </template>
+        </b-tab>
+      </b-tabs>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -48,6 +44,13 @@ export default {
   methods: {
     selectedModel(model) {
       this.$emit("selectedModel", model);
+    },
+    linkSubClass(index) {
+      if (this.SubtabIndex === index) {
+        return ["bg-info", "text-light"];
+      } else {
+        return ["bg-light", "text-info"];
+      }
     },
   },
 };
