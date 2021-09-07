@@ -38,7 +38,7 @@ const mutations = {
     CURRENT_USER(state, payload) {
         state.user = payload
         state.authStatus = true;
-        console.log(state.user)
+        // console.log(state.user)
     },
     SET_TOKEN(state, payload) {
         state.token = payload;

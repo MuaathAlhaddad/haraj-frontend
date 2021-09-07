@@ -15,6 +15,35 @@ query {
         title
         description
         price
+        sku
+        negotiable
+        created_at
+        user {
+          name
+          country {
+            code
+            name
+            phone_code
+          }
+          state {
+            name
+          }
+        }
+        comments {
+          data {
+            body
+            user {
+              name
+            }
+          }
+        }
+        reports {
+          data {
+            name
+            type
+            created_at
+          }
+        }
       }
     }
     comments {
@@ -22,6 +51,23 @@ query {
         id
         body
         created_at
+      }
+    }
+    favorites {
+      data {
+        id
+        ad {
+          id
+          title
+          price
+          created_at
+          user {
+            name
+            state {
+              name
+            }
+          }
+        }
       }
     }
   }

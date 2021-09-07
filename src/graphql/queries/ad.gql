@@ -4,6 +4,12 @@ query($operator: SQLOperator, $adID: Mixed) {
     description
     price
     created_at
+    favorite {
+      id
+      ad {
+        id
+      }
+    }
     user {
       name
       country {
@@ -37,4 +43,3 @@ query($operator: SQLOperator, $adID: Mixed) {
     }
   }
 }
-

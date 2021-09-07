@@ -44,7 +44,13 @@
                   ></b-icon>
                 </b-button>
               </template>
-              <b-dropdown-item href="#">Profile</b-dropdown-item>
+              <b-dropdown-item>
+                <router-link :to="{ path: `/user/${user.id}` }">
+                  <div class="bg-light">
+                    Profile
+                  </div>
+                </router-link>
+              </b-dropdown-item>
               <b-dropdown-item @click="logoutUser()">logout</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-nav-text>

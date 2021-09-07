@@ -16,11 +16,10 @@
                   <b-button
                     size="sm"
                     variant="outline-dark"
-                    class="button"
                     v-on:click="switchButton = 0"
                   >
                     <b-icon icon="person-fill" aria-hidden="true"></b-icon>
-                    Profile
+                    {{ user.name }}
                   </b-button>
                 </b-col>
               </b-row>
@@ -230,8 +229,12 @@
             </b-form>
           </div>
         </b-col>
-        <favorite v-if="switchButton == 1" />
-        <ads v-if="switchButton == 2" />
+        <favorite
+          :favoritesAds="user.favorites.data"
+          :user="user"
+          v-if="switchButton == 1"
+        />
+        <ads :user="user" v-if="switchButton == 2" />
       </b-row>
     </b-container>
   </div>
@@ -241,6 +244,7 @@
 import Favorite from "../components/userPage/Favorite.vue";
 import Ads from "../components/userPage/Ads.vue";
 import store from "../store/Auth";
+import { mapGetters } from "vuex";
 
 export default {
   components: { Favorite, Ads },
@@ -283,13 +287,18 @@ export default {
       });
     },
   },
+  computed: {
+    ...mapGetters({
+      user: "Auth/user",
+    }),
+  },
 };
 </script>
 <style scoped>
 .user-info-div {
   background-color: #e2e2e2 !important;
   border-radius: 30px;
-  height: 700px;
+  min-height: 700px;
 }
 .user-small-card {
   background-color: #e2e2e2 !important;

@@ -49,7 +49,7 @@ export default {
     form: {
       phone: {
         required,
-        minLength: minLength(10),
+        minLength: minLength(8),
       },
     },
   },

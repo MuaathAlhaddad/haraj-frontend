@@ -8,9 +8,11 @@
 
     <template v-else>
       <div>
+        {{ ad }}
         <b-container
           class="bv-example-row mt-3 generalColorBrown background-main-div"
         >
+          {{ isFavorited }}
           <b-row>
             <b-col>
               <b-col class="mb-3 mt-4" col lg="4"
@@ -207,8 +209,8 @@
                     switchButton == 2 ? 'generalBackgroundBrown' : 'normalBtn'
                   "
                   v-on:click="switchButton = 2"
-                  >Comments</b-button
-                >
+                  >Comments
+                </b-button>
               </b-button-group></b-col
             >
           </div>
@@ -218,6 +220,7 @@
         <Comment v-if="switchButton == 2" :adData="ad.ad" />
       </div>
     </template>
+    <!-- {{ ad.favorite }} -->
   </div>
 </template>
 
@@ -226,11 +229,15 @@ import Details from "../../components/AdDetails.vue";
 import Review from "../../components/AdReview.vue";
 import Comment from "../../components/AdComments.vue";
 import adItem from "../../graphql/queries/ad.gql";
+import checkFavorite from "../../graphql/queries/checkFavorite.gql";
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
 import DeleteFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
+import { mapGetters } from "vuex";
 
 const adData = adItem;
+const isAdFavorited = checkFavorite;
+
 export default {
   components: { Review, Details, Comment, LoadingIcon },
   data() {
@@ -240,41 +247,48 @@ export default {
       loadingAd: 0,
       isFavorited: null,
       routeParam: this.$route.params.id,
+      favorite_id: null,
     };
   },
 
   methods: {
     favoriteAd() {
-      this.isFavorited = !this.isFavorited;
-      console.log(this.isFavorited);
-      if (this.isFavorited) {
+      if (this.user == null) {
+        return this.$router.push("/login");
+      }
+      if (!this.isFavorited) {
         this.$apollo
           .mutate({
             mutation: FavoriteAd,
             variables: {
-              ad_Id: 2,
-              user_Id: 1,
+              ad_id: parseInt(this.routeParam),
+              user_id: this.user.id,
             },
           })
-          .then(() => {})
+          .then((data) => {
+            this.favorite_id = data.data.createFavorite.id;
+
+            this.isFavorited = true;
+          })
           .catch((error) => {
             this.error = true;
             console.error(error);
           });
-      } else {
+      } else if (this.isFavorited) {
         this.$apollo
           .mutate({
             mutation: DeleteFavoriteAd,
             variables: {
-              favorite_id: 11,
+              favorite_id: this.favorite_id,
             },
           })
-          .then(() => {})
+          .then(() => {
+            this.isFavorited = false;
+          })
           .catch((error) => {
             this.error = true;
             console.error(error);
           });
-        console.log("Deleted");
       }
     },
   },
@@ -289,11 +303,43 @@ export default {
           operator: "EQ",
         };
       },
+
       update(data) {
-        this.isFavorited = data.ad.favorited;
         return data;
       },
     },
+    isFavorited: {
+      query: isAdFavorited,
+      loadingKey: "loadingAd",
+      variables() {
+        return {
+          ad_id: this.routeParam,
+          user_id: this.user.id,
+          operator: "EQ",
+        };
+      },
+      skip() {
+        if (this.user != null) {
+          return false;
+        }
+      },
+      update(data) {
+        if (data.favorite != null) {
+          this.favorite_id = data.favorite.id;
+
+          return true;
+        }
+        if (data.favorite == null) {
+          this.isFavorited = false;
+          return false;
+        }
+      },
+    },
+  },
+  computed: {
+    ...mapGetters({
+      user: "Auth/user",
+    }),
   },
 };
 </script>
