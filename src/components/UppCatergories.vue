@@ -4,7 +4,7 @@
       <div v-for="(haraj, index) in harajs.taxonomyContents.data" :key="index">
         <div class="text-center m-1">
           <b-button
-            class="generalBackgroundBrown"
+            class="primaryBackgroundColor"
             v-on:click="selectedHaraj(haraj.title)"
           >
             <b-badge variant="light">

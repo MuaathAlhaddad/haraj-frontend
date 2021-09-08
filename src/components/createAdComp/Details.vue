@@ -118,7 +118,7 @@
                 ></b-form-input>
               </b-form-group>
               <div class="submit-btn">
-                <b-button class="generalBackgroundBrown" type="submit"
+                <b-button class="primaryBackgroundColor" type="submit"
                   >Next</b-button
                 >
               </div>

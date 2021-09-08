@@ -37,7 +37,7 @@
               <!-- <b-button class="btn1 m-1" type="submit">Back</b-button> -->
               <b-button
                 v-on:click="submitTerms"
-                class="btn2 generalBackgroundBrown"
+                class="btn2 primaryBackgroundColor"
                 type="submit"
                 >Post</b-button
               >

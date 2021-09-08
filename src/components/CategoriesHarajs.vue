@@ -1,24 +1,36 @@
 <template>
-  <div>
+  <div @click="selectedHaraj(haraj.title)">
     <b-tab
-      v-for="(haraj, index) in harajs.taxonomyContents.data"
+      v-for="haraj in harajs.taxonomyContents.data"
       :key="haraj.id"
-      :title-link-class="linkClass(index)"
+      :title-link-class="[
+        haraj.title === harajStyleTitle
+          ? 'text-light secondaryBackgroundColor'
+          : 'primaryColor',
+        '',
+      ]"
       @click="selectedHaraj(haraj.title)"
     >
       <template #title>
-        <i :class="[haraj.icon, 'fa-3x', 'd-block']"> </i>
-
-        <h6 style="min-height: 22px;" class="text-center">
-          {{ haraj.title }}
-        </h6>
+        <div class="d-flex justify-content-center row-hl">
+          <div class="  item-hl">
+            <i :class="[haraj.icon, 'fa-2x', 'd-block']"> </i>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center row-hl">
+          <div class=" item-hl">
+            <h6 style="min-height: 22px;" class="text-center">
+              {{ haraj.title }}
+            </h6>
+          </div>
+        </div>
       </template>
     </b-tab>
   </div>
 </template>
 <script>
 export default {
-  props: ["harajs"],
+  props: ["harajs", "harajStyleTitle"],
   name: "categories-test",
 
   data() {
@@ -28,21 +40,6 @@ export default {
     };
   },
   methods: {
-    linkClass(index) {
-      if (this.tabIndex === index) {
-        return ["bg-info", "text-light"];
-      } else {
-        return ["bg-light", "text-info"];
-      }
-    },
-    linkSubClass(index) {
-      if (this.SubtabIndex === index) {
-        return ["bg-info", "text-light"];
-      } else {
-        return ["bg-light", "text-info"];
-      }
-    },
-
     selectedHaraj(haraj) {
       console.log(haraj);
       this.$emit("selectedHaraj", haraj);

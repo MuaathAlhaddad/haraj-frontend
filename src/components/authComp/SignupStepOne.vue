@@ -129,7 +129,7 @@
 
               <div class="text-center">
                 <b-button
-                  class=" text-center generalBackgroundBrown"
+                  class=" text-center primaryBackgroundColor"
                   type="submit"
                   >Next</b-button
                 >

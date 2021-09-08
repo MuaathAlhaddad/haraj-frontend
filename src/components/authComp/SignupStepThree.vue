@@ -20,7 +20,7 @@
         </b-form-group>
 
         <div class="submit-btn">
-          <b-button type="submit" class="generalBackgroundBrown"
+          <b-button type="submit" class="primaryBackgroundColor"
             >Submit</b-button
           >
         </div>

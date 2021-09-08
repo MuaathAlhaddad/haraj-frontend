@@ -2,30 +2,32 @@
   <div>
     <b-tabs>
       <b-tab
-        v-for="(brand, index) in brands.taxonomyContent.brands"
+        v-for="(brand, index) in brands.brands.children"
         :key="brand.id"
         :title-link-class="linkSubClass(index)"
       >
         <template #title>
-          <span
+          <button
             style="min-height: 22px;"
+            :class="[
+              brand.title === brandStyleTitle
+                ? 'text-light secondaryBackgroundColor'
+                : 'generalColorBrown text-light levelCatergories',
+              'rounded border-light',
+            ]"
             v-on:click="selectedBrand(brand.title)"
           >
             {{ brand.title }}
-          </span>
+          </button>
         </template>
       </b-tab>
     </b-tabs>
   </div>
 </template>
-<!-- <div>
-          <b-button class="m-1" v-on:click="selectedBrand(brand.title)">
-            {{ brand.title }}
-          </b-button>
-        </div> -->
+
 <script>
 export default {
-  props: ["brands"],
+  props: ["brands", "brandStyleTitle"],
   data() {
     return {
       icons: [

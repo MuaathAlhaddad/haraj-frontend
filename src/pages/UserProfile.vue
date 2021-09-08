@@ -72,7 +72,7 @@
                 </b-col>
               </b-row>
               <div class="text-center mt-5">
-                <b-button class="px-4 generalBackgroundBrown">Logout</b-button>
+                <b-button class="px-4 primaryBackgroundColor">Logout</b-button>
               </div>
             </b-card>
           </div>

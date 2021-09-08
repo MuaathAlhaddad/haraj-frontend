@@ -10,37 +10,32 @@
       </template>
 
       <template v-else>
-        <!-- <upp-catergories
-          :harajs="harajs"
-          v-on:selectedHaraj="getBrands($event)"
-        /> -->
-        <!-- <sub-catergories-one
-          :brands="brands"
-          v-if="switchBrands"
-          v-on:selectedBrand="getModels($event)"
-        /> -->
-        <!-- <sub-catergories-two
-          :models="models"
-          v-if="switchModels"
-          v-on:selectedModel="getAds($event)"
-        /> -->
         <hr />
         <div>
           <b-row class="wrap" ref="wrap">
             <b-tabs>
               <categories-harajs
                 :harajs="harajs"
-                v-on:selectedHaraj="getBrands($event)"
+                v-on:selectedHaraj="getHaraj($event)"
+                :harajStyleTitle="harajStyleTitle"
               />
               <sub-catergories-one
                 :brands="brands"
                 v-if="switchBrands"
-                v-on:selectedBrand="getModels($event)"
+                v-on:selectedBrand="getBrand($event)"
+                :brandStyleTitle="brandStyleTitle"
               />
               <sub-catergories-two
                 :models="models"
                 v-if="switchModels"
-                v-on:selectedModel="getAds($event)"
+                v-on:selectedLevelTwo="getLevelTwo($event)"
+                :modelStyleTitle="modelStyleTitle"
+              />
+              <sub-catergories-three
+                :models="models"
+                v-if="switchModels"
+                v-on:selectedModel="getLevelTwo($event)"
+                :modelStyleTitle="modelStyleTitle"
               />
             </b-tabs>
           </b-row>
@@ -58,6 +53,7 @@
         </b-row>
       </template>
     </b-container>
+    {{ models }}
   </div>
 </template>
 
@@ -75,6 +71,7 @@ import Harajs from "../graphql/queries/taxonomies/harajs.gql";
 import Brands from "../graphql/queries/taxonomies/brands.gql";
 import Models from "../graphql/queries/taxonomies/models.gql";
 import CategoriesHarajs from "@/components/CategoriesHarajs";
+import SubCatergoriesThree from "./SubCatergoriesThree.vue";
 
 let allCategories = Harajs;
 
@@ -91,6 +88,7 @@ export default {
     IndexSearch,
     SubCatergoriesOne,
     SubCatergoriesTwo,
+    SubCatergoriesThree,
   },
   data() {
     return {
@@ -104,6 +102,9 @@ export default {
       selectedHaraj: null,
       selectedBrand: null,
       selectModel: null,
+      harajStyleTitle: "",
+      brandStyleTitle: "",
+      modelStyleTitle: "",
     };
   },
   apollo: {
@@ -146,14 +147,14 @@ export default {
       },
       update(data) {
         if (this.selectModel != null) {
-          this.$apollo.queries.ads.refetch();
+          // this.$apollo.queries.ads.refetch();
           return data;
         } else if (this.selectedHaraj != null) {
-          this.$apollo.queries.ads.refetch();
+          // this.$apollo.queries.ads.refetch();
 
           return data;
         } else if (this.selectedBrand != null) {
-          this.$apollo.queries.ads.refetch();
+          // this.$apollo.queries.ads.refetch();
 
           return data;
         } else {
@@ -175,7 +176,6 @@ export default {
       variables() {
         return {
           catergoryName: this.selectedHaraj,
-          operator: "LIKE",
         };
       },
       skip() {
@@ -186,7 +186,7 @@ export default {
       update(data) {
         if (this.selectedHaraj != null) {
           this.switchBrands = true;
-          this.$apollo.queries.ads.refetch();
+          // this.$apollo.queries.ads.refetch();
 
           return data;
         }
@@ -197,8 +197,7 @@ export default {
       loadingKey: "loadingCatergories",
       variables() {
         return {
-          model: this.selectModel,
-          operator: "LIKE",
+          Level1Name: this.selectedBrand,
         };
       },
       skip() {
@@ -209,36 +208,36 @@ export default {
       update(data) {
         if (this.selectedBrand != null) {
           this.switchModels = true;
-          this.$apollo.queries.ads.refetch();
+          // this.$apollo.queries.ads.refetch();
           return data;
         }
       },
     },
   },
   methods: {
-    linkSubClass(index) {
-      if (this.SubtabIndex === index) {
-        return ["bg-info", "text-light"];
-      } else {
-        return ["bg-light", "text-info"];
-      }
-    },
-    getBrands(haraj) {
+    getHaraj(haraj) {
       this.selectedHaraj = haraj;
+      this.selectedHaraj = haraj;
+      this.harajStyleTitle = haraj;
       this.selectModel = null;
       this.selectedBrand = null;
       this.switchModels = false;
+      this.$apollo.queries.ads.refetch();
     },
-    getModels(brand) {
+    getBrand(brand) {
       this.selectedHaraj = null;
+      this.brandStyleTitle = brand;
       this.selectModel = null;
       this.selectedBrand = brand;
       this.switchModels = true;
+      // this.$apollo.queries.ads.refetch();
     },
-    getAds(model) {
+    getLevelTwo(model) {
+      this.modelStyleTitle = model;
       this.selectModel = model;
       this.selectedHaraj = null;
       this.selectedBrand = null;
+      // this.$apollo.queries.ads.refetch();
     },
   },
 };

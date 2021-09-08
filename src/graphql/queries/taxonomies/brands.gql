@@ -1,10 +1,14 @@
-query($operator: SQLOperator, $catergoryName: Mixed) {
-  taxonomyContent(
-    where: { column: TITLE, operator: $operator, value: $catergoryName }
-  ) {
-    brands {
-      title
+query($catergoryName: Mixed) {
+  brands: taxonomyContent(where: { column: TITLE, value: $catergoryName }) {
+    children {
       id
+      title
+      children {
+        title
+        children {
+          title
+        }
+      }
     }
   }
 }

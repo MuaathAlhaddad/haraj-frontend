@@ -12,11 +12,11 @@
             <b-container class="mb-2">
               <b-row>
                 <b-col cols="3"></b-col>
-                <b-col cols="5" class="py-2 generalBackgroundOrange">
+                <b-col cols="5" class="py-2 primaryBackgroundColor rounded">
                   <div>
                     <div>
                       <b-row class="d-flex justify-content-center find-section">
-                        <div>
+                        <div class="pr-1">
                           <b-form-select
                             id="inline-form-custom-select-pref"
                             class="mb-2 mr-sm-2 mb-sm-0"
@@ -30,7 +30,7 @@
                           ></b-form-select>
                         </div>
                         <!--Input-->
-                        <div>
+                        <div class="pr-1">
                           <b-form-input
                             id="inline-form-input-search"
                             class="mb-2 mr-sm-2 mb-sm-0"
@@ -38,9 +38,7 @@
                           ></b-form-input>
                         </div>
                         <div>
-                          <b-button class="generalBackgroundBrown"
-                            >Find</b-button
-                          >
+                          <b-button variant="light">Find</b-button>
                         </div>
                       </b-row>
                     </div>

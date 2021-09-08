@@ -1,10 +1,7 @@
-query($operator: SQLOperator, $model: Mixed) {
-  taxonomyContent(
-    where: { column: TITLE, operator: $operator, value: $model }
-  ) {
-    models {
+query($Level1Name: Mixed) {
+  models: taxonomyContent(where: { column: TITLE, value: $Level1Name }) {
+    children {
       title
-      id
     }
   }
 }

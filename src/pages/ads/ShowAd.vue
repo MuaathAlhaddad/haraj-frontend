@@ -124,7 +124,7 @@
                   </b-media>
                 </ul>
                 <hr />
-                <b-button block class="generalBackgroundBrown"
+                <b-button block class="primaryBackgroundColor"
                   >XXXXXX0325</b-button
                 >
                 <b-button block variant="outline-danger"
@@ -190,7 +190,7 @@
                 <b-button
                   class="custom-size-button2"
                   v-bind:class="
-                    switchButton == 0 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 0 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                   v-on:click="switchButton = 0"
                   >Details</b-button
@@ -198,7 +198,7 @@
                 <b-button
                   class="custom-size-button2"
                   v-bind:class="
-                    switchButton == 1 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 1 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                   v-on:click="switchButton = 1"
                   >Reviews</b-button
@@ -206,7 +206,7 @@
                 <b-button
                   class="custom-size-button2"
                   v-bind:class="
-                    switchButton == 2 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 2 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                   v-on:click="switchButton = 2"
                   >Comments

@@ -14,7 +14,7 @@
                 <b-button
                   class="custom-size-button2"
                   :class="
-                    switchButton == 0 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 0 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                 >
                   Ad Details
@@ -23,7 +23,7 @@
                 <b-button
                   class="custom-size-button2"
                   :class="
-                    switchButton == 1 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 1 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                 >
                   Photos
@@ -32,7 +32,7 @@
                 <b-button
                   class="custom-size-button2"
                   :class="
-                    switchButton == 2 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 2 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                 >
                   Terms
@@ -41,7 +41,7 @@
                 <b-button
                   class="custom-size-button2"
                   :class="
-                    switchButton == 3 ? 'generalBackgroundBrown' : 'normalBtn'
+                    switchButton == 3 ? 'primaryBackgroundColor' : 'normalBtn'
                   "
                 >
                   Finish

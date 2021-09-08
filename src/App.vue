@@ -48,15 +48,27 @@ export default {
 
 <style>
 .generalBackgroundOrange {
-  background-color: ghostwhite !important;
+  background-color: #f8f9fa !important;
 }
-.generalColorOrange {
-  color: #f05e23 !important;
+.BrownBackground {
+  background-color: #3d2314 !important;
 }
-.generalBackgroundBrown {
-  background-color: #f05e23 !important;
+.primaryColor {
+  color: #f88558 !important;
+}
+.secondaryColor {
+  color: #3d2314 !important;
+}
+.secondaryBackgroundColor {
+  background-color: #3d2314 !important;
+}
+.primaryBackgroundColor {
+  background-color: #fc7843 !important;
 }
 .generalColorBrown {
   color: #3d2314 !important;
+}
+.levelCatergories {
+  background-color: #968077 !important;
 }
 </style>

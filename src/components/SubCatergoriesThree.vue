@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     selectedModel(model) {
-      this.$emit("selectedLevelTwo", model);
+      this.$emit("selectedModel", model);
     },
     linkSubClass(index) {
       if (this.SubtabIndex === index) {

@@ -16,7 +16,7 @@
         <div class="submit-btn">
           <b-button
             v-on:click="submitPhotos"
-            class="generalBackgroundBrown"
+            class="primaryBackgroundColor"
             type="submit"
             >Next</b-button
           >

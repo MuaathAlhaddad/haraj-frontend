@@ -20,7 +20,7 @@
 
       <template #footer>
         <div class="text-center">
-          <b-button class="generalBackgroundBrown">View</b-button>
+          <b-button class="primaryBackgroundColor">View</b-button>
         </div>
       </template>
     </b-card>
