@@ -2,7 +2,7 @@
   <div>
     <b-tabs>
       <b-tab
-        v-for="(brand, index) in brands.brands.children"
+        v-for="(brand, index) in level1.level1.children"
         :key="brand.id"
         :title-link-class="linkSubClass(index)"
       >
@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  props: ["brands", "brandStyleTitle"],
+  props: ["level1", "brandStyleTitle"],
   data() {
     return {
       icons: [
@@ -57,6 +57,7 @@ export default {
       }
     },
   },
+  
 };
 </script>
 <style scoped>

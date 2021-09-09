@@ -1,5 +1,5 @@
 query($catergoryName: Mixed) {
-  brands: taxonomyContent(where: { column: TITLE, value: $catergoryName }) {
+  level1: taxonomyContent(where: { column: TITLE, value: $catergoryName }) {
     children {
       id
       title

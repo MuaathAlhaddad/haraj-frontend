@@ -3,22 +3,22 @@
     <div>
       <b-tabs>
         <b-tab
-          v-for="(model, index) in models.models.children"
-          :key="model.id"
+          v-for="(taxon, index) in level2.levle2.children"
+          :key="taxon.id"
           :title-link-class="linkSubClass(index)"
         >
           <template #title>
             <button
               style="min-height: 22px;"
               :class="[
-                model.title === modelStyleTitle
+                taxon.title === modelStyleTitle
                   ? 'text-light secondaryBackgroundColor'
                   : 'generalColorBrown text-light levelCatergories',
                 'rounded border-light',
               ]"
-              v-on:click="selectedModel(model.title)"
+              v-on:click="selectedModel(taxon.title)"
             >
-              {{ model.title }}
+              {{ taxon.title }}
             </button>
           </template>
         </b-tab>
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  props: ["models", "modelStyleTitle"],
+  props: ["level2", "modelStyleTitle"],
   data() {
     return {
       icons: [
@@ -48,8 +48,8 @@ export default {
     };
   },
   methods: {
-    selectedModel(model) {
-      this.$emit("selectedLevelTwo", model);
+    selectedModel(taxon) {
+      this.$emit("selectedLevelTwo", taxon);
     },
     linkSubClass(index) {
       if (this.SubtabIndex === index) {

@@ -1,5 +1,5 @@
-query($Level1Name: Mixed) {
-  models: taxonomyContent(where: { column: TITLE, value: $Level1Name }) {
+query($LevelName: Mixed) {
+  levle2: taxonomyContent(where: { column: TITLE, value: $LevelName }) {
     children {
       title
     }

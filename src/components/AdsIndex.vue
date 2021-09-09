@@ -20,21 +20,15 @@
                 :harajStyleTitle="harajStyleTitle"
               />
               <sub-catergories-one
-                :brands="brands"
+                :level1="level1"
                 v-if="switchBrands"
                 v-on:selectedBrand="getBrand($event)"
                 :brandStyleTitle="brandStyleTitle"
               />
               <sub-catergories-two
-                :models="models"
+                :level2="level2"
                 v-if="switchModels"
                 v-on:selectedLevelTwo="getLevelTwo($event)"
-                :modelStyleTitle="modelStyleTitle"
-              />
-              <sub-catergories-three
-                :models="models"
-                v-if="switchModels"
-                v-on:selectedModel="getLevelTwo($event)"
                 :modelStyleTitle="modelStyleTitle"
               />
             </b-tabs>
@@ -42,18 +36,48 @@
         </div>
 
         <hr />
-        <index-search />
+        <index-search
+          :states="states.country.states"
+          :years="years.taxonomyContents.data"
+          v-on:searchAds="getSearchedAds($event)"
+          :ads="ads"
+        />
         <b-row>
-          <b-col sm="12" md="12" lg="9" xl="10" class="mt-2">
-            <div v-for="(ad, index) in ads.ads.data" :key="index">
-              <AdItem :ad="ad" />
-              <hr style="width:100%;text-align:left;margin-left:0" />
+          <b-col
+            sm="12"
+            md="12"
+            lg="9"
+            xl="10"
+            class="mt-2"
+            v-if="isFiltered == false"
+          >
+            <div v-for="(ad, index) in ads" :key="index">
+              <AdItem :ad="ad" v-if="isFiltered == false" />
+              <hr
+                style="width:100%;text-align:left;margin-left:0"
+                v-if="isFiltered == false"
+              />
+            </div>
+          </b-col>
+          <b-col
+            sm="12"
+            md="12"
+            lg="9"
+            xl="10"
+            class="mt-2"
+            v-if="isFiltered == true"
+          >
+            <div v-for="(ad, index) in filters" :key="index">
+              <AdItem :ad="ad" v-if="isFiltered == true" />
+              <hr
+                style="width:100%;text-align:left;margin-left:0"
+                v-if="isFiltered == true"
+              />
             </div>
           </b-col>
         </b-row>
       </template>
     </b-container>
-    {{ models }}
   </div>
 </template>
 
@@ -68,16 +92,20 @@ import SubCatergoriesTwo from "./SubCatergoriesTwo.vue";
 ///queries
 import Ads from "../graphql/queries/ads.gql";
 import Harajs from "../graphql/queries/taxonomies/harajs.gql";
-import Brands from "../graphql/queries/taxonomies/brands.gql";
-import Models from "../graphql/queries/taxonomies/models.gql";
+import Level1 from "../graphql/queries/taxonomies/brands.gql";
+import Level2 from "../graphql/queries/taxonomies/models.gql";
 import CategoriesHarajs from "@/components/CategoriesHarajs";
-import SubCatergoriesThree from "./SubCatergoriesThree.vue";
+import Years from "../graphql/queries/taxonomies/years.gql";
+import States from "../graphql/queries/somaliaState.gql";
 
 let allCategories = Harajs;
 
-let allBrands = Brands;
-let allModels = Models;
+let allLevel1Tax = Level1;
+let allLevel2Tax = Level2;
 let allAds = Ads;
+let allYears = Years;
+let allStates = States;
+
 export default {
   components: {
     CategoriesHarajs,
@@ -85,18 +113,21 @@ export default {
     LoadingIcon,
     // eslint-disable-next-line vue/no-unused-components
     UppCatergories,
+    // eslint-disable-next-line vue/no-unused-components
     IndexSearch,
     SubCatergoriesOne,
     SubCatergoriesTwo,
-    SubCatergoriesThree,
   },
   data() {
     return {
       ads: [],
       loadingCatergories: 0,
+      // isShowFilteredAds: false,
       harajs: [],
-      brands: [],
-      models: [],
+      level1: [],
+      level2: [],
+      years: [],
+      states: [],
       switchBrands: null,
       switchModels: null,
       selectedHaraj: null,
@@ -105,6 +136,8 @@ export default {
       harajStyleTitle: "",
       brandStyleTitle: "",
       modelStyleTitle: "",
+      filters: null,
+      isFiltered: false,
     };
   },
   apollo: {
@@ -148,17 +181,17 @@ export default {
       update(data) {
         if (this.selectModel != null) {
           // this.$apollo.queries.ads.refetch();
-          return data;
+          return data.ads.data;
         } else if (this.selectedHaraj != null) {
           // this.$apollo.queries.ads.refetch();
 
-          return data;
+          return data.ads.data;
         } else if (this.selectedBrand != null) {
           // this.$apollo.queries.ads.refetch();
 
-          return data;
+          return data.ads.data;
         } else {
-          return data;
+          return data.ads.data;
         }
       },
     },
@@ -169,8 +202,8 @@ export default {
         return data;
       },
     },
-    brands: {
-      query: allBrands,
+    level1: {
+      query: allLevel1Tax,
       loadingKey: "loadingCatergories",
 
       variables() {
@@ -192,12 +225,12 @@ export default {
         }
       },
     },
-    models: {
-      query: allModels,
+    level2: {
+      query: allLevel2Tax,
       loadingKey: "loadingCatergories",
       variables() {
         return {
-          Level1Name: this.selectedBrand,
+          LevelName: this.selectedBrand,
         };
       },
       skip() {
@@ -213,18 +246,33 @@ export default {
         }
       },
     },
+    years: {
+      query: allYears,
+      loadingKey: "loadingCatergories",
+      update(data) {
+        return data;
+      },
+    },
+    states: {
+      query: allStates,
+      loadingKey: "loadingCatergories",
+      update(data) {
+        return data;
+      },
+    },
   },
   methods: {
     getHaraj(haraj) {
+      this.$apollo.queries.ads.refetch();
       this.selectedHaraj = haraj;
       this.selectedHaraj = haraj;
       this.harajStyleTitle = haraj;
       this.selectModel = null;
       this.selectedBrand = null;
       this.switchModels = false;
-      this.$apollo.queries.ads.refetch();
     },
     getBrand(brand) {
+      this.$apollo.queries.ads.refetch();
       this.selectedHaraj = null;
       this.brandStyleTitle = brand;
       this.selectModel = null;
@@ -237,7 +285,12 @@ export default {
       this.selectModel = model;
       this.selectedHaraj = null;
       this.selectedBrand = null;
-      // this.$apollo.queries.ads.refetch();
+      this.$apollo.queries.ads.refetch();
+    },
+
+    getSearchedAds(filteredAds) {
+      this.filters = filteredAds;
+      this.isFiltered = true;
     },
   },
 };
