@@ -3,7 +3,7 @@
     <div>
       <b-tabs>
         <b-tab
-          v-for="(taxon, index) in level2.levle2.children"
+          v-for="(taxon, index) in level2.level2.children"
           :key="taxon.id"
           :title-link-class="linkSubClass(index)"
         >

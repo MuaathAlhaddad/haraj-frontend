@@ -127,7 +127,6 @@
         </b-card-text>
       </b-card>
     </b-container>
-    {{ modelsObjects }}
   </b-col>
 </template>
 
@@ -187,7 +186,7 @@ export default {
         if (this.form.category != null) {
           this.brandsObjects = data;
           this.switchBrands = true;
-          var finalBrands = data.taxonomyContent.brands.map(function(obj) {
+          var finalBrands = data.level1.children.map(function(obj) {
             return obj.title;
           });
 
@@ -201,8 +200,7 @@ export default {
 
       variables() {
         return {
-          model: "%cars%",
-          operator: "LIKE",
+          LevelName: "toyota",
         };
       },
       skip() {
@@ -213,8 +211,9 @@ export default {
       update(data) {
         if (this.form.brand != null) {
           this.modelsObjects = data;
+
           this.switchModels = true;
-          var finalModels = data.taxonomyContent.models.map(function(obj) {
+          var finalModels = data.level2.children.map(function(obj) {
             return obj.title;
           });
 
@@ -231,10 +230,10 @@ export default {
       const category = this.$props.harajs.find(
         (element) => element.title == this.form.category
       );
-      const brand = this.brandsObjects.taxonomyContent.brands.find(
+      const brand = this.brandsObjects.level1.children.find(
         (element) => element.title == this.form.brand
       );
-      const model = this.modelsObjects.taxonomyContent.models.find(
+      const model = this.modelsObjects.level2.children.find(
         (element) => element.title == this.form.model
       );
 

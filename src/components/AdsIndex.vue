@@ -41,6 +41,7 @@
           :years="years.taxonomyContents.data"
           v-on:searchAds="getSearchedAds($event)"
           :ads="ads"
+          :isCars="isCars"
         />
         <b-row>
           <b-col
@@ -138,6 +139,7 @@ export default {
       modelStyleTitle: "",
       filters: null,
       isFiltered: false,
+      isCars: false,
     };
   },
   apollo: {
@@ -270,6 +272,11 @@ export default {
       this.selectModel = null;
       this.selectedBrand = null;
       this.switchModels = false;
+      this.isCars = false;
+      this.isFiltered = false;
+      if (haraj == "cars") {
+        this.isCars = true;
+      }
     },
     getBrand(brand) {
       this.$apollo.queries.ads.refetch();
@@ -278,6 +285,8 @@ export default {
       this.selectModel = null;
       this.selectedBrand = brand;
       this.switchModels = true;
+      this.isFiltered = false;
+
       // this.$apollo.queries.ads.refetch();
     },
     getLevelTwo(model) {
@@ -285,6 +294,8 @@ export default {
       this.selectModel = model;
       this.selectedHaraj = null;
       this.selectedBrand = null;
+      this.isFiltered = false;
+
       this.$apollo.queries.ads.refetch();
     },
 

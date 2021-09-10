@@ -4,7 +4,7 @@
     <div>
       <div>
         <b-row class="d-flex justify-content-center find-section">
-          <div>
+          <div v-if="isCars">
             <b-form-select
               id="inline-form-custom-select-pref"
               class="mb-2 mr-sm-2 mb-sm-0"
@@ -39,13 +39,12 @@
         </b-row>
       </div>
     </div>
-    {{ allStates }}
   </b-col>
 </template>
 
 <script>
 export default {
-  props: ["years", "states", "ads"],
+  props: ["years", "states", "ads", "isCars"],
   data() {
     return {
       searchData: {
@@ -54,36 +53,54 @@ export default {
         year: null,
       },
       filteredAds: null,
-      allStates: [{ text: "All States...", value: null }, "1", "2"],
-      allyears: [{ text: "All States...", value: null }, "1", "2"],
+      allStates: [],
+      allyears: [],
     };
   },
   methods: {
     search() {
-      var item = this.$props.ads.filter(
-        (item) =>
-          item.title.toLowerCase().includes(this.searchData.searchKeyword) ||
-          item.description
-            .toLowerCase()
-            .includes(this.searchData.searchKeyword) ||
-          item.user.name.includes(this.searchData.searchKeyword) ||
-          item.user.state.name.includes(this.searchData.state)
-      );
-      this.filteredAds = item;
-      console.log(this.filteredAds);
-      this.$emit("searchAds", this.filteredAds);
+      if (this.searchData.searchKeyword != "") {
+        var item = this.$props.ads.filter(
+          (item) =>
+            item.title.toLowerCase().includes(this.searchData.searchKeyword) ||
+            item.description
+              .toLowerCase()
+              .includes(this.searchData.searchKeyword) ||
+            item.user.name.includes(this.searchData.searchKeyword) ||
+            item.user.state.name.includes(this.searchData.state)
+        );
+        this.filteredAds = item;
+        console.log(this.filteredAds);
+        this.$emit("searchAds", this.filteredAds);
+      }
     },
   },
   mounted() {
     var finalYears = this.$props.years.map(function(obj) {
       return obj.title;
     });
+
     this.allyears = finalYears;
+
+    const insert = (arr, index, newItem) => [
+      // part of the array before the specified index
+      ...arr.slice(0, index),
+      // inserted item
+      newItem,
+      // part of the array after the specified index
+      ...arr.slice(index),
+    ];
+
+    this.allyears = insert(this.allyears, 0, { text: "Years...", value: null });
 
     var finalStates = this.$props.states.map(function(obj) {
       return obj.name;
     });
     this.allStates = finalStates;
+    this.allStates = insert(this.allStates, 0, {
+      text: "States...",
+      value: null,
+    });
   },
 };
 </script>
