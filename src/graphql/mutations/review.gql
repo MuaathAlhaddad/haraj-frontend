@@ -1,0 +1,30 @@
+mutation(
+  $body: String!
+  $star: ReviewStar!
+  $reviewerId: ID!
+  $reviewable: ID!
+) {
+  createReview(
+    input: {
+      body: $body
+      star: $star
+      reviewer: { connect: $reviewerId }
+      reviewable: { connect: { type: user, id: $reviewable } }
+    }
+  ) {
+    id
+    body
+    star
+    reviewer {
+      id
+      name
+    }
+    reviewable {
+      __typename
+      ... on User {
+        id
+        name
+      }
+    }
+  }
+}

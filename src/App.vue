@@ -51,7 +51,7 @@ export default {
   background-color: #f8f9fa !important;
 }
 .BrownBackground {
-  background-color: #3d2314 !important;
+  background-color: #704d39 !important;
 }
 .primaryColor {
   color: #f88558 !important;

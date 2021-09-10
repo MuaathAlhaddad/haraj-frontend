@@ -8,7 +8,6 @@
 
     <template v-else>
       <div>
-        {{ ad }}
         <b-container
           class="bv-example-row mt-3 generalColorBrown background-main-div"
         >
@@ -216,11 +215,20 @@
           </div>
         </b-container>
         <Details v-if="switchButton == 0" :adData="ad.ad" />
-        <Review v-if="switchButton == 1" :adData="ad.ad" />
-        <Comment v-if="switchButton == 2" :adData="ad.ad" />
+        <Review
+          v-if="switchButton == 1"
+          :adData="ad.ad"
+          v-on:userReview="refreshReview($event)"
+          :routeParam="routeParam"
+        />
+        <Comment
+          v-if="switchButton == 2"
+          :adData="ad.ad.comments.data"
+          :routeParam="routeParam"
+          v-on:userComment="refreshComment($event)"
+        />
       </div>
     </template>
-    <!-- {{ ad.favorite }} -->
   </div>
 </template>
 
@@ -243,6 +251,7 @@ export default {
   data() {
     return {
       ad: [],
+      commentsData: [],
       switchButton: "0",
       loadingAd: 0,
       isFavorited: null,
@@ -291,6 +300,12 @@ export default {
           });
       }
     },
+    refreshComment() {
+      this.$apollo.queries.ad.refetch();
+    },
+    refreshReview() {
+      this.$apollo.queries.ad.refetch();
+    },
   },
   mounted() {},
   apollo: {
@@ -305,6 +320,7 @@ export default {
       },
 
       update(data) {
+        this.commentsData = data.ad.comments.data;
         return data;
       },
     },

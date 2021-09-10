@@ -1,12 +1,38 @@
 <template>
   <div>
     <b-container class="bv-example-row mb-4">
+      <b-col class="mt-4" v-if="user">
+        <b-media>
+          <template #aside>
+            <b-img
+              blank
+              blank-color="#ccc"
+              width="64"
+              alt="placeholder"
+            ></b-img>
+          </template>
+
+          <b-form-textarea
+            id="textarea-default"
+            v-model="comment"
+            placeholder="Type your comments"
+          ></b-form-textarea>
+        </b-media>
+      </b-col>
+      <b-col v-if="user">
+        <div class="d-flex justify-content-end row-hl">
+          <b-button size="sm" class="BrownBackground" @click="addComment"
+            >Submit Comment</b-button
+          >
+        </div>
+      </b-col>
+
       <div class="row">
         <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto"
           ><h4 class="generalColorBrown">Comments</h4></b-col
         >
       </div>
-      <div v-for="(comment, index) in adData.comments.data" :key="index">
+      <div v-for="(comment, index) in adData" :key="index">
         <b-card>
           <b-media>
             <template #aside>
@@ -17,10 +43,7 @@
                 alt="placeholder"
               ></b-img>
             </template>
-            <i
-              class="fa fa-clock-o icon generalColorBrown"
-              aria-hidden="true"
-            />
+            <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"></i>
 
             <router-link
               :to="{
@@ -28,12 +51,14 @@
                 params: { userId: `{{ comment.user.id }}` },
               }"
             >
-              <h5 class="mt-0">{{ comment.user.name }}</h5></router-link
+              <h5 class="mt-0 secondaryColor">
+                {{ comment.user.name }}
+              </h5></router-link
             >
 
             <p>
-              <i class="fa fa-clock-o generalColorBrown" aria-hidden="true" />
-              {{ comment.created_at }}
+              <i class="fas fa-clock generalColorBrown" aria-hidden="true" />
+              <span style="font-size:12px;"> {{ comment.created_at }}</span>
             </p>
             <p>
               {{ comment.body }}
@@ -47,8 +72,44 @@
 </template>
 
 <script>
+import Comment from "../graphql/mutations/comment.gql";
+import { mapGetters } from "vuex";
 export default {
-  props: ["adData"],
+  props: ["adData", "routeParam"],
+  data() {
+    return {
+      comment: "",
+    };
+  },
+  methods: {
+    addComment() {
+      if (this.comment == "") {
+        return;
+      }
+      this.$apollo
+        .mutate({
+          mutation: Comment,
+          variables: {
+            body: this.comment,
+            userId: this.user.id,
+            adId: this.$props.routeParam,
+          },
+        })
+        // eslint-disable-next-line no-unused-vars
+        .then((data) => {
+          this.$emit("userComment", data);
+          console.log(data);
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
+    },
+  },
+  computed: {
+    ...mapGetters({
+      user: "Auth/user",
+    }),
+  },
 };
 </script>
 <style scoped>

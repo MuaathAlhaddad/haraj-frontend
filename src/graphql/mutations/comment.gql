@@ -1,0 +1,8 @@
+mutation($body: String!, $userId: ID!, $adId: ID!) {
+  createComment(
+    input: { body: $body, user: { connect: $userId }, ad: { connect: $adId } }
+  ) {
+    id
+    body
+  }
+}
