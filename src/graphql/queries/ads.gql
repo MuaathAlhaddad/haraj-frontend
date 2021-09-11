@@ -10,6 +10,11 @@ query($operator: SQLOperator, $valueName: Mixed) {
       sku
       negotiable
       created_at
+      taxonomyContents {
+        data {
+          title
+        }
+      }
       user {
         name
         country {

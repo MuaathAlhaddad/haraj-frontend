@@ -12,6 +12,7 @@
             <b-col col lg="4" md="12" sm="12" xs="12">
               <b-button-group>
                 <b-button
+                  @click="switchButton = 0"
                   class="custom-size-button2"
                   :class="
                     switchButton == 0 ? 'primaryBackgroundColor' : 'normalBtn'
@@ -21,6 +22,7 @@
                 </b-button>
 
                 <b-button
+                  @click="switchButton = 1"
                   class="custom-size-button2"
                   :class="
                     switchButton == 1 ? 'primaryBackgroundColor' : 'normalBtn'
@@ -36,15 +38,6 @@
                   "
                 >
                   Terms
-                </b-button>
-
-                <b-button
-                  class="custom-size-button2"
-                  :class="
-                    switchButton == 3 ? 'primaryBackgroundColor' : 'normalBtn'
-                  "
-                >
-                  Finish
                 </b-button>
               </b-button-group>
             </b-col>
@@ -157,23 +150,13 @@ export default {
   },
 
   apollo: {
-    // Local state 'states' data will be updated
-    // by the GraphQL query result
     cities: {
-      // GraphQL query
       query: cities,
-      // Will update the 'loading' attribute
-      // +1 when a new query is loading
-      // -1 when a query is completed
       loadingKey: "loading",
       update: (data) => data,
     },
     harajs: {
-      // GraphQL query
       query: harajs,
-      // Will update the 'loading' attribute
-      // +1 when a new query is loading
-      // -1 when a query is completed
       loadingKey: "loading",
       update: (data) => data,
     },

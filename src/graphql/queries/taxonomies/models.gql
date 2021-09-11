@@ -1,6 +1,7 @@
 query($LevelName: Mixed) {
   level2: taxonomyContent(where: { column: TITLE, value: $LevelName }) {
     children {
+      id
       title
     }
   }

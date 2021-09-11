@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-row class="wrap" ref="wrap">
+    <b-col class="wrap" ref="wrap">
       <b-tabs v-model="tabIndex">
         <b-tab
           v-for="(haraj, index) in harajs"
@@ -29,7 +29,7 @@
           </b-tabs>
         </b-tab>
       </b-tabs>
-    </b-row>
+    </b-col>
   </div>
 </template>
 <script>

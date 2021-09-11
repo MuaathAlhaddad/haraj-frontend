@@ -4,6 +4,7 @@ query {
     where: { column: PARENT_ID, operator: IS_NULL }
   ) {
     data {
+      id
       title
     }
   }

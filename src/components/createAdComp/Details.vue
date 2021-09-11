@@ -36,7 +36,18 @@
                   <b-form-select
                     id="input-1"
                     v-model="form.model"
-                    :options="models"
+                    :options="modelsArray"
+                    required
+                  ></b-form-select>
+                </b-form-group>
+                <b-form-group
+                  label="Years:"
+                  v-if="switchModels && form.category == 'cars'"
+                >
+                  <b-form-select
+                    id="input-1"
+                    v-model="form.year"
+                    :options="yearsArray"
                     required
                   ></b-form-select>
                 </b-form-group>
@@ -126,6 +137,7 @@
           </div>
         </b-card-text>
       </b-card>
+      {{ yearsObjects }}
     </b-container>
   </b-col>
 </template>
@@ -133,6 +145,8 @@
 <script>
 import Brands from "../../graphql/queries/taxonomies/brands.gql";
 import Models from "../../graphql/queries/taxonomies/models.gql";
+import Years from "../../graphql/queries/taxonomies/years.gql";
+
 import LoadingIcon from "../LoadingIcon.vue";
 
 const allBrands = Brands;
@@ -151,6 +165,7 @@ export default {
         brand: null,
         category: null,
         model: null,
+        year: null,
         city: null,
         tags: [],
         taxonomyContents: [],
@@ -162,8 +177,11 @@ export default {
       categories: [],
       brands: [],
       models: [],
+      modelsArray: [],
+      yearsArray: [],
       brandsObjects: null,
       modelsObjects: null,
+      yearsObjects: null,
     };
   },
   apollo: {
@@ -185,12 +203,13 @@ export default {
       update(data) {
         if (this.form.category != null) {
           this.brandsObjects = data;
+          this.brand = this.form.brand;
           this.switchBrands = true;
           var finalBrands = data.level1.children.map(function(obj) {
             return obj.title;
           });
 
-          return (this.cities = finalBrands);
+          return (data = finalBrands);
         }
       },
     },
@@ -200,7 +219,7 @@ export default {
 
       variables() {
         return {
-          LevelName: "toyota",
+          LevelName: this.form.brand,
         };
       },
       skip() {
@@ -211,13 +230,30 @@ export default {
       update(data) {
         if (this.form.brand != null) {
           this.modelsObjects = data;
-
           this.switchModels = true;
           var finalModels = data.level2.children.map(function(obj) {
             return obj.title;
           });
-
-          return (this.models = finalModels);
+          return (this.modelsArray = finalModels);
+        }
+      },
+    },
+    years: {
+      query: Years,
+      loadingKey: "loadingCatergories",
+      skip() {
+        if (this.form.brand == null) {
+          return true;
+        }
+      },
+      update(data) {
+        if (this.form.brand != null) {
+          this.yearsObjects = data;
+          this.switchModels = true;
+          var finalYears = data.taxonomyContents.data.map(function(obj) {
+            return obj.title;
+          });
+          return (this.yearsArray = finalYears);
         }
       },
     },
@@ -233,11 +269,14 @@ export default {
       const brand = this.brandsObjects.level1.children.find(
         (element) => element.title == this.form.brand
       );
-      const model = this.modelsObjects.level2.children.find(
+      const type = this.modelsObjects.level2.children.find(
         (element) => element.title == this.form.model
       );
+      const year = this.yearsObjects.taxonomyContents.data.find(
+        (element) => element.title == this.form.year
+      );
 
-      this.form.taxonomyContents.push(category.id, brand.id, model.id);
+      this.form.taxonomyContents.push(category.id, brand.id, type.id, year.id);
       console.log(this.form);
       this.$emit("passAdDetails", this.form);
     },

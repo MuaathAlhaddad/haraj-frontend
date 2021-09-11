@@ -1,6 +1,6 @@
 <template>
   <div>
-    <template v-if="loading">
+    <template v-if="loadingCatergories">
       <div>
         <loading-icon />
       </div>
@@ -8,108 +8,33 @@
     <template v-else>
       <div>
         <b-container class="bv-example-row my-5">
+          <home-search
+            :states="states.country.states"
+            :ads="ads"
+            v-on:searchHomeAds="getAds($event)"
+          />
           <b-row>
-            <b-container class="mb-2">
-              <b-row>
-                <b-col cols="3"></b-col>
-                <b-col cols="5" class="py-2 primaryBackgroundColor rounded">
-                  <div>
-                    <div>
-                      <b-row class="d-flex justify-content-center find-section">
-                        <div class="pr-1">
-                          <b-form-select
-                            id="inline-form-custom-select-pref"
-                            class="mb-2 mr-sm-2 mb-sm-0"
-                            :options="[
-                              { text: 'Choose...', value: null },
-                              'One',
-                              'Two',
-                              'Three',
-                            ]"
-                            :value="null"
-                          ></b-form-select>
-                        </div>
-                        <!--Input-->
-                        <div class="pr-1">
-                          <b-form-input
-                            id="inline-form-input-search"
-                            class="mb-2 mr-sm-2 mb-sm-0"
-                            placeholder="Search"
-                          ></b-form-input>
-                        </div>
-                        <div>
-                          <b-button variant="light">Find</b-button>
-                        </div>
-                      </b-row>
-                    </div>
-                  </div>
-                </b-col>
-                <b-col cols="3"></b-col>
-              </b-row>
-            </b-container>
             <b-col cols="12"
               ><b-card>
                 <template v-slot:header>
                   <b-row class="d-flex justify-content-between">
-                    <div class="ml-2">Browser by catergory</div>
-                    <div class="mr-2">
-                      <b-dropdown id="dropdown-1" text="View more">
-                        <b-dropdown-item>First Action</b-dropdown-item>
-                        <b-dropdown-item>Second Action</b-dropdown-item>
-                        <b-dropdown-item>Third Action</b-dropdown-item>
-                      </b-dropdown>
+                    <div class="ml-2 secondaryColor h6">
+                      Browser by catergory
                     </div>
                   </b-row>
                 </template>
                 <b-row class="text-center">
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
-                  <b-col class="">
-                    <b-icon icon="phone" font-scale="2.5"> </b-icon>
-                    <p class="catergory-label">catergory</p>
-                  </b-col>
+                  <div>
+                    <b-col class="wrap" ref="wrap">
+                      <b-tabs>
+                        <home-harajs
+                          :harajs="harajs"
+                          v-on:selectedHaraj="getHaraj($event)"
+                          :harajStyleTitle="harajStyleTitle"
+                        />
+                      </b-tabs>
+                    </b-col>
+                  </div>
                 </b-row>
               </b-card>
             </b-col>
@@ -117,26 +42,27 @@
               <b-card>
                 <template v-slot:header>
                   <b-row class="d-flex justify-content-between">
-                    <div class="ml-2">Latest ads</div>
+                    <div class="ml-2 secondaryColor h6">Latest ads</div>
                     <div class="mr-2">
-                      <router-link :to="{ path: `ads` }"
-                        >View all ads</router-link
+                      <router-link
+                        :to="{ path: `ads` }"
+                        class="secondaryColor h6"
                       >
+                        View all ads
+                      </router-link>
                     </div>
                   </b-row>
                 </template>
-
-                <b-row>
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                  <AdItem />
-                </b-row>
+                <div class="row" v-if="isFiltered == false">
+                  <span v-for="(ad, index) in ads" :key="index">
+                    <AdItem :ad="ad" v-if="isFiltered == false" />
+                  </span>
+                </div>
+                <div class="row" v-if="isFiltered == true">
+                  <span v-for="(ad, index) in filters" :key="index">
+                    <AdItem :ad="ad" />
+                  </span>
+                </div>
               </b-card>
             </b-col>
           </b-row>
@@ -148,12 +74,83 @@
 
 <script>
 import AdItem from "../components/AdItemHome.vue";
+import HomeHarajs from "../components/HomeHarajs.vue";
 import LoadingIcon from "../components/LoadingIcon.vue";
+import Harajs from "../graphql/queries/taxonomies/harajs.gql";
+import Ads from "../graphql/queries/ads.gql";
+import States from "../graphql/queries/somaliaState.gql";
+import HomeSearch from "../components/HomeSearch.vue";
+
+let allHarajs = Harajs;
+let allAds = Ads;
+let allStates = States;
 
 export default {
-  components: { AdItem, LoadingIcon },
+  // eslint-disable-next-line vue/no-unused-components
+  components: { AdItem, LoadingIcon, HomeHarajs, HomeSearch },
   data() {
-    return { currentUserDetails: [], loading: 0 };
+    return {
+      selectedHaraj: null,
+      currentUserDetails: [],
+      loadingCatergories: 0,
+      harajs: [],
+      harajStyleTitle: "",
+      filters: null,
+      isFiltered: false,
+    };
+  },
+  apollo: {
+    ads: {
+      query: allAds,
+      loadingKey: "loadingCatergories",
+      variables() {
+        if (this.selectedHaraj != null) {
+          return {
+            valueName: this.selectedHaraj,
+            operator: "LIKE",
+          };
+        } else if (this.selectedHaraj == null) {
+          return {
+            valueName: "%%",
+            operator: "LIKE",
+          };
+        }
+      },
+
+      update(data) {
+        if (this.selectedHaraj != null) {
+          return data.ads.data;
+        } else {
+          return data.ads.data;
+        }
+      },
+    },
+    harajs: {
+      query: allHarajs,
+      loadingKey: "loadingCatergories",
+      update(data) {
+        return data;
+      },
+    },
+    states: {
+      query: allStates,
+      loadingKey: "loadingCatergories",
+      update(data) {
+        return data;
+      },
+    },
+  },
+
+  methods: {
+    getHaraj(haraj) {
+      this.harajStyleTitle = haraj;
+      this.selectedHaraj = haraj;
+      this.$apollo.queries.ads.refetch();
+    },
+    getAds(filteredAds) {
+      this.filters = filteredAds;
+      this.isFiltered = true;
+    },
   },
 };
 </script>
