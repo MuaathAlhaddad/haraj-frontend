@@ -28,7 +28,6 @@
                     id="input-1"
                     v-model="form.brand"
                     :options="brands"
-                    required
                   >
                   </b-form-select>
                 </b-form-group>
@@ -37,7 +36,6 @@
                     id="input-1"
                     v-model="form.model"
                     :options="modelsArray"
-                    required
                   ></b-form-select>
                 </b-form-group>
                 <b-form-group
@@ -48,7 +46,6 @@
                     id="input-1"
                     v-model="form.year"
                     :options="yearsArray"
-                    required
                   ></b-form-select>
                 </b-form-group>
               </template>
@@ -80,7 +77,9 @@
 
               <b-input-group class="mb-2">
                 <b-input-group-prepend is-text>
-                  <i class="fa fa-usd" aria-hidden="true"></i>
+                  <small class="secondaryColor">
+                    <i class="fas fa-dollar-sign"></i>
+                  </small>
                 </b-input-group-prepend>
                 <b-form-input
                   type="number"
@@ -262,22 +261,31 @@ export default {
     onSubmit(event) {
       event.preventDefault();
 
-      // eslint-disable-next-line no-unused-vars
-      const category = this.$props.harajs.find(
-        (element) => element.title == this.form.category
-      );
-      const brand = this.brandsObjects.level1.children.find(
-        (element) => element.title == this.form.brand
-      );
-      const type = this.modelsObjects.level2.children.find(
-        (element) => element.title == this.form.model
-      );
-      const year = this.yearsObjects.taxonomyContents.data.find(
-        (element) => element.title == this.form.year
-      );
+      if (this.form.category != null) {
+        const category = this.$props.harajs.find(
+          (element) => element.title == this.form.category
+        );
+        this.form.taxonomyContents.push(category.id);
+      }
+      if (this.form.brand != null) {
+        const brand = this.brandsObjects.level1.children.find(
+          (element) => element.title == this.form.brand
+        );
+        this.form.taxonomyContents.push(brand.id);
+      }
+      if (this.form.model != null) {
+        const model = this.modelsObjects.level2.children.find(
+          (element) => element.title == this.form.model
+        );
+        this.form.taxonomyContents.push(model.id);
+      }
+      if (this.form.year != null) {
+        const year = this.yearsObjects.taxonomyContents.data.find(
+          (element) => element.title == this.form.year
+        );
+        this.form.taxonomyContents.push(year.id);
+      }
 
-      this.form.taxonomyContents.push(category.id, brand.id, type.id, year.id);
-      console.log(this.form);
       this.$emit("passAdDetails", this.form);
     },
 

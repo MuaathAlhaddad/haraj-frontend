@@ -1,5 +1,7 @@
 query($operator: SQLOperator, $valueName: Mixed) {
   ads(
+    first: 100
+    orderBy: { column: CREATED_AT, order: DESC }
     taxonomyContents: { column: TITLE, operator: $operator, value: $valueName }
   ) {
     data {

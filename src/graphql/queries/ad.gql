@@ -11,6 +11,7 @@ query($operator: SQLOperator, $adID: Mixed) {
       }
     }
     user {
+      id
       name
       country {
         name

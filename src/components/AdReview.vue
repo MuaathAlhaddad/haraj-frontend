@@ -135,8 +135,8 @@ export default {
           variables: {
             body: this.review,
             star: this.star,
-            reviewerId: 1,
-            reviewable: 1,
+            reviewerId: this.user.id,
+            reviewable: this.$props.adData.user.id,
           },
         })
         // eslint-disable-next-line no-unused-vars

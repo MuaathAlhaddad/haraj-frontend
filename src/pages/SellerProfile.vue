@@ -81,7 +81,9 @@
                     v-bind="switchButton"
                     class="custom-size-button2"
                     v-bind:class="[
-                      switchButton == 0 ? 'conditionalBtn' : 'normalBtn',
+                      switchButton == 0
+                        ? 'primaryBackgroundColor'
+                        : 'levelCatergories',
                     ]"
                     v-on:click="product"
                     >Products</b-button
@@ -89,7 +91,9 @@
                   <b-button
                     class="custom-size-button2"
                     v-bind:class="[
-                      switchButton == 1 ? 'conditionalBtn' : 'normalBtn',
+                      switchButton == 1
+                        ? 'primaryBackgroundColor'
+                        : 'levelCatergories',
                     ]"
                     v-bind="switchButton"
                     v-on:click="review"

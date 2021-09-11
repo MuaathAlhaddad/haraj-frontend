@@ -28,10 +28,10 @@ query {
         price
         sku
         negotiable
-        warranty
-        favorited
+        # favorited
         created_at
         user {
+          id
           name
           country {
             code

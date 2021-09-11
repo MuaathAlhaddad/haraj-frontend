@@ -11,7 +11,6 @@
         <b-container
           class="bv-example-row mt-3 generalColorBrown background-main-div"
         >
-          {{ isFavorited }}
           <b-row>
             <b-col>
               <b-col class="mb-3 mt-4" col lg="4"
@@ -98,7 +97,7 @@
                       <router-link
                         :to="{
                           name: 'seller-profile',
-                          params: { userId: `{{ data.ad.user.id }}` },
+                          params: { userId: `{{ ad.ad.user.id }}` },
                         }"
                       >
                         {{ ad.ad.user.name }}

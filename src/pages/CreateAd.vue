@@ -62,14 +62,12 @@
             <b-card border-variant="dark" header="Notes">
               <b-card-text>
                 <ul>
-                  <li>Write a note</li>
-                  <li>Write a note</li>
-                  <li>Write a note</li>
-                  <li>Write a note</li>
-                  <li>Write a note</li>
-                  <li>Write a note</li>
-                </ul></b-card-text
-              >
+                  <li>All pictures attached for the same item.</li>
+                  <li>
+                    You have to promise that you will be pay a commission .
+                  </li>
+                </ul>
+              </b-card-text>
             </b-card>
           </b-col>
         </b-row>
@@ -87,6 +85,7 @@ import states from "../graphql/queries/somaliaState.gql";
 import Harajs from "../graphql/queries/taxonomies/harajs.gql";
 import CreateAd from "../graphql/mutations/createAd.gql";
 import store from "../store/Auth";
+import { mapGetters } from "vuex";
 
 //// store the gql data in variables
 const harajs = Harajs;
@@ -136,12 +135,12 @@ export default {
             description: this.details.description,
             price: parseFloat(this.details.price),
             negotiable: this.details.negotiable,
-            userId: 1,
+            userId: this.user.id,
             catergories: this.details.taxonomyContents,
           },
         })
-        .then((data) => {
-          console.log(data);
+        .then(() => {
+          this.$router.push(`/user/${this.user.id}`);
         })
         .catch((errors) => {
           console.log(errors);
@@ -160,6 +159,11 @@ export default {
       loadingKey: "loading",
       update: (data) => data,
     },
+  },
+  computed: {
+    ...mapGetters({
+      user: "Auth/user",
+    }),
   },
 };
 </script>

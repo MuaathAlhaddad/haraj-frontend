@@ -60,7 +60,9 @@
 
           <b-nav-text>
             <b-button variant="light" class="mr-3">
-              <span class="secondaryColor mr-1 h5">Ads </span>
+              <router-link :to="{ path: `/user/${user.id}` }">
+                <span class="secondaryColor mr-1 h5">Ads </span>
+              </router-link>
               <b-icon
                 icon="archive-fill"
                 class="primaryColor"
@@ -69,7 +71,11 @@
               ></b-icon>
             </b-button>
             <b-button variant="light" class="mr-3">
-              <span class="secondaryColor mr-1 h5">Favorite </span>
+              <router-link :to="{ path: `/user/${user.id}` }">
+                <span class="secondaryColor mr-1 h5"
+                  >Favorite
+                </span></router-link
+              >
               <b-icon
                 icon="heart-fill"
                 class="primaryColor"
@@ -78,7 +84,9 @@
               ></b-icon>
             </b-button>
             <b-button variant="light" class="mr-3">
-              <span class="secondaryColor mr-1 h5">Inbox </span>
+              <router-link :to="{ path: `/user/${user.id}` }">
+                <span class="secondaryColor mr-1 h5">Inbox </span></router-link
+              >
               <b-icon
                 icon="inboxes-fill"
                 class="primaryColor"
