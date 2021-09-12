@@ -145,7 +145,7 @@ export default {
     getHaraj(haraj) {
       this.harajStyleTitle = haraj;
       this.selectedHaraj = haraj;
-      console.log(this.selectedHaraj);
+      this.isFiltered = false;
       this.$apollo.queries.ads.refetch();
     },
     getAds(filteredAds) {

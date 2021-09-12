@@ -165,8 +165,4 @@ export default {
   margin-bottom: 100px;
   width: 100%;
 }
-.reviewRating {
-  background-color: #f5f5f5;
-  border: 0px solid #e4e7f5;
-}
 </style>

@@ -71,4 +71,8 @@ export default {
 .levelCatergories {
   background-color: #968077 !important;
 }
+.reviewRating {
+  background-color: #f5f5f5 !important;
+  border: 0px solid #e4e7f5 !important;
+}
 </style>

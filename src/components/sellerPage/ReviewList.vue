@@ -19,17 +19,24 @@
 
                   <b-row>
                     <b-col col lg="2">
-                      <h6 class="pb-2">Reviewer</h6>
+                      <h6 class="pb-2">{{ review.reviewer.name }}</h6>
                       <p>
-                        <i class="fa fa-clock-o" aria-hidden="true" />
-                        {{ review.created_at }}
+                        <i
+                          class="fas fa-clock generalColorBrown"
+                          aria-hidden="true"
+                        />
+                        <span style="font-size:12px;">
+                          {{ review.created_at }}</span
+                        >
                       </p>
                     </b-col>
                     <b-col>
-                      <i class="fa fa-star" aria-hidden="true" />
-                      <i class="fa fa-star" aria-hidden="true" />
-                      <i class="fa fa-star" aria-hidden="true" />
-                      <i class="fa fa-star" aria-hidden="true" />
+                      <b-form-rating
+                        v-model="review.star"
+                        class="primaryColor mr-2 reviewRating"
+                        inline
+                        disabled
+                      ></b-form-rating>
                     </b-col>
 
                     <b-col cols="12" md="auto">

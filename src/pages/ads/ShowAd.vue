@@ -97,10 +97,10 @@
                       <router-link
                         :to="{
                           name: 'seller-profile',
-                          params: { userId: `{{ ad.ad.user.id }}` },
+                          params: { sellerId: ad.ad.user.id },
                         }"
                       >
-                        {{ ad.ad.user.name }}
+                        {{ ad.ad.user.id }}
                       </router-link>
                     </p>
                     <b-row class="mb-3">

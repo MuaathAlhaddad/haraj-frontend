@@ -23,7 +23,7 @@
                   <router-link
                     :to="{
                       name: 'ad-show',
-                      params: { id: `${ad.id}` },
+                      params: { id: ad.id },
                     }"
                   >
                     {{ ad.title }}

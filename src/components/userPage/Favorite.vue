@@ -22,7 +22,7 @@
                   <router-link
                     :to="{
                       name: 'ad-show',
-                      params: { id: `${ad.id}` },
+                      params: { id: ad.id },
                     }"
                   >
                     {{ ad.ad.title }}
@@ -59,7 +59,6 @@
                       </b-col>
                     </b-row>
                     <br />
-                    {{ favorites }}
                     <b-row>
                       <b-col sm="6" class="col-8">
                         <small class="text-muted">

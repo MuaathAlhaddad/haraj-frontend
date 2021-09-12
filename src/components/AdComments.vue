@@ -48,7 +48,7 @@
             <router-link
               :to="{
                 name: 'user-profile',
-                params: { userId: `{{ comment.user.id }}` },
+                params: { id: `{{ comment.user.id }}` },
               }"
             >
               <h5 class="mt-0 secondaryColor">

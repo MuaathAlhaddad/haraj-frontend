@@ -2,7 +2,7 @@
   <!-- TOP ALIGNED (DEFAULT) -->
   <ApolloQuery
     :query="(gql) => UserDetails"
-    :variables="{ id: $route.params.id }"
+    :variables="{ id: $route.params.sellerId }"
   >
     <!-- TODO -->
 
@@ -78,24 +78,17 @@
               <b-col col lg="4" md="12" sm="12" xs="12">
                 <b-button-group>
                   <b-button
-                    v-bind="switchButton"
-                    class="custom-size-button2"
-                    v-bind:class="[
-                      switchButton == 0
-                        ? 'primaryBackgroundColor'
-                        : 'levelCatergories',
-                    ]"
+                    v-bind:class="
+                      switchButton == 0 ? 'primaryBackgroundColor' : 'normalBtn'
+                    "
                     v-on:click="product"
                     >Products</b-button
                   >
                   <b-button
                     class="custom-size-button2"
-                    v-bind:class="[
-                      switchButton == 1
-                        ? 'primaryBackgroundColor'
-                        : 'levelCatergories',
-                    ]"
-                    v-bind="switchButton"
+                    v-bind:class="
+                      switchButton == 1 ? 'primaryBackgroundColor' : 'normalBtn'
+                    "
                     v-on:click="review"
                     >Reviews</b-button
                   >

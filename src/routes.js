@@ -38,7 +38,7 @@ export default [
 
     },
     {
-        path: '/seller/:id',
+        path: '/seller/:sellerId',
         name: 'seller-profile',
         components: { default: SellerProfile },
 
