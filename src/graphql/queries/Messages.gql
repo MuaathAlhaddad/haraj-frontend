@@ -15,6 +15,7 @@ query($me: Mixed!, $you: Mixed!) {
   ) {
     data {
       body
+      seen_at
       created_at
       sender {
         id

@@ -1,0 +1,11 @@
+query($userId: ID!) {
+  user_comments: user(id: $userId) {
+    name
+    comments {
+      data {
+        seen_at
+        body
+      }
+    }
+  }
+}

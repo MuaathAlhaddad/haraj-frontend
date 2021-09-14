@@ -21,11 +21,11 @@
 
                     <div class="messages-box ">
                       <div class="list-group rounded-0">
-                        <div v-for="(sender, index) in senders" :key="index">
-                          <div v-if="user.id != sender.sender.id">
+                        <div v-for="(message, index) in senders" :key="index">
+                          <div v-if="user.id != message.sender.id">
                             <b-button
                               class="bg-light list-group-item list-group-item-action active text-white rounded-0"
-                              @click="openChat(sender.sender.id)"
+                              @click="openChat(message.sender.id)"
                             >
                               <div class="media ">
                                 <b-img
@@ -39,8 +39,16 @@
                                     class="d-flex align-items-center justify-content-between mb-1"
                                   >
                                     <h6 class="mb-0 secondaryColor">
-                                      {{ sender.sender.name }}
+                                      {{ message.sender.name }}
                                     </h6>
+                                    <b-badge
+                                      class="primaryBackgroundColor"
+                                      scale="0.1"
+                                      variant="dark"
+                                      v-if="message.seen_at == null"
+                                    >
+                                      New message
+                                    </b-badge>
                                   </div>
                                 </div>
                               </div>
@@ -106,7 +114,7 @@ export default {
           }, []);
         const senders = uniqueElementsBy(
           data.interacted_users.data,
-          (a, b) => a.sender.id == b.sender.id
+          (a, b) => a.sender.id == b.sender.id 
         );
         return senders;
       },

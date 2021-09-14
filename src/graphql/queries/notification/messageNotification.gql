@@ -1,16 +1,18 @@
 query($userId: Mixed!) {
-  interacted_users: messages(
-    where: {
-      OR: [
-        { column: FROM_ID, value: $userId }
-        { column: TO_ID, value: $userId }
-      ]
-    }
+  messages(
+    first: 10000
+    where: { column: TO_ID, value: $userId }
     orderBy: { column: CREATED_AT, order: ASC }
   ) {
     data {
+      body
       seen_at
+      created_at
       sender {
+        id
+        name
+      }
+      recipient {
         id
         name
       }

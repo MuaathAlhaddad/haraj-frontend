@@ -83,14 +83,20 @@
                 aria-hidden="true"
               ></b-icon>
             </b-button>
-            <b-button variant="light" class="mr-3">
-              <router-link :to="{ path: `/inbox` }">
-                <span class="secondaryColor mr-1 h5">Inbox </span>
-              </router-link>
+            <b-button
+              variant="light"
+              class="mr-3"
+              @click="$bvToast.show('example-toast')"
+            >
+              <span class="secondaryColor mr-1 h5">Inbox</span
+              ><b-badge class="messageNoti" scale="0.1" variant="dark"
+                >4
+              </b-badge>
               <b-icon
                 icon="inboxes-fill"
                 class="primaryColor"
                 scale="1.0"
+                animation="fade"
                 aria-hidden="true"
               ></b-icon>
             </b-button>
@@ -108,6 +114,21 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+    <b-toast
+      id="example-toast"
+      class="toastStyle"
+      title="New Notifications"
+      static
+      no-auto-hide
+    >
+      <router-link :to="{ path: `/inbox` }" v-if="(notificationCount) => 0">
+        <span class="secondaryColor mr-1 "
+          >You have a new message
+          <b-badge class="messageNoti" scale="0.1" variant="dark">> </b-badge>
+        </span>
+      </router-link>
+    </b-toast>
+    {{ commentsNoti }}
   </div>
 </template>
 <script>
@@ -131,6 +152,8 @@ export default {
     ...mapGetters({
       isAuth: "Auth/isAuth",
       user: "Auth/user",
+      notificationCount: "Notification/notificationCount",
+      commentsNoti: "Notification/commentsNoti",
     }),
   },
 };
@@ -138,5 +161,16 @@ export default {
 <style scoped>
 .add-post {
   width: 130px !important;
+}
+
+.messageNoti {
+  position: relatives;
+  left: 20px;
+  background-color: #ee9b7a;
+}
+.toastStyle {
+  position: absolute;
+  left: 60%;
+  top: 100px;
 }
 </style>
