@@ -100,7 +100,7 @@
                           params: { sellerId: ad.ad.user.id },
                         }"
                       >
-                        {{ ad.ad.user.id }}
+                        {{ ad.ad.user.name }}
                       </router-link>
                     </p>
                     <b-row class="mb-3">
@@ -112,22 +112,29 @@
                       </b-col>
                     </b-row>
                     <b-row class="mb-3">
-                      <b-col style="max-width: 20rem; " md="4" class="p-3"
-                        >Joined:
+                      <b-col style="max-width: 20rem; " md="4" class="p-3">
+                        Joined:
                       </b-col>
-                      <b-col style="max-width: 20rem; " md="4" class="p-3"
-                        >{{ ad.ad.user.created_at }}
+                      <b-col style="max-width: 20rem; " md="4" class="p-3">
+                        {{ ad.ad.user.created_at }}
                       </b-col>
                     </b-row>
                   </b-media>
                 </ul>
                 <hr />
-                <b-button block class="primaryBackgroundColor"
-                  >XXXXXX0325</b-button
+                <b-form-textarea
+                  id="textarea-default"
+                  v-model="message"
+                  placeholder="Type your message"
                 >
-                <b-button block variant="outline-danger"
-                  >Send a message</b-button
+                </b-form-textarea>
+                <b-button
+                  block
+                  class="mt-2 secondaryBackgroundColor"
+                  @click="sendMessage(ad.ad.user.id)"
                 >
+                  Send a message
+                </b-button>
               </b-card>
               <b-card
                 style="max-width: 20rem;"
@@ -240,6 +247,7 @@ import checkFavorite from "../../graphql/queries/checkFavorite.gql";
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
 import DeleteFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
+import SendMessage from "../../graphql/mutations/sendMessage.gql";
 import { mapGetters } from "vuex";
 
 const adData = adItem;
@@ -256,6 +264,7 @@ export default {
       isFavorited: null,
       routeParam: this.$route.params.id,
       favorite_id: null,
+      message: "",
     };
   },
 
@@ -299,6 +308,24 @@ export default {
           });
       }
     },
+    sendMessage(recipientId) {
+      this.$apollo
+        .mutate({
+          mutation: SendMessage,
+          variables: {
+            body: this.message,
+            senderId: this.user.id,
+            recipientId: recipientId,
+          },
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          this.error = true;
+          console.error(error);
+        });
+    },
     refreshComment() {
       this.$apollo.queries.ad.refetch();
     },
@@ -319,6 +346,9 @@ export default {
       },
 
       update(data) {
+        if (data.ad.user.id == this.user.id) {
+          return this.$router.push("/");
+        }
         this.commentsData = data.ad.comments.data;
         return data;
       },
@@ -341,7 +371,6 @@ export default {
       update(data) {
         if (data.favorite != null) {
           this.favorite_id = data.favorite.id;
-
           return true;
         }
         if (data.favorite == null) {

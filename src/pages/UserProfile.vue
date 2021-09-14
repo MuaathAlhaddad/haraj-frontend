@@ -62,12 +62,18 @@
                     class="button"
                     v-on:click="switchButton = 0"
                   >
-                    <b-icon
-                      icon="inboxes-fill"
-                      variant="info"
-                      aria-hidden="true"
-                    ></b-icon>
-                    Inbox
+                    <router-link
+                      :to="{ path: `/inbox` }"
+                      class="secondaryColor"
+                    >
+                      <b-icon
+                        icon="inboxes-fill"
+                        variant="info"
+                        aria-hidden="true"
+                      >
+                      </b-icon>
+                      Inbox
+                    </router-link>
                   </b-button>
                 </b-col>
               </b-row>

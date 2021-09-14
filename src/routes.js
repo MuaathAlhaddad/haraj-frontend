@@ -5,6 +5,7 @@ import UserProfile from './pages/UserProfile';
 import SellerProfile from './pages/SellerProfile';
 import Home from './pages/Home';
 import CreateAd from './pages/CreateAd'
+import InboxPage from './pages/InboxPage'
 import Signup from './pages/authPages/Signup';
 import Login from './pages/authPages/SignIn';
 
@@ -48,6 +49,14 @@ export default [
         path: '/create-ad',
         name: 'create-ad',
         components: { default: CreateAd },
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/inbox',
+        name: 'inbox',
+        components: { default: InboxPage },
         meta: {
             requiresAuth: true
         }

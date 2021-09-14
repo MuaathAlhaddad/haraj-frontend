@@ -1,0 +1,18 @@
+mutation($body: String!, $senderId: ID!, $recipientId: ID!) {
+  createMessage(
+    input: {
+      body: $body
+      sender: { connect: $senderId }
+      recipient: { connect: $recipientId }
+    }
+  ) {
+    id
+    body
+    sender {
+      name
+    }
+    recipient {
+      name
+    }
+  }
+}

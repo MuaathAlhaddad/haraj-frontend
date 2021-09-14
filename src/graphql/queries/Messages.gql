@@ -1,0 +1,29 @@
+query($me: Mixed!, $you: Mixed!) {
+  messages(
+    first: 10000
+    where: {
+      OR: [
+        {
+          AND: [{ column: FROM_ID, value: $you }, { column: TO_ID, value: $me }]
+        }
+        {
+          AND: [{ column: FROM_ID, value: $me }, { column: TO_ID, value: $you }]
+        }
+      ]
+    }
+    orderBy: { column: CREATED_AT, order: ASC }
+  ) {
+    data {
+      body
+      created_at
+      sender {
+        id
+        name
+      }
+      recipient {
+        id
+        name
+      }
+    }
+  }
+}
