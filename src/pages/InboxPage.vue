@@ -69,8 +69,10 @@
                 </div>
               </div>
             </div>
-          </div> </b-card
-      ></b-container>
+          </div>
+        </b-card>
+        {{ senders }}
+      </b-container>
     </template>
   </div>
 </template>
@@ -114,7 +116,7 @@ export default {
           }, []);
         const senders = uniqueElementsBy(
           data.interacted_users.data,
-          (a, b) => a.sender.id == b.sender.id 
+          (a, b) => a.sender.id == b.sender.id && a.seen_at === b.seen_at
         );
         return senders;
       },

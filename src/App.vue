@@ -42,6 +42,10 @@ export default {
       loadingKey: "loading",
 
       update(data) {
+        if (data.currentUser == null) {
+          return this.currentUser(null);
+        }
+
         this.currentUser(data.currentUser);
         this.userId = data.currentUser.id;
         this.skiped = false;
