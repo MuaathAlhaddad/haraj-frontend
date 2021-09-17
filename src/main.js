@@ -11,11 +11,14 @@ import VueRouter from 'vue-router'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Routes from './routes'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {fas} from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
-import { faVuejs } from '@fortawesome/free-brands-svg-icons';
+import {faVuejs} from '@fortawesome/free-brands-svg-icons';
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload)
 library.add(faVuejs)
 
 library.add(fas)

@@ -137,6 +137,7 @@ export default {
             negotiable: this.details.negotiable,
             userId: this.user.id,
             catergories: this.details.taxonomyContents,
+            attachments: this.photos
           },
         })
         .then(() => {

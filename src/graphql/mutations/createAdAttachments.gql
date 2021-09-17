@@ -1,0 +1,33 @@
+mutation(
+    $type: String
+    $path: String
+    $disk_name: String
+    $file_name: String
+    $is_thumbnail: Boolean
+    $ad_id: ID,
+) {
+    createAttachment(
+        input: {
+            type: $type
+            path: $path
+            disk_name: $disk_name
+            file_name: $file_name
+            thumbnail: $is_thumbnail
+            attachable: { connect: { type: ad, id: $ad_id } }
+            body: $body
+        }
+    ) {
+        id
+        type
+        path
+        file_name
+        thumbnail
+        attachable {
+            __typename
+            ... on Ad {
+                id
+                title
+            }
+        }
+    }
+}
