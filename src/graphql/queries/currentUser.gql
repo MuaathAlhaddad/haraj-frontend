@@ -29,12 +29,25 @@ query {
             name
           }
         }
+
         comments {
           data {
             body
             user {
               name
             }
+          }
+        }
+        attachments {
+          data {
+            id
+            path
+            attachable_id
+            attachable_type
+            type
+            disk_name
+            file_name
+            thumbnail
           }
         }
         reports {
@@ -61,6 +74,18 @@ query {
           title
           price
           created_at
+          attachments {
+            data {
+              id
+              path
+              attachable_id
+              attachable_type
+              type
+              disk_name
+              file_name
+              thumbnail
+            }
+          }
           user {
             name
             state {

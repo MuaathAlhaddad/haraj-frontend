@@ -16,7 +16,7 @@
                 class="mr-3 align-self-start"
                 width="110px"
                 height="110px"
-                :src="ad.attachments.data[0].path"
+                :src="ad.ad.attachments.data[0].path"
               />
               <!-- </router-link> -->
               <div class="media-body">

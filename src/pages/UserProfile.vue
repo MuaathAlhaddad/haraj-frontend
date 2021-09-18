@@ -3,6 +3,7 @@
     <b-container class="bv-example-row mt-5">
       <b-row>
         <!-- User's ads-->
+
         <b-col cols="12" lg="3" xl="3" md="3" xs="12" sm="12" class="mr-4">
           <div>
             <b-card class="user-small-card" bg-variant="light">
@@ -253,6 +254,7 @@ import store from "../store/Auth";
 import { mapGetters } from "vuex";
 
 export default {
+  // eslint-disable-next-line vue/no-unused-components
   components: { Favorite, Ads },
   data() {
     return {
