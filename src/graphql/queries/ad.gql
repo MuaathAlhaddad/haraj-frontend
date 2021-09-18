@@ -1,5 +1,6 @@
 query($operator: SQLOperator, $adID: Mixed) {
   ad(where: { column: ID, operator: $operator, value: $adID }) {
+    id
     title
     description
     price
@@ -14,13 +15,16 @@ query($operator: SQLOperator, $adID: Mixed) {
       id
       name
       country {
+        id
         name
       }
       state {
+        id
         name
       }
       reviews {
         data {
+          id
           body
           star
 
@@ -30,8 +34,10 @@ query($operator: SQLOperator, $adID: Mixed) {
     }
     comments {
       data {
+        id
         body
         user {
+          id
           name
         }
         created_at
@@ -39,11 +45,13 @@ query($operator: SQLOperator, $adID: Mixed) {
     }
     taxonomyContents {
       data {
+        id
         title
       }
     }
     attachments {
       data {
+        id
         path
         attachable_id
         attachable_type

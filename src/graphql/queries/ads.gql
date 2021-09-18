@@ -14,22 +14,27 @@ query($operator: SQLOperator, $valueName: Mixed) {
       created_at
       taxonomyContents {
         data {
+          id
           title
         }
       }
       user {
+        id
         name
         country {
+          id
           code
           name
           phone_code
         }
         state {
+          id
           name
         }
       }
       attachments {
         data {
+          id
           path
           attachable_id
           attachable_type
@@ -41,14 +46,17 @@ query($operator: SQLOperator, $valueName: Mixed) {
       }
       comments {
         data {
+          id
           body
           user {
+            id
             name
           }
         }
       }
       reports {
         data {
+          id
           name
           type
           created_at
