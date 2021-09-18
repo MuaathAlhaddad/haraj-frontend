@@ -15,7 +15,9 @@
               <!-- <router-link :to="{ path: `ads/{{ad.id}}` }"> -->
               <img
                 class="mr-3 align-self-start"
-                src="https://source.unsplash.com/random/90x93"
+                width="110px"
+                height="110px"
+                :src="ad.attachments.data[0].path"
               />
               <!-- </router-link> -->
               <div class="media-body">

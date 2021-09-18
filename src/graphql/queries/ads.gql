@@ -1,7 +1,7 @@
 query($operator: SQLOperator, $valueName: Mixed) {
   ads(
+    orderBy: { column: ID, order: DESC }
     first: 100
-    orderBy: { column: CREATED_AT, order: DESC }
     taxonomyContents: { column: TITLE, operator: $operator, value: $valueName }
   ) {
     data {
@@ -26,6 +26,17 @@ query($operator: SQLOperator, $valueName: Mixed) {
         }
         state {
           name
+        }
+      }
+      attachments {
+        data {
+          path
+          attachable_id
+          attachable_type
+          type
+          disk_name
+          file_name
+          thumbnail
         }
       }
       comments {

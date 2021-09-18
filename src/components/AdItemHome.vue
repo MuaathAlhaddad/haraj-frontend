@@ -2,7 +2,7 @@
   <div>
     <div class="col">
       <b-card
-        img-src="https://placekitten.com/500/350"
+        :img-src="ad.attachments.data[0].path"
         img-alt="Image"
         img-top
         style="width: 15rem; height: 25rem; color:black"

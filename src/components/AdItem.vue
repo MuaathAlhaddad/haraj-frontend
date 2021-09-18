@@ -4,7 +4,9 @@
       <router-link :to="{ path: `ads/${adData.id}` }">
         <img
           class="mr-3 align-self-start"
-          src="https://source.unsplash.com/random/90x93"
+          width="110px"
+          height="110px"
+          :src="adData.attachments.data[0].path"
         />
       </router-link>
 

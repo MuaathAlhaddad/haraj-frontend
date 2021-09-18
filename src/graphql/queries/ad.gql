@@ -42,5 +42,16 @@ query($operator: SQLOperator, $adID: Mixed) {
         title
       }
     }
+    attachments {
+      data {
+        path
+        attachable_id
+        attachable_type
+        type
+        disk_name
+        file_name
+        thumbnail
+      }
+    }
   }
 }

@@ -43,32 +43,28 @@
                     img-width="1024"
                     img-height="480"
                     style="text-shadow: 1px 1px 2px #333;"
+                    fade
                   >
-                    <!-- Text slides with image -->
-                    <b-carousel-slide
-                      img-src="https://picsum.photos/1024/480/?image=52"
-                    ></b-carousel-slide>
-
-                    <!-- Slides with custom text -->
-                    <b-carousel-slide
-                      img-src="https://picsum.photos/1024/480/?image=54"
+                    <!-- <b-carousel-slide
+                      v-for="(image, index) in ad.ad.attachments.data"
+                      :key="index"
+                      :img-src="image.path"
                     >
-                    </b-carousel-slide>
-
-                    <!-- Slides with image only -->
-                    <b-carousel-slide
-                      img-src="https://picsum.photos/1024/480/?image=58"
-                    ></b-carousel-slide>
+                    </b-carousel-slide> -->
+                    <!-- Text slides with image -->
 
                     <!-- Slides with img slot -->
                     <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-                    <b-carousel-slide>
+                    <b-carousel-slide
+                      v-for="(image, index) in ad.ad.attachments.data"
+                      :key="index"
+                    >
                       <template #img>
                         <img
                           class="d-block img-fluid w-100"
-                          width="1024"
-                          height="480"
-                          src="https://picsum.photos/1024/480/?image=55"
+                          style="width:1024px !important;
+                          height:480px !important"
+                          :src="image.path"
                           alt="image slot"
                         />
                       </template>
@@ -346,9 +342,6 @@ export default {
       },
 
       update(data) {
-        if (data.ad.user.id == this.user.id) {
-          return this.$router.push("/");
-        }
         this.commentsData = data.ad.comments.data;
         return data;
       },
