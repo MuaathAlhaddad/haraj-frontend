@@ -5,22 +5,24 @@
         <b-card-text>
           <div>
             <!--       test     -->
-            <div id="my-strictly-unique-vue-upload-multiple-image" style="display: flex; justify-content: center;">
+            <div
+              id="my-strictly-unique-vue-upload-multiple-image"
+              style="display: flex; justify-content: center;"
+            >
               <vue-upload-multiple-image
-                  @upload-success="uploadImageSuccess"
-                  @before-remove="beforeRemove"
-                  @edit-image="editImage"
-                  :data-images="images"
-                  show-primary
-                  idUpload="myIdUpload"
-                  accept="image/*"
-                  editUpload="myIdEdit"
-                  drag-text="Drag and drop"
-                  browse-text="upload images"
-                  primary-text="success"
-                  drop-text="Drag and drop"
-                  mark-is-primary-text="mark is primary text"
-
+                @upload-success="uploadImageSuccess"
+                @before-remove="beforeRemove"
+                @edit-image="editImage"
+                :data-images="images"
+                show-primary
+                idUpload="myIdUpload"
+                accept="image/*"
+                editUpload="myIdEdit"
+                drag-text="Drag and drop"
+                browse-text="upload images"
+                primary-text="success"
+                drop-text="Drag and drop"
+                mark-is-primary-text="mark is primary text"
               ></vue-upload-multiple-image>
             </div>
             <!--       test     -->
@@ -46,16 +48,17 @@
           >
         </div>
       </b-card>
+      {{ photos }}
     </b-container>
   </b-col>
 </template>
 
 <script>
 // import AlertErorr from "../AlertErorr.vue";
-import VueUploadMultipleImage from 'vue-upload-multiple-image';
+import VueUploadMultipleImage from "vue-upload-multiple-image";
 
 export default {
-  components: {VueUploadMultipleImage},
+  components: { VueUploadMultipleImage },
   data() {
     return {
       images: [],
@@ -65,40 +68,40 @@ export default {
         DOCUMENT: "document",
         AUDIO: "audio",
         VIDEO: "video",
-        OTHERS: "others"
+        OTHERS: "others",
       },
       photo: {
-        type: '',
-        path: '',
-        disk_name: '',
-        file_name: '',
-        thumbnail: false
+        type: "PHOTO",
+        path: "",
+        disk_name: "",
+        file_name: "",
+        thumbnail: false,
       },
       alert: null,
     };
   },
   methods: {
     uploadImageSuccess(formData, index, fileList) {
-      console.log('data', formData, index, fileList)
+      console.log("data", formData, index, fileList);
 
-      this.photo.type = this.AttachmentTypes.PHOTO;
       this.photo.path = fileList[index].path;
       this.photo.file_name = fileList[index].name;
 
       this.photos.push(this.photo);
-
     },
     beforeRemove(index, done, fileList) {
-      console.log('index', index, fileList)
-      var r = confirm("remove image")
+      console.log("index", index, fileList);
+      var r = confirm("remove image");
       if (r == true) {
-        done()
+        done();
       }
     },
     editImage(formData, index, fileList) {
-      console.log('edit data', formData, index, fileList)
+      console.log("edit data", formData, index, fileList);
     },
     submitPhotos() {
+      console.log(this.photos);
+
       if (this.photos == null) {
         this.alert = true;
         console.log("Photos should not be not");
@@ -126,7 +129,7 @@ export default {
 }
 
 #my-strictly-unique-vue-upload-multiple-image {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -134,7 +137,8 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 

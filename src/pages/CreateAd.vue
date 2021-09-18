@@ -120,11 +120,11 @@ export default {
       console.log(data);
     },
     addPhotos(data) {
-      this.photos = data.name;
+      this.photos = data;
       this.switchButton = 2;
     },
     postAd() {
-      this.details["photos"] = this.photos;
+      console.log(this.photos);
       this.$apollo
         .mutate({
           // Query
@@ -137,10 +137,11 @@ export default {
             negotiable: this.details.negotiable,
             userId: this.user.id,
             catergories: this.details.taxonomyContents,
-            attachments: this.photos
+            photos: this.photos,
           },
         })
-        .then(() => {
+        .then((data) => {
+          console.log(data);
           this.$router.push(`/user/${this.user.id}`);
         })
         .catch((errors) => {

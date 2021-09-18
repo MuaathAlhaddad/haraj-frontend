@@ -5,7 +5,7 @@ mutation(
   $negotiable: Boolean
   $userId: ID!
   $catergories: [ID!]
-  $photos: [String!]
+  $photos: [CreateAttachmentHasManyInputs]!
 ) {
   createAd(
     input: {
@@ -15,7 +15,7 @@ mutation(
       negotiable: $negotiable
       user: { connect: $userId }
       taxonomyContents: { connect: $catergories }
-      attachments: { create: $photos}
+      attachments: { connect: [12], create: $photos }
     }
   ) {
     id
