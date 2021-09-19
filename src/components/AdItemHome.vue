@@ -4,8 +4,10 @@
       <b-card
         :img-src="ad.attachments.data[0].path"
         img-alt="Image"
+        img-height="150"
+        img-width="100"
         img-top
-        style="width: 15rem; height: 25rem; color:black"
+        style="width: 15rem; height: 25rem ; color:black"
       >
         <b-card-text>
           <b-row class="d-flex justify-content-between mx-1">

@@ -48,7 +48,6 @@
           >
         </div>
       </b-card>
-      {{ photos }}
     </b-container>
   </b-col>
 </template>

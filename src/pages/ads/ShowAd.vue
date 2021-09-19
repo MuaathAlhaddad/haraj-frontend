@@ -36,6 +36,7 @@
                 <div>
                   <b-carousel
                     id="carousel-1"
+                    v-model="slide"
                     :interval="4000"
                     controls
                     indicators
@@ -43,34 +44,26 @@
                     img-width="1024"
                     img-height="480"
                     style="text-shadow: 1px 1px 2px #333;"
-                    fade
+                    @sliding-start="onSlideStart"
+                    @sliding-end="onSlideEnd"
                   >
-                    <!-- <b-carousel-slide
-                      v-for="(image, index) in ad.ad.attachments.data"
-                      :key="index"
-                      :img-src="image.path"
-                    >
-                    </b-carousel-slide> -->
-                    <!-- Text slides with image -->
-
-                    <!-- Slides with img slot -->
-                    <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-                    <b-carousel-slide
+                    <span
                       v-for="(image, index) in ad.ad.attachments.data"
                       :key="index"
                     >
-                      <template #img>
-                        <img
-                          class="d-block img-fluid w-100"
-                          style="width:1024px !important;
-                          height:480px !important"
-                          :src="image.path"
-                          alt="image slot"
-                        />
-                      </template>
-                    </b-carousel-slide>
-
-                    <!-- Slide with blank fluid image to maintain slide aspect ratio -->
+                      <b-carousel-slide>
+                        <template #img>
+                          <img
+                            class="d-block img-fluid w-100"
+                            width="1024"
+                            height="480"
+                            style="width:1024px !important;height:350px !important"
+                            :src="image.path"
+                            alt="image slot"
+                          />
+                        </template>
+                      </b-carousel-slide>
+                    </span>
                   </b-carousel>
                 </div>
               </b-col>
@@ -253,6 +246,8 @@ export default {
   components: { Review, Details, Comment, LoadingIcon },
   data() {
     return {
+      slide: 0,
+      sliding: null,
       ad: [],
       commentsData: [],
       switchButton: "0",
@@ -265,6 +260,15 @@ export default {
   },
 
   methods: {
+    // eslint-disable-next-line no-unused-vars
+    onSlideStart(slide) {
+      this.sliding = true;
+    },
+    // eslint-disable-next-line no-unused-vars
+    onSlideEnd(slide) {
+      this.sliding = false;
+    },
+
     favoriteAd() {
       if (this.user == null) {
         return this.$router.push("/login");
