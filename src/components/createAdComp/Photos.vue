@@ -61,32 +61,15 @@ export default {
   data() {
     return {
       images: [],
-      photos: [],
-      AttachmentTypes: {
-        PHOTO: "photo",
-        DOCUMENT: "document",
-        AUDIO: "audio",
-        VIDEO: "video",
-        OTHERS: "others",
-      },
-      photo: {
-        type: "PHOTO",
-        path: "",
-        disk_name: "",
-        file_name: "",
-        thumbnail: false,
-      },
+
       alert: null,
+      fileList: [],
     };
   },
   methods: {
     uploadImageSuccess(formData, index, fileList) {
       console.log("data", formData, index, fileList);
-
-      this.photo.path = fileList[index].path;
-      this.photo.file_name = fileList[index].name;
-
-      this.photos.push(this.photo);
+      this.fileList = fileList;
     },
     beforeRemove(index, done, fileList) {
       console.log("index", index, fileList);
@@ -97,15 +80,25 @@ export default {
     },
     editImage(formData, index, fileList) {
       console.log("edit data", formData, index, fileList);
+      this.fileList = fileList;
     },
     submitPhotos() {
-      console.log(this.photos);
-
-      if (this.photos == null) {
+      var photos = [];
+      for (let index = 0; index < this.fileList.length; index++) {
+        let photo = new Object();
+        photo.file_name = this.fileList[index].name;
+        photo.path = this.fileList[index].path;
+        photo.type = "PHOTO";
+        photo.disk_name = "";
+        photo.thumbnail = false;
+        photos[index] = photo;
+      }
+      console.log(photos);
+      if (photos.length == 0) {
         this.alert = true;
         console.log("Photos should not be not");
       } else {
-        this.$emit("passPhotos", this.photos);
+        this.$emit("passPhotos", photos);
       }
     },
   },
