@@ -2,9 +2,11 @@
   <b-col cols="12" lg="8" xl="8" sm="12" md="8" class="user-info-div">
     <div class="m-3">
       <h4 class="text-center">
-        <b-icon icon="archive-fill" font-scale="0.9"> </b-icon>
+        <b-icon icon="archive-fill" class="primaryColor" font-scale="0.9">
+        </b-icon>
         My ads
-        <b-icon icon="archive-fill" font-scale="0.9"> </b-icon>
+        <b-icon icon="archive-fill" class="primaryColor" font-scale="0.9">
+        </b-icon>
       </h4>
 
       <hr />

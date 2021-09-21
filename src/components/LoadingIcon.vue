@@ -4,7 +4,7 @@
       icon="circle-fill"
       animation="throb"
       font-scale="6"
-      class="generalColorOrange"
+      class="primaryColor"
     ></b-icon>
   </b-col>
 </template>

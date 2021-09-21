@@ -21,7 +21,7 @@
       </b-col>
       <b-col v-if="user">
         <div class="d-flex justify-content-end row-hl">
-          <b-button size="sm" class="BrownBackground" @click="addComment"
+          <b-button size="sm" class="BrownBackground " @click="addComment"
             >Submit Comment</b-button
           >
         </div>
@@ -32,7 +32,7 @@
           ><h4 class="generalColorBrown">Comments</h4></b-col
         >
       </div>
-      <div v-for="(comment, index) in adData" :key="index">
+      <div v-for="(comment, index) in adData.ad.comments.data" :key="index">
         <b-card>
           <b-media>
             <template #aside>
@@ -51,10 +51,28 @@
                 params: { id: `{{ comment.user.id }}` },
               }"
             >
-              <h5 class="mt-0 secondaryColor">
+              <span
+                class="mt-0 h5 secondaryColor hoverButton"
+                :style="
+                  comment.user.id == adData.ad.user.id
+                    ? 'background-color:#fc7843; border-radius: 15px 50px; '
+                    : ''
+                "
+              >
                 {{ comment.user.name }}
-              </h5></router-link
-            >
+                <b-badge
+                  pill
+                  class="secondaryBackgroundColor"
+                  v-if="comment.user.id == adData.ad.user.id"
+                  :style="
+                    comment.user.id == adData.ad.user.id
+                      ? 'border-radius: 15px 50px; '
+                      : ''
+                  "
+                  >OWNER</b-badge
+                >
+              </span>
+            </router-link>
 
             <p>
               <i class="fas fa-clock generalColorBrown" aria-hidden="true" />

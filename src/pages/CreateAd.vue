@@ -143,6 +143,7 @@ export default {
         .then((data) => {
           console.log(data);
           this.$router.push(`/user/${this.user.id}`);
+          window.location.reload();
         })
         .catch((errors) => {
           console.log(errors);

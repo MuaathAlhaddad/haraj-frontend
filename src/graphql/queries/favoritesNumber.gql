@@ -1,0 +1,9 @@
+query($operator: SQLOperator, $adID: Mixed) {
+  favorites(
+    where: { column: FAVORITEABLE_ID, operator: $operator, value: $adID }
+  ) {
+    data {
+      id
+    }
+  }
+}

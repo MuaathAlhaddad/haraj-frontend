@@ -4,7 +4,8 @@ import Auth from './Auth'
 import Notification from './modules/notification.js'
 Vue.use(Vuex);
 
-const debug = process.env.NODE_ENV !== 'production'
+// const debug = process.env.NODE_ENV !== 'production'
+export const strict = false
 
 export default new Vuex.Store({
     state: {
@@ -16,7 +17,7 @@ export default new Vuex.Store({
         Auth,
         Notification
     },
-    strict: debug,
+    // strict: debug,
 })
 
 

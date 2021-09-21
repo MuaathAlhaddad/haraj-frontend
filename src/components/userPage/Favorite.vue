@@ -9,8 +9,16 @@
       <hr />
       <b-row>
         <b-col cols="12" lg="12" xl="12" md="12" sm="12" class="">
-          <div v-for="(ad, index) in favorites" :key="index">
-            <div class="media mt-2 p-2 bg-light" :key="componentKey">
+          <div v-for="(ad, index) in user.favorites.data" :key="index">
+            <b-button variant="primary" disabled v-if="loadingFav">
+              <b-spinner small type="grow"></b-spinner>
+              Loading...
+            </b-button>
+            <div
+              class="media mt-2 p-2 bg-light"
+              :key="componentKey"
+              v-if="loadingFav == false"
+            >
               <!-- <router-link :to="{ path: `ads/{{ad.id}}` }"> -->
               <img
                 class="mr-3 align-self-start"
@@ -94,13 +102,13 @@
 
 <script>
 import unFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
+import { mapGetters } from "vuex";
+
 export default {
-  props: ["favoritesAds", "user"],
   data() {
     return {
       componentKey: 0,
-
-      favorites: this.$props.user.favorites.data,
+      loadingFav: false,
       duration: {
         days: null,
         hours: null,
@@ -111,8 +119,9 @@ export default {
     };
   },
   methods: {
-    unFavorited(ad_id) {
-      this.$apollo
+    async unFavorited(ad_id) {
+      this.loadingFav = true;
+      await this.$apollo
         .mutate({
           mutation: unFavoriteAd,
           variables: {
@@ -123,7 +132,11 @@ export default {
         .then((data) => {
           this.componentKey += 1;
 
-          this.favorites.splice(this.favorites.indexOf(ad_id), 1);
+          this.user.favorites.data.splice(
+            this.user.favorites.data.indexOf(ad_id),
+            1
+          );
+          this.loadingFav = false;
         })
         .catch((errors) => {
           console.log(errors);
@@ -149,6 +162,11 @@ export default {
         self.duration.secs = Math.floor((duration % (1000 * 60)) / 1000);
       }, 5000);
     },
+  },
+  computed: {
+    ...mapGetters({
+      user: "Auth/user",
+    }),
   },
 };
 </script>

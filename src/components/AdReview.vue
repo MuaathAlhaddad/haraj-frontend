@@ -2,7 +2,7 @@
   <div>
     <b-container class="bv-example-row">
       <b-col v-if="user" class="mt-4">
-        <b-media>
+        <b-media v-if="adData.user.id !== user.id">
           <template #aside>
             <b-img
               blank
@@ -21,7 +21,10 @@
       </b-col>
 
       <b-col v-if="user">
-        <div class="d-flex justify-content-end row-hl">
+        <div
+          class="d-flex justify-content-end row-hl"
+          v-if="adData.user.id !== user.id"
+        >
           <b-form-rating
             v-model="star"
             class="primaryColor mr-2"
@@ -58,7 +61,7 @@
 
                   <b-row>
                     <b-col col lg="2">
-                      <h6 class="pb-2"></h6>
+                      <h6 class="pb-2">{{ review.reviewer.name }}</h6>
                       <p>
                         <i
                           class="fas fa-clock generalColorBrown"

@@ -25,7 +25,21 @@
 
               <b-row class="mb-3">
                 <b-col>
-                  <b-col class="m-1">Details like likes date of post</b-col>
+                  <b-col class="m-1">
+                    {{ countAdFav }} <span class="mr-2">likes</span>
+
+                    <b-icon
+                      icon="heart-fill"
+                      variant="danger"
+                      v-on:click="favoriteAd"
+                      scale="1.3"
+                    >
+                    </b-icon>
+                  </b-col>
+                </b-col>
+                <b-col class="m-1" col lg="4"
+                  >Post Date:
+                  <span class="text-info">{{ ad.ad.create_at }}</span>
                 </b-col>
                 <b-col class="m-1" col lg="4"
                   >Price:
@@ -84,6 +98,7 @@
                       Posted by <br />
 
                       <router-link
+                        class="hoverButton primaryColor"
                         :to="{
                           name: 'seller-profile',
                           params: { sellerId: ad.ad.user.id },
@@ -111,19 +126,23 @@
                   </b-media>
                 </ul>
                 <hr />
-                <b-form-textarea
-                  id="textarea-default"
-                  v-model="message"
-                  placeholder="Type your message"
-                >
-                </b-form-textarea>
-                <b-button
-                  block
-                  class="mt-2 secondaryBackgroundColor"
-                  @click="sendMessage(ad.ad.user.id)"
-                >
-                  Send a message
-                </b-button>
+                <div v-if="user">
+                  <b-form-textarea
+                    id="textarea-default"
+                    v-model="message"
+                    placeholder="Type your message"
+                    v-if="ad.ad.user.id != user.id"
+                  >
+                  </b-form-textarea>
+                  <b-button
+                    block
+                    class="mt-2 secondaryBackgroundColor"
+                    v-if="ad.ad.user.id != user.id"
+                    @click="sendMessage(ad.ad.user.id)"
+                  >
+                    Send a message
+                  </b-button>
+                </div>
               </b-card>
               <b-card
                 style="max-width: 20rem;"
@@ -143,24 +162,37 @@
             >
               Report <i class="fa fa-flag" aria-hidden="true"></i>
             </b-button>
-            <b-button
-              class="px-5 py-2 mr-1 custom-size-button1"
-              rounded
-              variant="light"
+            <a
+              :href="`https://wa.me/${ad.ad.user.phone_no}`"
+              target="_blank"
+              class="button"
             >
-              WhatsApp <i class="fa fa-whatsapp" aria-hidden="true"></i>
-            </b-button>
+              <b-button
+                class="px-5 py-2 mr-1 custom-size-button1"
+                rounded
+                variant="light"
+              >
+                WhatsApp
+                <i
+                  class="fab fa-whatsapp me-2"
+                  style="color: #25d366;"
+                ></i> </b-button
+            ></a>
             <b-button
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
+              @click="shareButtons = !shareButtons"
               >Share <i class="fa fa-share-alt" aria-hidden="true"></i>
             </b-button>
+
             <b-button
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
-              >Favorite
+              v-if="loadingFav == false"
+            >
+              Favorite
               <b-icon
                 icon="heart-fill"
                 v-bind:variant="isFavorited ? 'danger' : ''"
@@ -172,8 +204,16 @@
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
-              >Message <i class="fa fa-comment" aria-hidden="true"></i>
+              v-if="loadingFav"
+            >
+              <b-spinner small type="grow" class="primaryColor"></b-spinner>
             </b-button>
+          </div>
+          <hr />
+        </b-container>
+        <b-container class="bv-example-row mt-3">
+          <div class="text-center">
+            <ShareSocialMedia :ad="ad" v-if="shareButtons" />
           </div>
           <hr />
         </b-container>
@@ -216,9 +256,10 @@
           v-on:userReview="refreshReview($event)"
           :routeParam="routeParam"
         />
+
         <Comment
           v-if="switchButton == 2"
-          :adData="ad.ad.comments.data"
+          :adData="ad"
           :routeParam="routeParam"
           v-on:userComment="refreshComment($event)"
         />
@@ -229,23 +270,27 @@
 
 <script>
 import Details from "../../components/AdDetails.vue";
+import ShareSocialMedia from "../../components/ShareSocialMedia.vue";
 import Review from "../../components/AdReview.vue";
 import Comment from "../../components/AdComments.vue";
 import adItem from "../../graphql/queries/ad.gql";
+import FavouriteCount from "../../graphql/queries/favoritesNumber.gql";
 import checkFavorite from "../../graphql/queries/checkFavorite.gql";
 import LoadingIcon from "../../components/LoadingIcon.vue";
 import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
 import DeleteFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
 import SendMessage from "../../graphql/mutations/sendMessage.gql";
 import { mapGetters } from "vuex";
-
 const adData = adItem;
 const isAdFavorited = checkFavorite;
+const favoritesNumber = FavouriteCount;
 
 export default {
-  components: { Review, Details, Comment, LoadingIcon },
+  components: { Review, Details, Comment, LoadingIcon, ShareSocialMedia },
   data() {
     return {
+      loadingFav: false,
+      shareButtons: false,
       slide: 0,
       sliding: null,
       ad: [],
@@ -270,6 +315,7 @@ export default {
     },
 
     favoriteAd() {
+      this.loadingFav = true;
       if (this.user == null) {
         return this.$router.push("/login");
       }
@@ -284,14 +330,15 @@ export default {
           })
           .then((data) => {
             this.favorite_id = data.data.createFavorite.id;
-
             this.isFavorited = true;
+            this.loadingFav = false;
           })
           .catch((error) => {
             this.error = true;
             console.error(error);
           });
       } else if (this.isFavorited) {
+        this.loadingFav = true;
         this.$apollo
           .mutate({
             mutation: DeleteFavoriteAd,
@@ -301,6 +348,7 @@ export default {
           })
           .then(() => {
             this.isFavorited = false;
+            this.loadingFav = false;
           })
           .catch((error) => {
             this.error = true;
@@ -335,6 +383,25 @@ export default {
   },
   mounted() {},
   apollo: {
+    countAdFav: {
+      query: favoritesNumber,
+      loadingKey: "loadingAd",
+      variables() {
+        return {
+          adID: this.routeParam,
+          operator: "EQ",
+        };
+      },
+
+      update(data) {
+        console.log(data);
+        if (data.favorites.data.length == 0) {
+          return "No ";
+        } else {
+          return data.favorites.data.length;
+        }
+      },
+    },
     ad: {
       query: adData,
       loadingKey: "loadingAd",
@@ -377,6 +444,7 @@ export default {
       },
     },
   },
+
   computed: {
     ...mapGetters({
       user: "Auth/user",

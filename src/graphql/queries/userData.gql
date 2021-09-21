@@ -1,5 +1,6 @@
 query($id: ID!) {
   user(id: $id) {
+    id
     name
     gender
     phone_no
@@ -11,12 +12,16 @@ query($id: ID!) {
     remember_token
     updated_at
     country {
+      id
+
       name
       code
       phone_code
     }
 
     state {
+      id
+
       name
     }
 
@@ -34,16 +39,21 @@ query($id: ID!) {
           id
           name
           country {
+            id
+
             code
             name
             phone_code
           }
           state {
+            id
+
             name
           }
         }
         comments {
           data {
+            id
             body
             user {
               name
@@ -52,9 +62,28 @@ query($id: ID!) {
         }
         reports {
           data {
+            id
             name
             type
             created_at
+          }
+        }
+        taxonomyContents {
+          data {
+            id
+            title
+          }
+        }
+        attachments {
+          data {
+            id
+            path
+            attachable_id
+            attachable_type
+            type
+            disk_name
+            file_name
+            thumbnail
           }
         }
       }
@@ -63,12 +92,14 @@ query($id: ID!) {
     reviews {
       data {
         reviewer {
+          id
           name
         }
         body
         star
         reports {
           data {
+            id
             name
             type
           }

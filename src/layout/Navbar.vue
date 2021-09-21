@@ -35,7 +35,7 @@
           <b-nav-text variant="light">
             <b-nav-item-dropdown no-caret>
               <template #button-content>
-                <b-button variant="light" class="mr-3">
+                <b-button variant="light" class="mr-3 hoverButton">
                   <span class="secondaryColor mr-1 h5">{{ user.name }} </span>
                   <b-icon
                     icon="person-circle"
@@ -59,7 +59,7 @@
           </b-nav-text>
 
           <b-nav-text>
-            <b-button variant="light" class="mr-3">
+            <b-button variant="light hoverButton" class="mr-3">
               <router-link :to="{ path: `/user/${user.id}` }">
                 <span class="secondaryColor mr-1 h5">Ads </span>
               </router-link>
@@ -70,7 +70,7 @@
                 aria-hidden="true"
               ></b-icon>
             </b-button>
-            <b-button variant="light" class="mr-3">
+            <b-button variant="light hoverButton" class="mr-3">
               <router-link :to="{ path: `/user/${user.id}` }">
                 <span class="secondaryColor mr-1 h5"
                   >Favorite
@@ -84,7 +84,7 @@
               ></b-icon>
             </b-button>
             <b-button
-              variant="light"
+              variant="light hoverButton"
               class="mr-3"
               @click="$bvToast.show('example-toast')"
             >
@@ -105,7 +105,7 @@
         <b-navbar-nav v-if="isAuth">
           <router-link :to="{ path: `/create-ad` }">
             <b-button
-              class="add-post mr-5 primaryBackgroundColor"
+              class="add-post mr-5 primaryBackgroundColor hoverButton"
               type="submit"
             >
               Add Post

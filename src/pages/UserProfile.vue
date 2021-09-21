@@ -7,15 +7,16 @@
         <b-col cols="12" lg="3" xl="3" md="3" xs="12" sm="12" class="mr-4">
           <div>
             <b-card class="user-small-card" bg-variant="light">
-              <div class="bg-dark p-2 text-light">
-                Profile
+              <div class="secondaryBackgroundColor p-2 text-light text-center">
+                <span class="h5"> Profile</span>
               </div>
               <hr />
 
-              <b-row class="p-2 mb-1 bg-white text-dark">
+              <b-row class="p-2 mb-1 bg-white text-dark  ">
                 <b-col class="text-center">
                   <b-button
                     size="sm"
+                    class="hoverButton"
                     variant="outline-dark"
                     v-on:click="switchButton = 0"
                   >
@@ -29,7 +30,7 @@
                   <b-button
                     size="sm"
                     variant="outline-dark"
-                    class="button"
+                    class="button hoverButton"
                     v-on:click="switchButton = 2"
                   >
                     <b-icon icon="archive-fill" aria-hidden="true"></b-icon>
@@ -42,7 +43,7 @@
                 <b-col class="text-center">
                   <b-button
                     size="sm"
-                    class="button"
+                    class="button hoverButton"
                     variant="outline-dark"
                     v-on:click="switchButton = 1"
                   >
@@ -60,7 +61,7 @@
                   <b-button
                     size="sm"
                     variant="outline-dark"
-                    class="button"
+                    class="button hoverButton"
                     v-on:click="switchButton = 0"
                   >
                     <router-link
@@ -104,6 +105,7 @@
             <b-card
               header="Avatar photo"
               header-text-variant="dark"
+              class="primaryColor"
               header-tag="header"
               header-bg-variant="light"
               style="max-width: 100%;"
@@ -236,11 +238,7 @@
             </b-form>
           </div>
         </b-col>
-        <favorite
-          :favoritesAds="user.favorites.data"
-          :user="user"
-          v-if="switchButton == 1"
-        />
+        <favorite v-if="switchButton == 1" />
         <ads :user="user" v-if="switchButton == 2" />
       </b-row>
     </b-container>

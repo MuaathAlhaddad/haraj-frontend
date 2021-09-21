@@ -116,6 +116,7 @@ import LoadingIcon from "../components/LoadingIcon.vue";
 import UserDetails from "../graphql/queries/userData.gql";
 
 export default {
+  // eslint-disable-next-line vue/no-unused-components
   components: { AdsList, ReviewList, LoadingIcon },
   data() {
     return {
