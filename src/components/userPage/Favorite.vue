@@ -9,11 +9,11 @@
       <hr />
       <b-row>
         <b-col cols="12" lg="12" xl="12" md="12" sm="12" class="">
+          <div v-if="loadingFav">
+            <loading-icon />
+          </div>
+
           <div v-for="(ad, index) in user.favorites.data" :key="index">
-            <b-button variant="primary" disabled v-if="loadingFav">
-              <b-spinner small type="grow"></b-spinner>
-              Loading...
-            </b-button>
             <div
               class="media mt-2 p-2 bg-light"
               :key="componentKey"
@@ -103,8 +103,10 @@
 <script>
 import unFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
 import { mapGetters } from "vuex";
+import LoadingIcon from "../LoadingIcon.vue";
 
 export default {
+  components: { LoadingIcon },
   data() {
     return {
       componentKey: 0,

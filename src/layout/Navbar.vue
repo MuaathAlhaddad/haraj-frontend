@@ -10,7 +10,10 @@
       <b-collapse id="collapse-area" is-nav>
         <b-navbar-nav class="pl-5">
           <b-nav-item>
-            <router-link :to="{ path: `/` }">
+            <router-link
+              :to="{ path: `/` }"
+              onClick="window.location.reload();"
+            >
               <div class="bg-light">
                 <img v-bind:src="logo" width="100px" />
               </div>
@@ -46,7 +49,10 @@
                 </b-button>
               </template>
               <b-dropdown-item>
-                <router-link :to="{ path: `/user/${user.id}` }">
+                <router-link
+                  :to="{ path: `/user/${user.id}` }"
+                  onClick="window.location.reload();"
+                >
                   <div class="bg-light">
                     <span class="secondaryColor h6">My profile</span>
                   </div>
@@ -60,7 +66,10 @@
 
           <b-nav-text>
             <b-button variant="light hoverButton" class="mr-3">
-              <router-link :to="{ path: `/user/${user.id}` }">
+              <router-link
+                :to="{ path: `/user/${user.id}` }"
+                onClick="window.location.reload();"
+              >
                 <span class="secondaryColor mr-1 h5">Ads </span>
               </router-link>
               <b-icon
@@ -70,7 +79,7 @@
                 aria-hidden="true"
               ></b-icon>
             </b-button>
-            <b-button variant="light hoverButton" class="mr-3">
+            <!-- <b-button variant="light hoverButton" class="mr-3">
               <router-link :to="{ path: `/user/${user.id}` }">
                 <span class="secondaryColor mr-1 h5"
                   >Favorite
@@ -82,7 +91,7 @@
                 scale="1.0"
                 aria-hidden="true"
               ></b-icon>
-            </b-button>
+            </b-button> -->
             <b-button
               variant="light hoverButton"
               class="mr-3"

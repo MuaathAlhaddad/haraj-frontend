@@ -187,6 +187,7 @@
             </b-button>
 
             <b-button
+              v-on:click="favoriteAd"
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
@@ -196,7 +197,6 @@
               <b-icon
                 icon="heart-fill"
                 v-bind:variant="isFavorited ? 'danger' : ''"
-                v-on:click="favoriteAd"
                 scale="0.7"
               ></b-icon>
             </b-button>
