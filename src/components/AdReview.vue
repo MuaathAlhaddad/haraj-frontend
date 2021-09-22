@@ -82,7 +82,7 @@
                     </b-col>
 
                     <b-col cols="12" md="auto">
-                      <icons-report />
+                      <!-- <icons-report :adId="adData.id" :modal="'review'" /> -->
                     </b-col>
                   </b-row>
 
@@ -105,6 +105,7 @@ import { mapGetters } from "vuex";
 import IconsReport from "./IconsReport.vue";
 
 export default {
+  // eslint-disable-next-line vue/no-unused-components
   components: { IconsReport },
   props: ["adData", "routeParam"],
   data() {

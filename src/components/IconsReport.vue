@@ -1,88 +1,192 @@
-<template>
-  <span>
-    <button class=" primaryBackgroundColor" v-b-modal.modal-prevent-closing>
+><template>
+  <span v-if="user">
+    <button class=" primaryBackgroundColor" v-b-modal="`modal-${modal}`">
       <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"> </i>
     </button>
 
     <b-modal
-      id="modal-prevent-closing"
+      :id="`modal-${modal}`"
       ref="modal"
       title="Submit Your Report"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
+      ok-only
+      ok-variant="outline-dark"
+      ok-title="Cancel"
     >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <div>
-          <b-dropdown
-            text="What is the reason of this report?"
-            block
-            variant="danger"
-            class="m-2 abs primaryBackgroundColor"
-            menu-class="w-100"
-          >
-            <b-dropdown-item href="#">Action</b-dropdown-item>
-            <b-dropdown-item href="#">Another action</b-dropdown-item>
-            <b-dropdown-item href="#">Something else here</b-dropdown-item>
-          </b-dropdown>
+      <div>
+        <div v-if="isBody == false">
+          <span v-for="(report, index) in reportContents" :key="index">
+            <b-button
+              block
+              pill
+              variant="outline-danger"
+              class="mb-1"
+              @click="reportAds(report.id)"
+            >
+              {{ report.body }}
+            </b-button>
+          </span>
         </div>
-        <b-form-group
-          label="State your report"
-          label-for="name-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
+        <b-button
+          block
+          pill
+          variant="outline-info"
+          class="mb-1"
+          @click="isBody = true"
+          v-if="isBody == false"
         >
+          Other
+        </b-button>
+
+        <b-button
+          block
+          pill
+          variant="white"
+          class="mb-1"
+          @click="isBody = false"
+          v-if="isBody == true"
+        >
+          <b-icon
+            icon="arrow-up-circle-fill
+"
+            font-scale="2"
+          >
+          </b-icon>
+        </b-button>
+
+        <div v-if="isBody == true">
+          <b-form-valid-feedback :state="validation"> </b-form-valid-feedback>
+          <label for="feedback-user">Report Your Issue:</label>
           <b-form-textarea
             id="textarea"
-            v-model="name"
-            :state="nameState"
-            required
+            v-model="body"
+            :state="validation"
+            placeholder="State your report..."
             rows="3"
             max-rows="6"
-          ></b-form-textarea>
-        </b-form-group>
-      </form>
+            required
+          >
+          </b-form-textarea>
+          <b-form-invalid-feedback :state="validation">
+            Your report should be more than 10 characters.
+          </b-form-invalid-feedback>
+          <b-button
+            @click="reportAdsBody"
+            block
+            pill
+            class="mt-2 primaryBackgroundColor"
+          >
+            Submit
+          </b-button>
+        </div>
+      </div>
     </b-modal>
   </span>
 </template>
 
 <script>
+import ReportOptions from "../graphql/queries/reportOptions.gql";
+import CreateBodyReport from "../graphql/mutations/createBodyReport.gql";
+import OptionReport from "../graphql/mutations/optionReport.gql";
+import { mapGetters } from "vuex";
+
 export default {
+  props: ["adId", "modal"],
   data() {
     return {
-      name: "",
+      isBody: false,
+      body: "",
       nameState: null,
       submittedNames: [],
+      loadingReport: 0,
     };
   },
+  apollo: {
+    reportContents: {
+      query: ReportOptions,
+      loadingKey: "loadingReport",
+
+      update(data) {
+        return data.reportContents;
+      },
+    },
+  },
   methods: {
-    checkFormValidity() {
-      const valid = this.$refs.form.checkValidity();
-      this.nameState = valid;
-      return valid;
+    reportAds(optionId) {
+      this.$apollo
+        .mutate({
+          mutation: OptionReport,
+          variables: {
+            reporterId: this.user.id,
+            reportId: optionId,
+            adId: this.$props.adId,
+          },
+        })
+        // eslint-disable-next-line no-unused-vars
+        .then((data) => {
+          console.log(data);
+          this.$refs["modal"].hide();
+          this.$bvModal
+            .msgBoxOk("Your report was submitted successfully", {
+              title: "Well Done!",
+              size: "sm",
+              buttonSize: "sm",
+              okVariant: "success",
+              headerClass: "p-2 border-bottom-0",
+              footerClass: "p-2 border-top-0",
+              centered: true,
+            })
+            .then((value) => {
+              this.boxTwo = value;
+            })
+            .catch(() => {});
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
     },
-    resetModal() {
-      this.name = "";
-      this.nameState = null;
-    },
-    handleOk(bvModalEvt) {
-      // Prevent modal from closing
-      bvModalEvt.preventDefault();
-      // Trigger submit handler
-      this.handleSubmit();
-    },
-    handleSubmit() {
-      // Exit when the form isn't valid
-      if (!this.checkFormValidity()) {
-        return;
+    reportAdsBody() {
+      if (this.body.length >= 11 && this.body.length < 300) {
+        this.$apollo
+          .mutate({
+            mutation: CreateBodyReport,
+            variables: {
+              reporterId: this.user.id,
+              body: this.body,
+              adId: this.$props.adId,
+            },
+          })
+          // eslint-disable-next-line no-unused-vars
+          .then((data) => {
+            console.log(data);
+            this.$bvModal
+              .msgBoxOk("Your report was submitted successfully", {
+                title: "Well Done!",
+                size: "sm",
+                buttonSize: "sm",
+                okVariant: "success",
+                headerClass: "p-2 border-bottom-0",
+                footerClass: "p-2 border-top-0",
+                centered: true,
+              })
+              .then((value) => {
+                this.boxTwo = value;
+              })
+              .catch(() => {});
+            this.$refs["modal"].hide();
+          })
+          .catch((errors) => {
+            console.log(errors);
+          });
       }
-      // Push the name to submitted names
-      this.submittedNames.push(this.name);
-      // Hide the modal manually
-      this.$nextTick(() => {
-        this.$bvModal.hide("modal-prevent-closing");
-      });
     },
+  },
+  computed: {
+    validation() {
+      return this.body.length > 10 && this.body.length < 300;
+    },
+    ...mapGetters({
+      user: "Auth/user",
+    }),
   },
 };
 </script>

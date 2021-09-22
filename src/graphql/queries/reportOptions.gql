@@ -1,0 +1,7 @@
+query {
+  reportContents {
+    id
+    body
+    type
+  }
+}

@@ -162,7 +162,7 @@
             >
               Report <i class="fa fa-flag" aria-hidden="true"></i>
             </b-button> -->
-            <report-modal />
+            <report-modal :adId="ad.ad.user.id" />
             <a
               :href="`https://wa.me/${ad.ad.user.phone_no}`"
               target="_blank"

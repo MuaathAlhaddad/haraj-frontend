@@ -1,0 +1,26 @@
+mutation($reporterId: ID!, $adId: ID!, $body: String!) {
+  createReport(
+    input: {
+      body: $body
+      reporter: { connect: $reporterId }
+      reportable: { connect: { type: ad, id: $adId } }
+    }
+  ) {
+    id
+    body
+    reporter {
+      id
+      name
+    }
+    reportContent {
+      type
+    }
+    reportable {
+      __typename
+      ... on Ad {
+        id
+        sku
+      }
+    }
+  }
+}

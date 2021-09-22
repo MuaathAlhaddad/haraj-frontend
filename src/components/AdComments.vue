@@ -34,6 +34,10 @@
       </div>
       <div v-for="(comment, index) in adData.ad.comments.data" :key="index">
         <b-card>
+          <div class="d-flex flex-row-reverse">
+            <!-- <icons-report :adId="adData.id" :modal="'comment'" /> -->
+          </div>
+
           <b-media>
             <template #aside>
               <b-img
@@ -43,7 +47,6 @@
                 alt="placeholder"
               ></b-img>
             </template>
-            <icons-report />
             <router-link
               :to="{
                 name: 'user-profile',
@@ -91,7 +94,10 @@
 <script>
 import Comment from "../graphql/mutations/comment.gql";
 import { mapGetters } from "vuex";
+import IconsReport from "./IconsReport.vue";
 export default {
+  // eslint-disable-next-line vue/no-unused-components
+  components: { IconsReport },
   props: ["adData", "routeParam"],
   data() {
     return {
