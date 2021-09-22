@@ -82,10 +82,7 @@
                     </b-col>
 
                     <b-col cols="12" md="auto">
-                      <i
-                        class="fa fa-flag generalColorBrown"
-                        aria-hidden="true"
-                      />
+                      <icons-report />
                     </b-col>
                   </b-row>
 
@@ -105,8 +102,10 @@
 <script>
 import Review from "../graphql/mutations/review.gql";
 import { mapGetters } from "vuex";
+import IconsReport from "./IconsReport.vue";
 
 export default {
+  components: { IconsReport },
   props: ["adData", "routeParam"],
   data() {
     return { star: 0, review: "" };

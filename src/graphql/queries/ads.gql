@@ -54,14 +54,14 @@ query($operator: SQLOperator, $valueName: Mixed) {
           }
         }
       }
-      reports {
-        data {
-          id
-          name
-          type
-          created_at
-        }
-      }
+      # reports {
+      #   data {
+      #     id
+      #     name
+      #     type
+      #     created_at
+      #   }
+      # }
     }
   }
 }

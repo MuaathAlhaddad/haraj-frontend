@@ -43,8 +43,7 @@
                 alt="placeholder"
               ></b-img>
             </template>
-            <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"></i>
-
+            <icons-report />
             <router-link
               :to="{
                 name: 'user-profile',

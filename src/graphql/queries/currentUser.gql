@@ -50,13 +50,13 @@ query {
             thumbnail
           }
         }
-        reports {
-          data {
-            name
-            type
-            created_at
-          }
-        }
+        # reports {
+        #   data {
+        #     name
+        #     type
+        #     created_at
+        #   }
+        # }
       }
     }
     comments {

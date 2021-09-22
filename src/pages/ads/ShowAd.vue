@@ -155,13 +155,14 @@
         </b-container>
         <b-container class="bv-example-row mt-3">
           <div class="text-center">
-            <b-button
+            <!-- <b-button
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
             >
               Report <i class="fa fa-flag" aria-hidden="true"></i>
-            </b-button>
+            </b-button> -->
+            <report-modal />
             <a
               :href="`https://wa.me/${ad.ad.user.phone_no}`"
               target="_blank"
@@ -281,12 +282,20 @@ import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
 import DeleteFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
 import SendMessage from "../../graphql/mutations/sendMessage.gql";
 import { mapGetters } from "vuex";
+import ReportModal from "../../components/ReportModal.vue";
 const adData = adItem;
 const isAdFavorited = checkFavorite;
 const favoritesNumber = FavouriteCount;
 
 export default {
-  components: { Review, Details, Comment, LoadingIcon, ShareSocialMedia },
+  components: {
+    Review,
+    Details,
+    Comment,
+    LoadingIcon,
+    ShareSocialMedia,
+    ReportModal,
+  },
   data() {
     return {
       loadingFav: false,
