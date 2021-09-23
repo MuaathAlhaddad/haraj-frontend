@@ -7,8 +7,8 @@ mutation(
   $state: ID!
 ) {
   updateUser(
-    id: $userId
     input: {
+      id: $userId
       name: $name
       gender: $gender
       email: $email

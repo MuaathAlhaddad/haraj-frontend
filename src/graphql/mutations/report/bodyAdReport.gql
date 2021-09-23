@@ -18,6 +18,10 @@ mutation($reporterId: ID!, $reportId: ID!, $id: ID!, $type: ReportableTypes!) {
     }
     reportable {
       __typename
+      ... on Ad {
+        id
+        sku
+      }
     }
   }
 }

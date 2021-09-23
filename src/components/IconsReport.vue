@@ -1,5 +1,6 @@
 ><template>
   <span v-if="user">
+    {{ this.test }}
     <button class=" primaryBackgroundColor" v-b-modal="`modal-${id}`">
       <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"> </i>
     </button>
@@ -90,12 +91,13 @@ import OptionReport from "../graphql/mutations/optionReport.gql";
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["id"],
+  props: ["id", "type"],
   data() {
     return {
       isBody: false,
       body: "",
       nameState: null,
+      test: null,
       submittedNames: [],
       loadingReport: 0,
     };
@@ -112,37 +114,75 @@ export default {
   },
   methods: {
     reportAds(optionId) {
-      this.$apollo
-        .mutate({
-          mutation: OptionReport,
-          variables: {
-            reporterId: this.user.id,
-            reportId: optionId,
-            adId: this.$props.id,
-          },
-        })
-        // eslint-disable-next-line no-unused-vars
-        .then((data) => {
-          console.log(data);
-          this.$refs["modal"].hide();
-          this.$bvModal
-            .msgBoxOk("Your report was submitted successfully", {
-              title: "Well Done!",
-              size: "sm",
-              buttonSize: "sm",
-              okVariant: "success",
-              headerClass: "p-2 border-bottom-0",
-              footerClass: "p-2 border-top-0",
-              centered: true,
-            })
-            .then((value) => {
-              this.boxTwo = value;
-            })
-            .catch(() => {});
-        })
-        .catch((errors) => {
-          console.log(errors);
-        });
+      if (this.$props.type == "comment") {
+        this.$apollo
+          .mutate({
+            mutation: OptionReport,
+            variables: {
+              reporterId: this.user.id,
+              reportId: optionId,
+              type: "comment",
+              id: this.$props.id,
+            },
+          })
+          // eslint-disable-next-line no-unused-vars
+          .then((data) => {
+            this.test = data;
+            console.log(data);
+            this.$refs["modal"].hide();
+            this.$bvModal
+              .msgBoxOk("Your report was submitted successfully", {
+                title: "Well Done!",
+                size: "sm",
+                buttonSize: "sm",
+                okVariant: "success",
+                headerClass: "p-2 border-bottom-0",
+                footerClass: "p-2 border-top-0",
+                centered: true,
+              })
+              .then((value) => {
+                this.boxTwo = value;
+              })
+              .catch(() => {});
+          })
+          .catch((errors) => {
+            console.log(errors);
+          });
+      }
+      if (this.$props.type == "review") {
+        this.$apollo
+          .mutate({
+            mutation: OptionReport,
+            variables: {
+              reporterId: this.user.id,
+              reportId: optionId,
+              type: "comment",
+              id: this.$props.id,
+            },
+          })
+          // eslint-disable-next-line no-unused-vars
+          .then((data) => {
+            console.log(data);
+            this.$refs["modal"].hide();
+            this.$bvModal
+              .msgBoxOk("Your report was submitted successfully", {
+                title: "Well Done!",
+                size: "sm",
+                buttonSize: "sm",
+                okVariant: "success",
+                headerClass: "p-2 border-bottom-0",
+                footerClass: "p-2 border-top-0",
+                centered: true,
+              })
+              .then((value) => {
+                this.boxTwo = value;
+              })
+              .catch(() => {});
+          })
+          .catch((errors) => {
+            console.log(errors);
+          });
+      }
     },
     reportAdsBody() {
       if (this.body.length >= 11 && this.body.length < 300) {

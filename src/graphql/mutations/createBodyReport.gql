@@ -17,10 +17,6 @@ mutation($reporterId: ID!, $adId: ID!, $body: String!) {
     }
     reportable {
       __typename
-      ... on Ad {
-        id
-        sku
-      }
     }
   }
 }

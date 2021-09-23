@@ -82,7 +82,7 @@
                     </b-col>
 
                     <b-col cols="12" md="auto">
-                      <icons-report :id="review.id" />
+                      <icons-report :id="review.id" :type="'review'" />
                     </b-col>
                   </b-row>
 

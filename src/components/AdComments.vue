@@ -35,7 +35,7 @@
       <div v-for="(comment, index) in adData.ad.comments.data" :key="index">
         <b-card>
           <div class="d-flex flex-row-reverse">
-            <icons-report :id="comment.id" />
+            <icons-report :id="comment.id" :type="'comment'" />
           </div>
 
           <b-media>

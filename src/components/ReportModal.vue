@@ -121,7 +121,8 @@ export default {
           variables: {
             reporterId: this.user.id,
             reportId: optionId,
-            adId: this.$props.adId,
+            type: "ad",
+            id: this.$props.adId,
           },
         })
         // eslint-disable-next-line no-unused-vars
@@ -155,7 +156,8 @@ export default {
             variables: {
               reporterId: this.user.id,
               body: this.body,
-              adId: this.$props.adId,
+              type: "ad",
+              id: this.$props.adId,
             },
           })
           // eslint-disable-next-line no-unused-vars
