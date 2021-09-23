@@ -1,11 +1,11 @@
 ><template>
   <span v-if="user">
-    <button class=" primaryBackgroundColor" v-b-modal="`modal-${modal}`">
+    <button class=" primaryBackgroundColor" v-b-modal="`modal-${id}`">
       <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"> </i>
     </button>
 
     <b-modal
-      :id="`modal-${modal}`"
+      :id="`modal-${id}`"
       ref="modal"
       title="Submit Your Report"
       ok-only
@@ -90,7 +90,7 @@ import OptionReport from "../graphql/mutations/optionReport.gql";
 import { mapGetters } from "vuex";
 
 export default {
-  props: ["adId", "modal"],
+  props: ["id"],
   data() {
     return {
       isBody: false,
@@ -118,7 +118,7 @@ export default {
           variables: {
             reporterId: this.user.id,
             reportId: optionId,
-            adId: this.$props.adId,
+            adId: this.$props.id,
           },
         })
         // eslint-disable-next-line no-unused-vars
@@ -152,7 +152,7 @@ export default {
             variables: {
               reporterId: this.user.id,
               body: this.body,
-              adId: this.$props.adId,
+              adId: this.$props.id,
             },
           })
           // eslint-disable-next-line no-unused-vars

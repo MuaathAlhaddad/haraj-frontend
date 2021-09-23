@@ -82,7 +82,7 @@
                     </b-col>
 
                     <b-col cols="12" md="auto">
-                      <!-- <icons-report :adId="adData.id" :modal="'review'" /> -->
+                      <icons-report :id="review.id" />
                     </b-col>
                   </b-row>
 
@@ -114,6 +114,9 @@ export default {
   methods: {
     addReview() {
       if (this.review == "" && this.star == 0) {
+        return;
+      }
+      if (this.review != null && this.star == 0) {
         return;
       }
       if (this.star == 1) {

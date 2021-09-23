@@ -13,18 +13,5 @@ mutation(
     }
   ) {
     id
-    body
-    star
-    reviewer {
-      id
-      name
-    }
-    reviewable {
-      __typename
-      ... on User {
-        id
-        name
-      }
-    }
   }
 }
