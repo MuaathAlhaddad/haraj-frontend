@@ -9,6 +9,12 @@ query {
       id
       name
     }
+    attachments {
+      data {
+        id
+        path
+      }
+    }
     ads {
       data {
         id

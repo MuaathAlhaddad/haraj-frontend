@@ -1,0 +1,28 @@
+mutation(
+  $userId: ID!
+  $photo: [CreateAttachmentHasManyInputs]!
+  $deleteIds: [ID!]
+) {
+  updateUser(
+    id: $userId
+    input: { attachments: { create: $photo, delete: $deleteIds } }
+  ) {
+    id
+  }
+}
+
+# mutation($userId: ID!, $path: String!, $deleteIds: [ID!]) {
+#   updateUser(
+#     id: $userId
+#     input: {
+#       attachments: {
+#         create: [
+#           { file_name: "profile", type: PHOTO, thumbnail: true, path: $path }
+#         ]
+#         delete: $deleteIds
+#       }
+#     }
+#   ) {
+#     id
+#   }
+# }

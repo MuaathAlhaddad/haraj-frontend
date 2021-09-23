@@ -1,0 +1,33 @@
+mutation(
+  $userId: ID!
+  $name: String!
+  $email: String!
+  $password: String!
+  $gender: String!
+  $state: ID!
+) {
+  updateUser(
+    id: $userId
+    input: {
+      name: $name
+      gender: $gender
+      email: $email
+      password: $password
+      country: { connect: 3 }
+      state: { connect: $state }
+    }
+  ) {
+    id
+    name
+    email
+    attachments {
+      data {
+        id
+        attachable_id
+        attachable_type
+        type
+        path
+      }
+    }
+  }
+}

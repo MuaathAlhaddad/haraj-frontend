@@ -5,6 +5,10 @@ import store from './store'
 // import Auth from './store/Auth'
 import VueSocialSharing from 'vue-social-sharing'
 
+///Uploading singular image
+// https://github.com/kartoteket/vue-image-upload-resize
+import ImageUploader from 'vue-image-upload-resize'
+Vue.use(ImageUploader);
 
 import { createProvider } from './vue-apollo'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
