@@ -16,7 +16,7 @@
             <b-img
               v-if="user.attachments.data.length == 0"
               :src="
-                'https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg'
+                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
               "
               width="64"
               alt="placeholder"
@@ -27,7 +27,7 @@
           <b-form-textarea
             id="textarea-default"
             v-model="review"
-            placeholder="Type your comments"
+            placeholder="Type your Reviews"
           ></b-form-textarea>
         </b-media>
       </b-col>

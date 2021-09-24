@@ -11,6 +11,7 @@
     <b-modal
       :id="`modal-report`"
       ref="modal"
+      ok-only
       title="Submit Your Report"
       ok-variant="outline-dark"
       ok-title="Cancel"
@@ -85,7 +86,6 @@
     </b-modal>
   </span>
 </template>
-
 <script>
 import ReportOptions from "../graphql/queries/reportOptions.gql";
 import CreateBodyReport from "../graphql/mutations/createBodyReport.gql";
@@ -122,7 +122,7 @@ export default {
             reporterId: this.user.id,
             reportId: optionId,
             type: "ad",
-            id: this.$props.adId,
+            adId: this.$props.adId,
           },
         })
         // eslint-disable-next-line no-unused-vars
@@ -157,7 +157,7 @@ export default {
               reporterId: this.user.id,
               body: this.body,
               type: "ad",
-              id: this.$props.adId,
+              adId: this.$props.adId,
             },
           })
           // eslint-disable-next-line no-unused-vars
