@@ -5,11 +5,23 @@
         <b-media v-if="adData.user.id !== user.id">
           <template #aside>
             <b-img
-              blank
-              blank-color="#ccc"
+              v-if="user.attachments.data.length != 0"
+              :src="
+                user.attachments.data[user.attachments.data.length - 1].path
+              "
               width="64"
               alt="placeholder"
-            ></b-img>
+            >
+            </b-img>
+            <b-img
+              v-if="user.attachments.data.length == 0"
+              :src="
+                'https://i.pinimg.com/originals/ae/ec/c2/aeecc22a67dac7987a80ac0724658493.jpg'
+              "
+              width="64"
+              alt="placeholder"
+            >
+            </b-img>
           </template>
 
           <b-form-textarea
@@ -52,8 +64,19 @@
                 <b-media tag="li" class="my-0">
                   <template #aside>
                     <b-img
-                      blank
-                      blank-color="#cba"
+                      v-if="review.reviewer.attachments.data.length != 0"
+                      :src="
+                        review.reviewer.attachments.data[
+                          review.reviewer.attachments.data.length - 1
+                        ].path
+                      "
+                      width="64"
+                      alt="placeholder"
+                    >
+                    </b-img>
+                    <b-img
+                      v-if="review.reviewer.attachments.data.length == 0"
+                      src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                       width="64"
                       alt="placeholder"
                     ></b-img>

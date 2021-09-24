@@ -147,7 +147,7 @@ import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
 export default {
   mixins: [validationMixin],
 
-  props: ["SomaStates"],
+  props: ["SomaStates", "user"],
   validations: {
     form: {
       name: {
@@ -227,6 +227,10 @@ export default {
       return obj.name;
     });
     this.states = finalArray;
+    this.form.email = this.$props.user.email;
+    this.form.name = this.$props.user.name;
+    this.form.gender = this.$props.user.gender;
+    // this.form.state
   },
 };
 </script>

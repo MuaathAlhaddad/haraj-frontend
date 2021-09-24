@@ -2,29 +2,38 @@ query($id: ID!) {
   user(id: $id) {
     id
     name
-    gender
-    phone_no
     email
-    created_at
-    email_verified_at
-    phone_verified_at
-    deleted_at
-    remember_token
-    updated_at
-    country {
-      id
+    phone_no
+    gender
+    reviews {
+      data {
+        id
+        body
+        star
 
-      name
-      code
-      phone_code
+        created_at
+        reviewer {
+          id
+          attachments {
+            data {
+              id
+              path
+            }
+          }
+          name
+        }
+      }
     }
-
     state {
       id
-
       name
     }
-
+    attachments {
+      data {
+        id
+        path
+      }
+    }
     ads {
       data {
         id
@@ -33,47 +42,32 @@ query($id: ID!) {
         price
         sku
         negotiable
-        # favorited
         created_at
         user {
-          id
           name
           country {
             id
-
             code
             name
             phone_code
           }
           state {
             id
-
             name
           }
         }
+
         comments {
           data {
             id
             body
             user {
+              id
               name
             }
           }
         }
-        # reports {
-        #   data {
-        #     id
-        #     name
-        #     type
-        #     created_at
-        #   }
-        # }
-        taxonomyContents {
-          data {
-            id
-            title
-          }
-        }
+
         attachments {
           data {
             id
@@ -88,34 +82,41 @@ query($id: ID!) {
         }
       }
     }
-
-    reviews {
-      data {
-        reviewer {
-          id
-          name
-        }
-        body
-        star
-        reports {
-          data {
-            id
-            name
-            type
-          }
-        }
-      }
-    }
-
     comments {
       data {
+        id
         body
         created_at
-        user {
-          name
-        }
+      }
+    }
+    favorites {
+      data {
+        id
         ad {
+          id
           title
+          price
+          created_at
+          attachments {
+            data {
+              id
+              path
+              attachable_id
+              attachable_type
+              type
+              disk_name
+              file_name
+              thumbnail
+            }
+          }
+          user {
+            id
+            name
+            state {
+              id
+              name
+            }
+          }
         }
       }
     }

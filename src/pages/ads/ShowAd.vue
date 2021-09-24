@@ -88,11 +88,25 @@
                   <b-media tag="li">
                     <template #aside>
                       <b-img
-                        blank
-                        blank-color="#abc"
+                        v-if="ad.ad.user.attachments.data.length != 0"
+                        :src="
+                          ad.ad.user.attachments.data[
+                            ad.ad.user.attachments.data.length - 1
+                          ].path
+                        "
                         width="64"
                         alt="placeholder"
-                      ></b-img>
+                      >
+                      </b-img>
+                      <b-img
+                        v-if="ad.ad.user.attachments.data.length == 0"
+                        :src="
+                          'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                        "
+                        width="64"
+                        alt="placeholder"
+                      >
+                      </b-img>
                     </template>
                     <p class="mt-0 mb-1">
                       Posted by <br />

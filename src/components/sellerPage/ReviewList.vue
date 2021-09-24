@@ -10,11 +10,25 @@
                 <b-media tag="li" class="my-0">
                   <template #aside>
                     <b-img
-                      blank
-                      blank-color="#cba"
+                      v-if="review.reviewer.attachments.data.length != 0"
+                      :src="
+                        review.reviewer.attachments.data[
+                          review.reviewer.attachments.data.length - 1
+                        ].path
+                      "
                       width="64"
                       alt="placeholder"
-                    ></b-img>
+                    >
+                    </b-img>
+                    <b-img
+                      v-if="review.reviewer.attachments.data.length == 0"
+                      :src="
+                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                      "
+                      width="64"
+                      alt="placeholder"
+                    >
+                    </b-img>
                   </template>
 
                   <b-row>
@@ -39,9 +53,7 @@
                       ></b-form-rating>
                     </b-col>
 
-                    <b-col cols="12" md="auto">
-                      <i class="fa fa-flag" aria-hidden="true" />
-                    </b-col>
+                    <b-col cols="12" md="auto"> </b-col>
                   </b-row>
                   <b-col>
                     <p>

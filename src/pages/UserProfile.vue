@@ -160,6 +160,7 @@
                 <update-user-details
                   v-on:updateUser="updateUserDetails($event)"
                   :SomaStates="states.country.states"
+                  :user="user"
                 />
               </div>
             </b-col>

@@ -23,23 +23,33 @@
               <b-avatar
                 rounded
                 size="100px"
-                src="https://placekitten.com/300/300"
+                v-if="data.user.attachments.data.length != 0"
+                :src="
+                  data.user.attachments.data[
+                    data.user.attachments.data.length - 1
+                  ].path
+                "
+              ></b-avatar>
+              <b-avatar
+                rounded
+                size="100px"
+                v-if="data.user.attachments.data.length == 0"
+                :src="
+                  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+                "
               ></b-avatar>
             </div>
           </div>
           <div class="text-center">
             <h5>{{ data.user.name }}</h5>
-            <p class="text-muted">@amer_muaadh</p>
             <b-container class="bv-example-row">
               <b-row>
                 <b-col cols="5"> </b-col>
                 <b-col cols="1">
                   <b-badge class="budget">
-                    <b-icon-patch-check variant="dark"></b-icon-patch-check>
-                    <patch-minus
-                      v-if="data.user.email_verified_at == null"
+                    <b-icon-patch-check
                       variant="dark"
-                    ></patch-minus> </b-badge
+                    ></b-icon-patch-check> </b-badge
                 ></b-col>
 
                 <b-col cols="1">
@@ -52,16 +62,7 @@
               <div class="row">
                 <b-col cols="5"> </b-col>
                 <b-col cols="1">
-                  <span
-                    class="spanText"
-                    v-if="data.user.email_verified_at != null"
-                    >Verified</span
-                  >
-                  <span
-                    class="spanText"
-                    v-if="data.user.email_verified_at == null"
-                    >Not Verified</span
-                  >
+                  <span class="spanText"> Verified</span>
                 </b-col>
 
                 <b-col cols="1"

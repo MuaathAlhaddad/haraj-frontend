@@ -4,8 +4,7 @@ mutation(
   $deleteIds: [ID!]
 ) {
   updateUser(
-    id: $userId
-    input: { attachments: { create: $photo, delete: $deleteIds } }
+    input: { id: $userId, attachments: { create: $photo, delete: $deleteIds } }
   ) {
     id
   }
