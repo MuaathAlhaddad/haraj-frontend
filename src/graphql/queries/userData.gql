@@ -44,6 +44,7 @@ query($id: ID!) {
         negotiable
         created_at
         user {
+          id
           name
           country {
             id
@@ -84,6 +85,14 @@ query($id: ID!) {
     }
     comments {
       data {
+        ad {
+          id
+          title
+        }
+        user {
+          id
+          name
+        }
         id
         body
         created_at

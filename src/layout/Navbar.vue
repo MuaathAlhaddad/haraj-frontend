@@ -95,17 +95,24 @@
             <b-button
               variant="light hoverButton"
               class="mr-3"
+              v-if="loading == false"
               @click="$bvToast.show('example-toast')"
             >
-              <span class="secondaryColor mr-1 h5">Inbox</span
-              ><b-badge class="messageNoti" scale="0.1" variant="dark"
-                >4
+              <span class="secondaryColor mr-2 h5">Inbox</span>
+              <b-badge
+                animation="fade"
+                class="messageNoti secondaryBackgroundColor"
+                scale="0.1"
+                variant="dark"
+                v-if="countMessages + countComments + countReviews > 0"
+              >
+                {{ countMessages + countComments + countReviews }}
               </b-badge>
               <b-icon
                 icon="inboxes-fill"
                 class="primaryColor"
-                scale="1.0"
-                animation="fade"
+                scale="1.5"
+                :animation="parseInt(countMessages) >= 1 ? 'fade' : ''"
                 aria-hidden="true"
               ></b-icon>
             </b-button>
@@ -130,24 +137,99 @@
       static
       no-auto-hide
     >
-      <router-link :to="{ path: `/inbox` }" v-if="(notificationCount) => 0">
+      <router-link :to="{ path: `/inbox` }">
         <span class="secondaryColor mr-1 "
-          >You have a new message
+          >You have {{ countMessages }} new messages
+          <b-badge class="messageNoti" scale="0.1" variant="dark">> </b-badge>
+        </span>
+      </router-link>
+      <br />
+      <router-link :to="{ path: `/seller/${user.id}` }">
+        <span class="secondaryColor mr-1 " @click="markReviewAsRead"
+          >You have {{ countReviews }} new reviews
+          <b-badge class="messageNoti" scale="0.1" variant="dark">> </b-badge>
+        </span>
+      </router-link>
+      <br />
+
+      <router-link :to="{ path: `/seller/${user.id}` }">
+        <span class="secondaryColor mr-1 " @click="markCommentAsRead"
+          >You have {{ countComments }} new comments
           <b-badge class="messageNoti" scale="0.1" variant="dark">> </b-badge>
         </span>
       </router-link>
     </b-toast>
-    {{ commentsNoti }}
   </div>
 </template>
 <script>
 import Logo from "../assets/logo.png";
 import { mapGetters, mapActions } from "vuex";
+import MessageNotification from "../graphql/queries/notification/messageNotification.gql";
+import CommentNotification from "../graphql/queries/notification/commentsNoti.gql";
+import ReviewNotification from "../graphql/queries/notification/reviewsNoti.gql";
+import MarkCommentAsRead from "../graphql/mutations/markCommentAsSeen.gql";
+import MarkReviewAsRead from "../graphql/mutations/markReviewAsSeen.gql";
 export default {
   data() {
     return {
       logo: Logo,
+      loading: 0,
     };
+  },
+  apollo: {
+    countMessages: {
+      query: MessageNotification,
+      loadingKey: "loading",
+      variables() {
+        return {
+          userId: this.user.id,
+        };
+      },
+
+      update(data) {
+        console.log(data);
+        return data.messages.data.length;
+      },
+    },
+    countComments: {
+      query: CommentNotification,
+      loadingKey: "loading",
+      variables() {
+        return {
+          userId: this.user.id,
+        };
+      },
+
+      update(data) {
+        let numberOfNullSeenAt = [];
+        for (let i = 0; i < data.user.comments.data.length; i++) {
+          if (data.user.comments.data[i].seen_at == null) {
+            numberOfNullSeenAt.push(data.user.comments.data[i]);
+          }
+        }
+
+        return numberOfNullSeenAt.length;
+      },
+    },
+    countReviews: {
+      query: ReviewNotification,
+      loadingKey: "loading",
+      variables() {
+        return {
+          userId: this.user.id,
+        };
+      },
+
+      update(data) {
+        let numberOfNullSeenAt = [];
+        for (let i = 0; i < data.user.reviews.data.length; i++) {
+          if (data.user.reviews.data[i].seen_at == null) {
+            numberOfNullSeenAt.push(data.user.reviews.data[i]);
+          }
+        }
+        return numberOfNullSeenAt.length;
+      },
+    },
   },
   methods: {
     ...mapActions({
@@ -156,13 +238,41 @@ export default {
     logoutUser() {
       this.logout();
     },
+    markCommentAsRead() {
+      this.$apollo
+        .mutate({
+          mutation: MarkCommentAsRead,
+          variables: {
+            user_id: parseInt(this.user.id),
+          },
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    markReviewAsRead() {
+      this.$apollo
+        .mutate({
+          mutation: MarkReviewAsRead,
+          variables: {
+            user_id: parseInt(this.user.id),
+          },
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
   },
   computed: {
     ...mapGetters({
       isAuth: "Auth/isAuth",
       user: "Auth/user",
-      notificationCount: "Notification/notificationCount",
-      commentsNoti: "Notification/commentsNoti",
     }),
   },
 };

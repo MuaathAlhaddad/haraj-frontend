@@ -1,0 +1,3 @@
+mutation($user_id: Int!) {
+  markReviewsRead(user_id: $user_id)
+}

@@ -1,0 +1,3 @@
+mutation($user_id: Int!) {
+  markCommentsRead(user_id: $user_id)
+}

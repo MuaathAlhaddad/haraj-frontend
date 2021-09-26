@@ -7,6 +7,7 @@ query {
       phone_code
       states {
         data {
+          is
           name
         }
       }

@@ -148,14 +148,22 @@
                     v-if="ad.ad.user.id != user.id"
                   >
                   </b-form-textarea>
-                  <b-button
-                    block
-                    class="mt-2 secondaryBackgroundColor"
-                    v-if="ad.ad.user.id != user.id"
-                    @click="sendMessage(ad.ad.user.id)"
-                  >
-                    Send a message
-                  </b-button>
+                  <div v-if="loadingButtonMsg == false">
+                    <b-button
+                      block
+                      class="mt-2 secondaryBackgroundColor"
+                      v-if="ad.ad.user.id != user.id"
+                      @click="sendMessage(ad.ad.user.id)"
+                    >
+                      Send a message
+                    </b-button>
+                  </div>
+                  <div v-if="loadingButtonMsg == true">
+                    <b-button block class="mt-2 secondaryBackgroundColor">
+                      <b-spinner small type="grow" class="primaryColor">
+                      </b-spinner>
+                    </b-button>
+                  </div>
                 </div>
               </b-card>
               <b-card
@@ -206,7 +214,7 @@
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
-              v-if="loadingFav == false"
+              v-if="loadingButtonFav == false"
             >
               Favorite
               <b-icon
@@ -219,7 +227,7 @@
               class="px-5 py-2 mr-1 custom-size-button1"
               rounded
               variant="light"
-              v-if="loadingFav"
+              v-if="loadingButtonFav"
             >
               <b-spinner small type="grow" class="primaryColor"></b-spinner>
             </b-button>
@@ -312,7 +320,8 @@ export default {
   },
   data() {
     return {
-      loadingFav: false,
+      loadingButtonFav: false,
+      loadingButtonMsg: false,
       shareButtons: false,
       slide: 0,
       sliding: null,
@@ -338,7 +347,7 @@ export default {
     },
 
     favoriteAd() {
-      this.loadingFav = true;
+      this.loadingButtonFav = true;
       if (this.user == null) {
         return this.$router.push("/login");
       }
@@ -354,14 +363,14 @@ export default {
           .then((data) => {
             this.favorite_id = data.data.createFavorite.id;
             this.isFavorited = true;
-            this.loadingFav = false;
+            this.loadingButtonFav = false;
           })
           .catch((error) => {
             this.error = true;
             console.error(error);
           });
       } else if (this.isFavorited) {
-        this.loadingFav = true;
+        this.loadingButtonFav = true;
         this.$apollo
           .mutate({
             mutation: DeleteFavoriteAd,
@@ -371,7 +380,7 @@ export default {
           })
           .then(() => {
             this.isFavorited = false;
-            this.loadingFav = false;
+            this.loadingButtonFav = false;
           })
           .catch((error) => {
             this.error = true;
@@ -380,22 +389,28 @@ export default {
       }
     },
     sendMessage(recipientId) {
-      this.$apollo
-        .mutate({
-          mutation: SendMessage,
-          variables: {
-            body: this.message,
-            senderId: this.user.id,
-            recipientId: recipientId,
-          },
-        })
-        .then((data) => {
-          console.log(data);
-        })
-        .catch((error) => {
-          this.error = true;
-          console.error(error);
-        });
+      if (this.message != "") {
+        this.loadingButtonMsg = true;
+        this.$apollo
+          .mutate({
+            mutation: SendMessage,
+            variables: {
+              body: this.message,
+              senderId: this.user.id,
+              recipientId: recipientId,
+            },
+          })
+          .then((data) => {
+            this.message = "";
+            this.loadingButtonMsg = false;
+
+            console.log(data);
+          })
+          .catch((error) => {
+            this.error = true;
+            console.error(error);
+          });
+      }
     },
     refreshComment() {
       this.$apollo.queries.ad.refetch();

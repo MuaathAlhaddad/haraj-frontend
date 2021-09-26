@@ -25,21 +25,26 @@ query {
         negotiable
         created_at
         user {
+          id
           name
           country {
+            id
             code
             name
             phone_code
           }
           state {
+            id
             name
           }
         }
 
         comments {
           data {
+            id
             body
             user {
+              id
               name
             }
           }
@@ -93,8 +98,10 @@ query {
             }
           }
           user {
+            id
             name
             state {
+              id
               name
             }
           }

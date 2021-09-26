@@ -12,6 +12,7 @@ query($operator: SQLOperator, $adID: Mixed) {
       }
     }
     user {
+      id
       attachments {
         data {
           id
@@ -37,8 +38,10 @@ query($operator: SQLOperator, $adID: Mixed) {
 
           created_at
           reviewer {
+            id
             attachments {
               data {
+                id
                 path
               }
             }
@@ -56,6 +59,7 @@ query($operator: SQLOperator, $adID: Mixed) {
           name
           attachments {
             data {
+              id
               path
             }
           }

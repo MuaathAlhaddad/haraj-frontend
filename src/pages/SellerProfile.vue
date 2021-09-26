@@ -82,7 +82,7 @@
                     v-bind:class="
                       switchButton == 0 ? 'primaryBackgroundColor' : 'normalBtn'
                     "
-                    v-on:click="product"
+                    v-on:click="switchButton = 0"
                     >Products</b-button
                   >
                   <b-button
@@ -90,8 +90,17 @@
                     v-bind:class="
                       switchButton == 1 ? 'primaryBackgroundColor' : 'normalBtn'
                     "
-                    v-on:click="review"
+                    v-on:click="switchButton = 1"
                     >Reviews</b-button
+                  >
+                  <b-button
+                    class="custom-size-button2"
+                    v-bind:class="
+                      switchButton == 2 ? 'primaryBackgroundColor' : 'normalBtn'
+                    "
+                    v-if="user"
+                    v-on:click="switchButton = 2"
+                    >Comments</b-button
                   >
                 </b-button-group></b-col
               >
@@ -99,6 +108,7 @@
           </b-container>
           <ads-list v-if="switchButton == 0" :adsData="data.user" />
           <review-list v-if="switchButton == 1" :reviewData="data.user" />
+          <comment-list v-if="switchButton == 2" :commentData="data.user" />
         </div>
       </div>
 
@@ -115,10 +125,12 @@ import AdsList from "../components/sellerPage/AdsList.vue";
 import ReviewList from "../components/sellerPage/ReviewList.vue";
 import LoadingIcon from "../components/LoadingIcon.vue";
 import UserDetails from "../graphql/queries/userData.gql";
+import CommentList from "../components/sellerPage/CommentList.vue";
+import { mapGetters } from "vuex";
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
-  components: { AdsList, ReviewList, LoadingIcon },
+  components: { AdsList, ReviewList, LoadingIcon, CommentList },
   data() {
     return {
       switchButton: 0,
@@ -133,6 +145,12 @@ export default {
     review() {
       this.switchButton = 1;
     },
+  },
+  computed: {
+    ...mapGetters({
+      isAuth: "Auth/isAuth",
+      user: "Auth/user",
+    }),
   },
 };
 </script>

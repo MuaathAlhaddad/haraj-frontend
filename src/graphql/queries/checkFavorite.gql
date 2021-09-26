@@ -7,7 +7,7 @@ query($operator: SQLOperator, $user_id: Mixed, $ad_id: Mixed) {
       ]
     }
   ) {
-     id
+    id
     ad {
       id
       title

@@ -15,8 +15,6 @@
 <script>
 import Navbar from "./layout/Navbar.vue";
 import CurrnetUser from "./graphql/queries/currentUser.gql";
-import MessageNoti from "./graphql/queries/notification/messageNotification.gql";
-import CommentsNoti from "./graphql/queries/notification/commentsNoti.gql";
 import { mapActions } from "vuex";
 import LoadingIcon from "./components/LoadingIcon.vue";
 
@@ -32,8 +30,6 @@ export default {
   methods: {
     ...mapActions({
       currentUser: "Auth/currentUser",
-      getNullAtSeen: "Notification/getNullAtSeen",
-      getCommentsNullAtSeen: "Notification/getCommentsNullAtSeen",
     }),
   },
   apollo: {
@@ -49,54 +45,6 @@ export default {
         this.currentUser(data.currentUser);
         this.userId = data.currentUser.id;
         this.skiped = false;
-        return data;
-      },
-    },
-    messagesNoti: {
-      query: MessageNoti,
-      loadingKey: "loading",
-
-      variables() {
-        if (!this.skiped) {
-          return {
-            userId: this.userId,
-          };
-        }
-      },
-      skip() {
-        if (this.skiped) {
-          return true;
-        }
-      },
-      update(data) {
-        const count = data.messages.data.filter((obj) => obj.seen_at === null)
-          .length;
-
-        this.getNullAtSeen(count);
-        return data;
-      },
-    },
-    commentsNoti: {
-      query: CommentsNoti,
-      loadingKey: "loading",
-
-      variables() {
-        if (!this.skiped) {
-          return {
-            userId: this.userId,
-          };
-        }
-      },
-      skip() {
-        if (this.skiped) {
-          return true;
-        }
-      },
-      update(data) {
-        const count = data.user_comments.comments.data.filter(
-          (obj) => obj.seen_at === null
-        ).length;
-        this.getCommentsNullAtSeen(count);
         return data;
       },
     },

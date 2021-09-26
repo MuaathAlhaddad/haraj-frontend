@@ -1,10 +1,16 @@
 query($userId: Mixed!) {
   messages(
     first: 10000
-    where: { column: TO_ID, value: $userId }
+    where: {
+      AND: [
+        { column: TO_ID, value: $userId }
+        { column: SEEN_AT, operator: IS_NULL }
+      ]
+    }
     orderBy: { column: CREATED_AT, order: ASC }
   ) {
     data {
+      id
       body
       seen_at
       created_at

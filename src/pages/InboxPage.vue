@@ -81,7 +81,9 @@
 import LoadingIcon from "../components/LoadingIcon.vue";
 import MessagesList from "../components/MessagesList.vue";
 import Senders from "../graphql/queries/inboxSenders.gql";
+import MarkChatAsSeen from "../graphql/mutations/markChatAsSeen.gql";
 import { mapGetters } from "vuex";
+
 export default {
   components: { LoadingIcon, MessagesList },
   data() {
@@ -94,8 +96,25 @@ export default {
   },
   methods: {
     openChat(you) {
-      this.you = you;
-      this.switchChatting = true;
+      console.log(you);
+      this.$apollo
+        .mutate({
+          // Query
+          mutation: MarkChatAsSeen,
+          // Parameters
+          variables: {
+            from_id: parseInt(you),
+            to_id: parseInt(this.user.id),
+          },
+        })
+        .then((data) => {
+          this.switchChatting = true;
+          console.log(data);
+          this.you = you;
+        })
+        .catch((errors) => {
+          console.log(errors);
+        });
     },
   },
   apollo: {
@@ -116,7 +135,7 @@ export default {
           }, []);
         const senders = uniqueElementsBy(
           data.interacted_users.data,
-          (a, b) => a.sender.id == b.sender.id && a.seen_at === b.seen_at
+          (a, b) => a.sender.id == b.sender.id
         );
         return senders;
       },

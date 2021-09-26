@@ -14,6 +14,7 @@ query($me: Mixed!, $you: Mixed!) {
     orderBy: { column: CREATED_AT, order: ASC }
   ) {
     data {
+      id
       body
       seen_at
       created_at

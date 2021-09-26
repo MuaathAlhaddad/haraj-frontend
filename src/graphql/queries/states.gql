@@ -2,6 +2,7 @@ query {
   states {
     name
     country {
+      id
       code
       name
     }
