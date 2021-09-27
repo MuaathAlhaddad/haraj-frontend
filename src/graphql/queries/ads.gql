@@ -1,7 +1,7 @@
-query($operator: SQLOperator, $valueName: Mixed) {
+query($operator: SQLOperator, $valueName: Mixed, $itemsNumber: Int!) {
   ads(
     orderBy: { column: ID, order: DESC }
-    first: 100
+    first: $itemsNumber
     taxonomyContents: { column: TITLE, operator: $operator, value: $valueName }
   ) {
     data {

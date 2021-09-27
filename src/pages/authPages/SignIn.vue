@@ -57,8 +57,13 @@
 
               <hr />
             </b-form>
-            <div class="submit-btn">
-              <b-button @click="onSubmit" type="submit">Login</b-button>
+            <div class="submit-btn mb-5">
+              <b-button
+                @click="onSubmit"
+                type="submit"
+                class="primaryBackgroundColor"
+                >Login</b-button
+              >
             </div>
           </b-col>
         </b-row></b-container

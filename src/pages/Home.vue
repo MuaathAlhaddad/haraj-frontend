@@ -108,11 +108,13 @@ export default {
           return {
             valueName: this.selectedHaraj,
             operator: "LIKE",
+            itemsNumber: 12,
           };
         } else if (this.selectedHaraj == null) {
           return {
             valueName: "%%",
             operator: "LIKE",
+            itemsNumber: 12,
           };
         }
       },

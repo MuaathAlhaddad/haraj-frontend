@@ -59,6 +59,11 @@
                 v-if="isFiltered == false"
               />
             </div>
+            <div class="text-center">
+              <b-button class="secondaryBackgroundColor my-2" @click="showMore"
+                >Show More</b-button
+              >
+            </div>
           </b-col>
           <b-col
             sm="12"
@@ -140,6 +145,7 @@ export default {
       filters: null,
       isFiltered: false,
       isCars: false,
+      itemsNumber: 10,
     };
   },
   apollo: {
@@ -151,21 +157,25 @@ export default {
           return {
             valueName: this.selectedHaraj,
             operator: "LIKE",
+            itemsNumber: this.itemsNumber,
           };
         } else if (this.selectModel != null) {
           return {
             valueName: this.selectModel,
             operator: "EQ",
+            itemsNumber: this.itemsNumber,
           };
         } else if (this.selectedBrand != null) {
           return {
             valueName: this.selectedBrand,
             operator: "EQ",
+            itemsNumber: this.itemsNumber,
           };
         } else if (this.selectedHaraj == null) {
           return {
             valueName: "%%",
             operator: "LIKE",
+            itemsNumber: this.itemsNumber,
           };
         }
       },
@@ -264,6 +274,9 @@ export default {
     },
   },
   methods: {
+    showMore() {
+      this.itemsNumber = this.itemsNumber + 10;
+    },
     getHaraj(haraj) {
       this.$apollo.queries.ads.refetch();
       this.selectedHaraj = haraj;
