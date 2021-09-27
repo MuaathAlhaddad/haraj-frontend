@@ -6,9 +6,11 @@
       </div>
     </template>
     <template v-else>
-      <navbar />
-      <router-view> </router-view>
-      <Footer />
+      <navbar/>
+      <section style="min-height: 300px;">
+        <router-view></router-view>
+      </section>
+      <Footer/>
     </template>
   </div>
 </template>
