@@ -21,7 +21,7 @@
           </b-nav-item>
         </b-navbar-nav>
 
-        <b-navbar-nav class="ml-auto" v-if="!isAuth">
+        <b-navbar-nav class="ml-auto" v-if="!user">
           <b-nav-item>
             <router-link :to="{ path: `/login` }">
               <b-button class="primaryBackgroundColor">Login</b-button>
@@ -136,6 +136,7 @@
       title="New Notifications"
       static
       no-auto-hide
+      v-if="user"
     >
       <router-link :to="{ path: `/inbox` }">
         <span class="secondaryColor mr-1 "
@@ -185,7 +186,11 @@ export default {
           userId: this.user.id,
         };
       },
-
+      skip() {
+        if (this.user != null) {
+          return false;
+        }
+      },
       update(data) {
         console.log(data);
         return data.messages.data.length;
@@ -198,6 +203,11 @@ export default {
         return {
           userId: this.user.id,
         };
+      },
+      skip() {
+        if (this.user != null) {
+          return false;
+        }
       },
 
       update(data) {
@@ -218,6 +228,11 @@ export default {
         return {
           userId: this.user.id,
         };
+      },
+      skip() {
+        if (this.user != null) {
+          return false;
+        }
       },
 
       update(data) {

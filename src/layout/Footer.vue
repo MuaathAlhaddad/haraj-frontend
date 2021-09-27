@@ -1,88 +1,92 @@
 <template>
   <div>
-    <!-- Footer -->
-    <footer class="page-footer font-small pt-4">
-      <!-- Footer Links -->
-      <div class="container-fluid text-center text-md-left">
-        <!-- Grid row -->
-        <div class="row">
-          <!-- Grid column -->
-          <div class="col-md-6 mt-md-0 mt-3">
-            <!-- Content -->
-            <h5 class="text-uppercase">Footer Content</h5>
-            <p>
-              Here you can use rows and columns to organize your footer content.
-            </p>
+    <footer class="text-center">
+      <div class="footer-above">
+        <div class="container">
+          <div class="row">
+            <div class="footer-col col-md-4">
+              <img v-bind:src="logo" width="150px" />
+            </div>
+            <div class="footer-col col-md-4">
+              <router-link to="terms-conditions">
+                <p class="h6">
+                  Terms & Conditions
+                </p>
+              </router-link>
+              <router-link to="usage-agreement">
+                <p class="h6">
+                  Usage Agreement
+                </p>
+              </router-link>
+              <router-link to="prohibited-ads">
+                <p class="h6">
+                  Prohibited Ads
+                </p>
+              </router-link>
+
+              <ul class="list-inline">
+                <!-- some social networks -->
+              </ul>
+            </div>
+            <div class="footer-col col-md-4">
+              <h3>About Haraj</h3>
+              <p>
+                Haraj is a system meant for making users selling & buying items
+                by <a href="http://areebtech.io">Start Bootstrap</a>.
+              </p>
+            </div>
           </div>
-          <!-- Grid column -->
-
-          <hr class="clearfix w-100 d-md-none pb-3" />
-
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">Links</h5>
-
-            <ul class="list-unstyled">
-              <li>
-                <a href="#!">Link 1</a>
-              </li>
-              <li>
-                <a href="#!">Link 2</a>
-              </li>
-              <li>
-                <a href="#!">Link 3</a>
-              </li>
-              <li>
-                <a href="#!">Link 4</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
-
-          <!-- Grid column -->
-          <div class="col-md-3 mb-md-0 mb-3">
-            <!-- Links -->
-            <h5 class="text-uppercase">Links</h5>
-
-            <ul class="list-unstyled">
-              <li>
-                <a href="#!">Link 1</a>
-              </li>
-              <li>
-                <a href="#!">Link 2</a>
-              </li>
-              <li>
-                <a href="#!">Link 3</a>
-              </li>
-              <li>
-                <a href="#!">Link 4</a>
-              </li>
-            </ul>
-          </div>
-          <!-- Grid column -->
         </div>
-        <!-- Grid row -->
       </div>
-      <!-- Footer Links -->
-
-      <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">
-        © 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+      <div class="footer-below">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              Developed by
+              <a
+                href="http://areebtech.io"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Areebtech.io</a
+              >
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- Copyright -->
     </footer>
-    <!-- Footer -->
   </div>
 </template>
 
 <script>
-export default {};
+import Logo from "../assets/logoWhite.png";
+export default {
+  data() {
+    return {
+      logo: Logo,
+    };
+  },
+};
 </script>
 
 <style scoped>
-.page-footer {
-  background-color: #4f9da6 !important;
+footer {
+  color: #fff;
+}
+footer h3 {
+  margin-bottom: 30px;
+}
+footer .footer-above {
+  padding-top: 50px;
+  background-color: #fc7843;
+}
+footer .footer-col {
+  margin-bottom: 50px;
+}
+footer .footer-below {
+  padding: 5px 0;
+  background-color: #3d2314;
+}
+a {
+  color: white;
 }
 </style>

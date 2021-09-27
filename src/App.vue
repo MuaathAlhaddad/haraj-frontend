@@ -8,6 +8,7 @@
     <template v-else>
       <navbar />
       <router-view> </router-view>
+      <Footer />
     </template>
   </div>
 </template>
@@ -17,11 +18,12 @@ import Navbar from "./layout/Navbar.vue";
 import CurrnetUser from "./graphql/queries/currentUser.gql";
 import { mapActions } from "vuex";
 import LoadingIcon from "./components/LoadingIcon.vue";
+import Footer from "./layout/Footer.vue";
 
 const userDetails = CurrnetUser;
 
 export default {
-  components: { Navbar, LoadingIcon },
+  components: { Navbar, LoadingIcon, Footer },
   name: "App",
 
   data() {
