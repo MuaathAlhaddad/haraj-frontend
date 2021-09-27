@@ -166,12 +166,6 @@
                   </div>
                 </div>
               </b-card>
-              <b-card
-                style="max-width: 20rem;"
-                class="mbt-2 m-3"
-                header="Location's Map"
-              >
-              </b-card>
             </b-col>
           </b-row>
         </b-container>
