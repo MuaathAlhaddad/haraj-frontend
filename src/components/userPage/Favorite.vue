@@ -1,9 +1,10 @@
 <template>
-  <b-col cols="12" lg="8" xl="8" sm="12" md="8" class="user-info-div">
+  <b-col cols="12" lg="8" xl="8" sm="12" md="8" class="user-info-div mb-5">
     <div class="m-3">
       <h4 class="text-center">
         <b-icon icon="heart-fill" variant="danger" font-scale="0.9"> </b-icon>
         My Favourite ads
+
         <b-icon icon="heart-fill" variant="danger" font-scale="0.9"> </b-icon>
       </h4>
       <hr />
@@ -13,7 +14,7 @@
             <loading-icon />
           </div>
 
-          <div v-for="(ad, index) in user.favorites.data" :key="index">
+          <div v-for="(ad, index) in favoritesAds.favorites.data" :key="index">
             <div
               class="media mt-2 p-2 bg-light"
               :key="componentKey"
@@ -109,6 +110,7 @@ export default {
   components: { LoadingIcon },
   data() {
     return {
+      favoritesAds: [],
       componentKey: 0,
       loadingFav: false,
       duration: {
@@ -121,9 +123,10 @@ export default {
     };
   },
   methods: {
-    async unFavorited(ad_id) {
+    unFavorited(ad_id) {
+      console.log(ad_id);
       this.loadingFav = true;
-      await this.$apollo
+      this.$apollo
         .mutate({
           mutation: unFavoriteAd,
           variables: {
@@ -134,10 +137,12 @@ export default {
         .then((data) => {
           this.componentKey += 1;
 
-          this.user.favorites.data.splice(
-            this.user.favorites.data.indexOf(ad_id),
-            1
+          const removeIndex = this.favoritesAds.favorites.data.findIndex(
+            (item) => item.id === ad_id
           );
+          // remove object
+          this.favoritesAds.favorites.data.splice(removeIndex, 1);
+          console.log(this.favoritesAds.favorites.data);
           this.loadingFav = false;
         })
         .catch((errors) => {
@@ -169,6 +174,9 @@ export default {
     ...mapGetters({
       user: "Auth/user",
     }),
+  },
+  created() {
+    this.favoritesAds = this.user;
   },
 };
 </script>
