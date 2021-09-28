@@ -100,9 +100,9 @@ import Ads from "../graphql/queries/ads.gql";
 import Harajs from "../graphql/queries/taxonomies/harajs.gql";
 import Level1 from "../graphql/queries/taxonomies/brands.gql";
 import Level2 from "../graphql/queries/taxonomies/models.gql";
-import CategoriesHarajs from "@/components/CategoriesHarajs";
 import Years from "../graphql/queries/taxonomies/years.gql";
 import States from "../graphql/queries/somaliaState.gql";
+import CategoriesHarajs from "./CategoriesHarajs.vue";
 
 let allCategories = Harajs;
 
@@ -195,7 +195,7 @@ export default {
           // this.$apollo.queries.ads.refetch();
           return data.ads.data;
         } else if (this.selectedHaraj != null) {
-          // this.$apollo.queries.ads.refetch();
+          this.$apollo.queries.ads.refetch();
 
           return data.ads.data;
         } else if (this.selectedBrand != null) {
@@ -278,7 +278,6 @@ export default {
       this.itemsNumber = this.itemsNumber + 10;
     },
     getHaraj(haraj) {
-      this.$apollo.queries.ads.refetch();
       this.selectedHaraj = haraj;
       this.selectedHaraj = haraj;
       this.harajStyleTitle = haraj;
@@ -287,18 +286,20 @@ export default {
       this.switchModels = false;
       this.isCars = false;
       this.isFiltered = false;
+      this.$apollo.queries.ads.refetch();
+
       if (haraj == "cars") {
         this.isCars = true;
       }
     },
     getBrand(brand) {
-      this.$apollo.queries.ads.refetch();
       this.selectedHaraj = null;
       this.brandStyleTitle = brand;
       this.selectModel = null;
       this.selectedBrand = brand;
       this.switchModels = true;
       this.isFiltered = false;
+      this.$apollo.queries.ads.refetch();
 
       // this.$apollo.queries.ads.refetch();
     },
