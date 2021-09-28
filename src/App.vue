@@ -7,7 +7,7 @@
     </template>
     <template v-else>
       <navbar />
-      <section style="min-height: 330px;">
+      <section style="min-height: 410px;">
         <router-view></router-view>
       </section>
       <Footer />

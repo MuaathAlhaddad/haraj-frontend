@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="detailsComp">
     <b-container class="bv-example-row mt-3">
       <div class="row">
         <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto"
@@ -26,6 +26,9 @@ export default {
 };
 </script>
 <style scoped>
+.detailsComp {
+  margin-bottom: 150px !important;
+}
 #details {
   background-color: #f5f5f5;
   border: 1px solid #e4e7f5;

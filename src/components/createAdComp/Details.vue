@@ -4,7 +4,7 @@
       <b-card bg-variant="light" header="Ad Details">
         <b-card-text>
           <div>
-            <b-form @submit="onSubmit">
+            <b-form @submit.stop.prevent="onSubmit">
               <template v-if="loadingCatergories">
                 <div>
                   <loading-icon />
@@ -17,10 +17,12 @@
                   label-for="input-1"
                 >
                   <b-form-select
-                    id="input-1"
-                    v-model="form.category"
+                    id="example-input-1"
+                    name="example-input-1"
+                    v-model="$v.form.category.$model"
                     :options="categories"
-                    required
+                    :state="validateState('category')"
+                    aria-describedby="input-1-live-feedback"
                   ></b-form-select>
                 </b-form-group>
                 <b-form-group label="Brands:" v-if="switchBrands">
@@ -55,11 +57,16 @@
                 label-for="input-2"
               >
                 <b-form-input
-                  id="input-2"
-                  v-model="form.title"
-                  placeholder="Enter Title"
-                  required
-                ></b-form-input>
+                  id="title"
+                  name="title"
+                  type="text"
+                  v-model="$v.form.title.$model"
+                  :state="validateState('title')"
+                  aria-describedby="input-2-live-feedback"
+                ></b-form-input
+                ><b-form-invalid-feedback id="input-2-live-feedback">
+                  This is a required field!
+                </b-form-invalid-feedback>
               </b-form-group>
 
               <b-form-group
@@ -68,10 +75,14 @@
                 label-for="input-3"
               >
                 <b-form-textarea
-                  id="input-3"
-                  v-model="form.description"
-                  placeholder="Description"
+                  name="description"
+                  v-model="$v.form.description.$model"
+                  :state="validateState('description')"
+                  aria-describedby="input-3-live-feedback"
                 ></b-form-textarea>
+                <b-form-invalid-feedback id="input-3-live-feedback">
+                  This is a required field!
+                </b-form-invalid-feedback>
               </b-form-group>
               <label for="price" required>Price</label>
 
@@ -82,16 +93,23 @@
                   </small>
                 </b-input-group-prepend>
                 <b-form-input
+                  id="price"
+                  name="price"
                   type="number"
-                  placeholder="$100"
-                  id="input-4"
-                  v-model="form.price"
-                ></b-form-input>
+                  v-model="$v.form.price.$model"
+                  :state="validateState('price')"
+                  aria-describedby="input-4-live-feedback"
+                >
+                </b-form-input>
+
                 <b-input-group-prepend is-text>
                   Negotiable
                   <b-form-checkbox class="ml-1" v-model="form.negotiable">
                   </b-form-checkbox>
                 </b-input-group-prepend>
+                <b-form-invalid-feedback id="input-4-live-feedback">
+                  This is a required field!
+                </b-form-invalid-feedback>
               </b-input-group>
               <b-form-group
                 id="input-group-5"
@@ -99,10 +117,12 @@
                 label-for="input-5"
               >
                 <b-form-select
-                  id="input-1"
-                  v-model="form.city"
+                  id="example-input-5"
+                  name="example-input-5"
+                  v-model="$v.form.city.$model"
                   :options="cities"
-                  required
+                  :state="validateState('city')"
+                  aria-describedby="input-5-live-feedback"
                 >
                 </b-form-select>
               </b-form-group>
@@ -113,12 +133,12 @@
                 </b-badge>
               </span>
               <b-form-group
-                id="input-group-6"
+                id="input-group-7"
                 label="Tags:"
-                label-for="input-6"
+                label-for="input-7"
               >
                 <b-form-input
-                  id="input-6"
+                  id="input-7"
                   v-model="form.tag"
                   type="text"
                   placeholder="Enter a Tag"
@@ -136,7 +156,6 @@
           </div>
         </b-card-text>
       </b-card>
-      {{ yearsObjects }}
     </b-container>
   </b-col>
 </template>
@@ -145,20 +164,45 @@
 import Brands from "../../graphql/queries/taxonomies/brands.gql";
 import Models from "../../graphql/queries/taxonomies/models.gql";
 import Years from "../../graphql/queries/taxonomies/years.gql";
-
+import { validationMixin } from "vuelidate";
+import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import LoadingIcon from "../LoadingIcon.vue";
 
 const allBrands = Brands;
 const allModels = Models;
 export default {
+  mixins: [validationMixin],
   props: ["states", "harajs"],
+  validations: {
+    form: {
+      category: {
+        required,
+      },
+      title: {
+        required,
+        minLength: minLength(5),
+        maxLength: maxLength(19),
+      },
+      description: {
+        minLength: minLength(10),
+        required,
+      },
+      price: {
+        required,
+      },
+
+      city: {
+        required,
+      },
+    },
+  },
   components: { LoadingIcon },
   data() {
     return {
       tags: [],
       form: {
-        title: "",
-        description: "",
+        title: null,
+        description: null,
         price: null,
         negotiable: false,
         brand: null,
@@ -258,35 +302,42 @@ export default {
     },
   },
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
+    validateState(value) {
+      const { $dirty, $error } = this.$v.form[value];
+      return $dirty ? !$error : null;
+    },
+    onSubmit() {
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      } else {
+        if (this.form.category != null) {
+          const category = this.$props.harajs.find(
+            (element) => element.title == this.form.category
+          );
+          this.form.taxonomyContents.push(category.id);
+        }
+        if (this.form.brand != null) {
+          const brand = this.brandsObjects.level1.children.find(
+            (element) => element.title == this.form.brand
+          );
+          this.form.taxonomyContents.push(brand.id);
+        }
+        if (this.form.model != null) {
+          const model = this.modelsObjects.level2.children.find(
+            (element) => element.title == this.form.model
+          );
+          this.form.taxonomyContents.push(model.id);
+        }
+        if (this.form.year != null) {
+          const year = this.yearsObjects.taxonomyContents.data.find(
+            (element) => element.title == this.form.year
+          );
+          this.form.taxonomyContents.push(year.id);
+        }
 
-      if (this.form.category != null) {
-        const category = this.$props.harajs.find(
-          (element) => element.title == this.form.category
-        );
-        this.form.taxonomyContents.push(category.id);
+        this.$emit("passAdDetails", this.form);
       }
-      if (this.form.brand != null) {
-        const brand = this.brandsObjects.level1.children.find(
-          (element) => element.title == this.form.brand
-        );
-        this.form.taxonomyContents.push(brand.id);
-      }
-      if (this.form.model != null) {
-        const model = this.modelsObjects.level2.children.find(
-          (element) => element.title == this.form.model
-        );
-        this.form.taxonomyContents.push(model.id);
-      }
-      if (this.form.year != null) {
-        const year = this.yearsObjects.taxonomyContents.data.find(
-          (element) => element.title == this.form.year
-        );
-        this.form.taxonomyContents.push(year.id);
-      }
-
-      this.$emit("passAdDetails", this.form);
     },
 
     ///Tags methods

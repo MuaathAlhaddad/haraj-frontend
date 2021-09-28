@@ -7,7 +7,7 @@
     </template>
 
     <template v-else>
-      <div>
+      <div class="my-5">
         <b-container
           class="bv-example-row mt-3 generalColorBrown background-main-div"
         >

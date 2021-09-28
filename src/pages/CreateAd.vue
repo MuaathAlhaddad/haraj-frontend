@@ -22,7 +22,6 @@
                 </b-button>
 
                 <b-button
-                  @click="switchButton = 1"
                   class="custom-size-button2"
                   :class="
                     switchButton == 1 ? 'primaryBackgroundColor' : 'normalBtn'
@@ -191,3 +190,6 @@ export default {
   background-color: #96847d;
 }
 </style>
+
+// TODO: // - Price datatype // - Tags should be stored in the database // -
+description character length should be more larger

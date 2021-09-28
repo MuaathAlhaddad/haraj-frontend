@@ -62,8 +62,8 @@
                 @click="onSubmit"
                 type="submit"
                 class="primaryBackgroundColor"
-                >Login</b-button
-              >
+                >Login
+              </b-button>
             </div>
           </b-col>
         </b-row></b-container
