@@ -15,7 +15,7 @@ mutation(
       negotiable: $negotiable
       user: { connect: $userId }
       taxonomyContents: { connect: $catergories }
-      attachments: { connect: [12], create: $photos }
+      attachments: { create: $photos }
     }
   ) {
     id
