@@ -178,18 +178,18 @@ export default {
       category: {
         required,
       },
+
       title: {
         required,
         minLength: minLength(5),
-        maxLength: maxLength(19),
+        maxLength: maxLength(50),
       },
       description: {
         minLength: minLength(10),
+        maxLength: maxLength(1000),
         required,
       },
-      price: {
-        required,
-      },
+      price: { minLength: minLength(1), maxLength: maxLength(10), required },
 
       city: {
         required,
