@@ -51,10 +51,10 @@
               </ul>
             </div>
             <div class="footer-col col-md-4">
-              <h3>About Haraj</h3>
+              <h3>About Suuq Foran</h3>
               <p>
-                Haraj is a system meant for making users selling & buying items
-                by <a href="http://areebtech.io">Start Bootstrap</a>.
+                Suuq Foran is a system meant for making users selling & buying
+                variety things from different catergories.
               </p>
             </div>
           </div>
