@@ -20,6 +20,7 @@
     "i": "^0.3.6",
     "npm": "^7.20.3",
     "portal-vue": "^2.1.7",
+    "sweetalert2": "^11.1.7",
     "vee-validate": "^3.4.11",
     "vue": "^2.6.11",
     "vue-apollo": "^3.0.0-beta.11",

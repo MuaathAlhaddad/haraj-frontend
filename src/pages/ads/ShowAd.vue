@@ -11,17 +11,30 @@
         <b-container
           class="bv-example-row mt-3 generalColorBrown background-main-div"
         >
+          <div class="text-center my-1" v-if="user">
+            <edit-ad v-if="ad.ad.user.id == user.id" :ad="ad.ad" />
+            <b-button
+              @click="deleteAd(ad.ad.id)"
+              v-if="ad.ad.user.id == user.id"
+              variant="danger"
+            >
+              Delete
+            </b-button>
+          </div>
+          <b-modal id="modal-1" title="BootstrapVue">
+            <p class="my-4">Hello from modal!</p>
+          </b-modal>
           <b-row>
             <b-col>
               <b-col class="mb-3 mt-4" col lg="4"
                 ><h4 class="generalColorBrown">{{ ad.ad.title }}</h4></b-col
               >
-              <b-col class="m-1 bg-white" lg="6" style="border:1px solid">
-                <!-- <router-link to="ads">
+              <!-- <b-col class="m-1 bg-white" lg="6" style="border:1px solid"> -->
+              <!-- <router-link to="ads">
                   <span> {{ ad.ad.taxomomyContents.data[0].title }}</span>
                 </router-link> -->
-                taxonomies
-              </b-col>
+              <!-- taxonomies
+              </b-col> -->
 
               <b-row class="mb-3">
                 <b-col>
@@ -297,8 +310,10 @@ import LoadingIcon from "../../components/LoadingIcon.vue";
 import FavoriteAd from "../../graphql/mutations/favouriteAd.gql";
 import DeleteFavoriteAd from "../../graphql/mutations/unfavouriteAd.gql";
 import SendMessage from "../../graphql/mutations/sendMessage.gql";
+import DeleteAd from "../../graphql/mutations/deleteAd.gql";
 import { mapGetters } from "vuex";
 import ReportModal from "../../components/ReportModal.vue";
+import EditAd from "../../components/EditAd.vue";
 const adData = adItem;
 const isAdFavorited = checkFavorite;
 const favoritesNumber = FavouriteCount;
@@ -311,6 +326,7 @@ export default {
     LoadingIcon,
     ShareSocialMedia,
     ReportModal,
+    EditAd,
   },
   data() {
     return {
@@ -339,7 +355,32 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
     },
-
+    deleteAd(adId) {
+      this.$bvModal
+        .msgBoxConfirm("You want to delete this post?")
+        .then(() => {
+          this.$apollo
+            .mutate({
+              mutation: DeleteAd,
+              variables: {
+                adId: adId,
+              },
+            })
+            .then(() => {
+              this.$router.push({
+                name: "user-profile",
+                params: { id: `${this.user.id}` },
+              });
+              location.reload();
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        })
+        .catch((err) => {
+          throw err;
+        });
+    },
     favoriteAd() {
       this.loadingButtonFav = true;
       if (this.user == null) {

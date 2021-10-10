@@ -8,21 +8,43 @@
               <img v-bind:src="logo" width="150px" />
             </div>
             <div class="footer-col col-md-4">
-              <router-link to="terms-conditions">
-                <p class="h6">
+              <div>
+                <router-link
+                  :to="{
+                    name: 'about',
+                  }"
+                  >About
+                </router-link>
+              </div>
+              <div>
+                <router-link
+                  :to="{
+                    name: 'terms-conditions',
+                  }"
+                >
                   Terms & Conditions
-                </p>
-              </router-link>
-              <router-link to="usage-agreement">
-                <p class="h6">
+                </router-link>
+              </div>
+
+              <div>
+                <router-link
+                  :to="{
+                    name: 'usage-agreement',
+                  }"
+                >
                   Usage Agreement
-                </p>
-              </router-link>
-              <router-link to="prohibited-ads">
-                <p class="h6">
+                </router-link>
+              </div>
+
+              <div>
+                <router-link
+                  :to="{
+                    name: 'prohibited-ads',
+                  }"
+                >
                   Prohibited Ads
-                </p>
-              </router-link>
+                </router-link>
+              </div>
 
               <ul class="list-inline">
                 <!-- some social networks -->
