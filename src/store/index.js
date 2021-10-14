@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Auth from './Auth'
 import Notification from './modules/notification.js'
+import Ad from './modules/ads.js'
 Vue.use(Vuex);
 
 // const debug = process.env.NODE_ENV !== 'production'
@@ -15,7 +16,8 @@ export default new Vuex.Store({
     actions: {},
     modules: {
         Auth,
-        Notification
+        Notification,
+        Ad
     },
     // strict: debug,
 })

@@ -55,7 +55,7 @@
 <script>
 // import AlertErorr from "../AlertErorr.vue";
 import VueUploadMultipleImage from "vue-upload-multiple-image";
-
+import { mapActions } from "vuex";
 export default {
   components: { VueUploadMultipleImage },
   data() {
@@ -67,6 +67,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      addPhotos: "Ad/addPhotos",
+    }),
     uploadImageSuccess(formData, index, fileList) {
       console.log("data", formData, index, fileList);
       this.fileList = fileList;
@@ -98,6 +101,7 @@ export default {
         this.alert = true;
         console.log("Photos should not be not");
       } else {
+        this.addPhotos(photos);
         this.$emit("passPhotos", photos);
       }
     },

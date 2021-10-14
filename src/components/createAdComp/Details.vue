@@ -167,7 +167,7 @@ import Years from "../../graphql/queries/taxonomies/years.gql";
 import { validationMixin } from "vuelidate";
 import { required, minLength, maxLength } from "vuelidate/lib/validators";
 import LoadingIcon from "../LoadingIcon.vue";
-
+import { mapActions } from "vuex";
 const allBrands = Brands;
 const allModels = Models;
 export default {
@@ -302,6 +302,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      addDetails: "Ad/addDetails",
+    }),
     validateState(value) {
       const { $dirty, $error } = this.$v.form[value];
       return $dirty ? !$error : null;
@@ -335,7 +338,7 @@ export default {
           );
           this.form.taxonomyContents.push(year.id);
         }
-
+        this.addDetails(this.form);
         this.$emit("passAdDetails", this.form);
       }
     },

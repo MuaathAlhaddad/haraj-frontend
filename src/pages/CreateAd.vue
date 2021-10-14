@@ -12,7 +12,6 @@
             <b-col col lg="4" md="12" sm="12" xs="12">
               <b-button-group>
                 <b-button
-                  @click="switchButton = 0"
                   class="custom-size-button2"
                   :class="
                     switchButton == 0 ? 'primaryBackgroundColor' : 'normalBtn'
@@ -45,15 +44,11 @@
         <b-row class="mb-5">
           <Details
             v-if="switchButton == 0"
-            v-on:passAdDetails="addDetails($event)"
             :states="cities.country.states"
             :harajs="harajs.taxonomyContents.data"
           />
 
-          <photos
-            v-if="switchButton == 1"
-            v-on:passPhotos="addPhotos($event)"
-          />
+          <photos v-if="switchButton == 1" />
 
           <terms v-if="switchButton == 2" v-on:passTerm="postAd($event)" />
 
@@ -93,7 +88,6 @@ export default {
   components: { Details, Photos, Terms, LoadingIcon },
   data() {
     return {
-      switchButton: 0,
       details: null,
       photos: null,
       terms: null,
@@ -112,31 +106,20 @@ export default {
     }
   },
   methods: {
-    //// Recieving the data from the emit functions
-    addDetails(data) {
-      this.details = data;
-      this.switchButton = 1;
-      console.log(data);
-    },
-    addPhotos(data) {
-      this.photos = data;
-      this.switchButton = 2;
-    },
     postAd() {
-      console.log(this.photos);
       this.$apollo
         .mutate({
           // Query
           mutation: CreateAd,
           // Parameters
           variables: {
-            title: this.details.title,
-            description: this.details.description,
-            price: parseFloat(this.details.price),
-            negotiable: this.details.negotiable,
+            title: this.adDetails.title,
+            description: this.adDetails.description,
+            price: parseFloat(this.adDetails.price),
+            negotiable: this.adDetails.negotiable,
             userId: this.user.id,
-            catergories: this.details.taxonomyContents,
-            photos: this.photos,
+            catergories: this.adDetails.taxonomyContents,
+            photos: this.adPhotos,
           },
         })
         .then((data) => {
@@ -165,6 +148,9 @@ export default {
   computed: {
     ...mapGetters({
       user: "Auth/user",
+      adPhotos: "Ad/photos",
+      adDetails: "Ad/details",
+      switchButton: "Ad/switchButton",
     }),
   },
 };
