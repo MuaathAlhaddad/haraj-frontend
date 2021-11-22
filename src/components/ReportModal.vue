@@ -1,7 +1,7 @@
 <template>
   <span v-if="user">
     <b-button
-      v-b-modal.modal-report
+      v-b-modal="`modal-${adId}`"
       class="px-5 py-2 mr-1 custom-size-button1 "
       rounded
       variant="light"
@@ -9,7 +9,7 @@
       Report <i class="fa fa-flag" aria-hidden="true"></i>
     </b-button>
     <b-modal
-      :id="`modal-report`"
+      :id="`modal-${adId}`"
       ref="modal"
       ok-only
       title="Submit Your Report"
@@ -122,7 +122,7 @@ export default {
             reporterId: this.user.id,
             reportId: optionId,
             type: "ad",
-            adId: this.$props.adId,
+            id: this.$props.adId,
           },
         })
         // eslint-disable-next-line no-unused-vars
@@ -140,6 +140,7 @@ export default {
               centered: true,
             })
             .then((value) => {
+              location.reload();
               this.boxTwo = value;
             })
             .catch(() => {});
@@ -157,12 +158,12 @@ export default {
               reporterId: this.user.id,
               body: this.body,
               type: "ad",
-              adId: this.$props.adId,
+              id: this.$props.adId,
             },
           })
           // eslint-disable-next-line no-unused-vars
-          .then((data) => {
-            console.log(data);
+          .then(() => {
+            location.reload();
             this.$bvModal
               .msgBoxOk("Your report was submitted successfully", {
                 title: "Well Done!",

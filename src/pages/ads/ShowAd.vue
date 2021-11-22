@@ -21,9 +21,7 @@
               Delete
             </b-button>
           </div>
-          <b-modal id="modal-1" title="BootstrapVue">
-            <p class="my-4">Hello from modal!</p>
-          </b-modal>
+
           <b-row>
             <b-col>
               <b-col class="mb-3 mt-4" col lg="4"

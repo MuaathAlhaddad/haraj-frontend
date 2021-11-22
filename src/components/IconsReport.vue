@@ -1,7 +1,6 @@
 ><template>
   <span v-if="user">
-    {{ this.test }}
-    <button class=" primaryBackgroundColor" v-b-modal="`modal-${id}`">
+     <button class=" primaryBackgroundColor" v-b-modal="`modal-${id}`">
       <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"> </i>
     </button>
 
@@ -156,7 +155,7 @@ export default {
             variables: {
               reporterId: this.user.id,
               reportId: optionId,
-              type: "comment",
+              type: "review",
               id: this.$props.id,
             },
           })
