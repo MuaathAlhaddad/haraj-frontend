@@ -225,6 +225,9 @@ export default {
         console.log(this.photos);
       }
       if (this.photos.length == 0) {
+        this.$props.ad.attachments.data.map((att) => {
+          this.deleteIds.push(att.id);
+        });
         let photos = this.$props.ad.attachments.data;
 
         photos.forEach(function(photo) {
@@ -253,7 +256,7 @@ export default {
               description: this.form.description,
               price: parseFloat(this.form.price),
               photos: arrayPhotos,
-              deletePhotos: this.deletePhotos,
+              deletePhotos: this.deleteIds,
             },
           })
           // eslint-disable-next-line no-unused-vars
