@@ -57,6 +57,15 @@ export default {
 </script>
 
 <style>
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+span {
+  font-family: Helvetica, Arial;
+}
 .generalBackgroundOrange {
   background-color: #f8f9fa !important;
 }

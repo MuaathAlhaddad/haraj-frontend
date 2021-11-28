@@ -105,15 +105,10 @@
               xl="8"
               sm="12"
               md="8"
-              class="user-info-div"
+              class="user-info-div mb-4"
               v-if="switchButton == 0"
             >
-              <div class="m-3">
-                <h4>Muaadh Ali</h4>
-                <p>your last logged at: 12 July 2021</p>
-              </div>
-
-              <div>
+              <div class="my-4">
                 <b-card
                   header="Avatar photo"
                   header-text-variant="dark"
