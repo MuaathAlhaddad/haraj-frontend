@@ -38,10 +38,8 @@
         <hr />
         <index-search
           :states="states.country.states"
-          :years="years.taxonomyContents.data"
-          v-on:searchAds="getSearchedAds($event)"
+          v-on:getSearchedAds="getSearchedAds($event)"
           :ads="ads"
-          :isCars="isCars"
         />
         <b-row>
           <b-col

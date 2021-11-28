@@ -4,15 +4,6 @@
     <div>
       <div>
         <b-row class="d-flex justify-content-center find-section">
-          <div v-if="isCars">
-            <b-form-select
-              id="inline-form-custom-select-pref"
-              class="mb-2 mr-sm-2 mb-sm-0"
-              v-model="searchData.year"
-              :options="allyears"
-              :value="null"
-            ></b-form-select>
-          </div>
           <div>
             <b-form-select
               id="inline-form-custom-select-pref"
@@ -44,44 +35,44 @@
 
 <script>
 export default {
-  props: ["years", "states", "ads", "isCars"],
+  props: ["states", "ads"],
   data() {
     return {
       searchData: {
         state: null,
         searchKeyword: "",
-        year: null,
       },
       filteredAds: null,
       allStates: [],
-      allyears: [],
     };
   },
   methods: {
     search() {
-      if (this.searchData.searchKeyword != "") {
-        var item = this.$props.ads.filter(
-          (item) =>
-            item.title.toLowerCase().includes(this.searchData.searchKeyword) ||
-            item.description
-              .toLowerCase()
-              .includes(this.searchData.searchKeyword) ||
-            item.user.name.includes(this.searchData.searchKeyword) ||
-            item.user.state.name.includes(this.searchData.state)
-        );
-        this.filteredAds = item;
-        console.log(this.filteredAds);
-        this.$emit("searchAds", this.filteredAds);
-      }
+      var item;
+      // if (this.searchData.searchKeyword == "") {
+      //   item = this.$props.ads.filter((item) =>
+      //     item.user.state.name.includes(this.searchData.state)
+      //   );
+      // } else if (this.searchData.state == null) {
+      //   item = this.$props.ads;
+      // } else {
+      item = this.$props.ads.filter(
+        (item) =>
+          item.title.toLowerCase().includes(this.searchData.searchKeyword) ||
+          item.description
+            .toLowerCase()
+            .includes(this.searchData.searchKeyword) ||
+          item.user.name.includes(this.searchData.searchKeyword) ||
+          item.user.state.name.includes(this.searchData.state)
+      );
+      // }
+
+      this.filteredAds = item;
+      console.log(this.searchData.state);
+      this.$emit("getSearchedAds", this.filteredAds);
     },
   },
   mounted() {
-    var finalYears = this.$props.years.map(function(obj) {
-      return obj.title;
-    });
-
-    this.allyears = finalYears;
-
     const insert = (arr, index, newItem) => [
       // part of the array before the specified index
       ...arr.slice(0, index),
@@ -90,8 +81,6 @@ export default {
       // part of the array after the specified index
       ...arr.slice(index),
     ];
-
-    this.allyears = insert(this.allyears, 0, { text: "Years...", value: null });
 
     var finalStates = this.$props.states.map(function(obj) {
       return obj.name;
