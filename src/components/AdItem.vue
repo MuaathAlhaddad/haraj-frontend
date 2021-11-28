@@ -13,7 +13,7 @@
       <div class="media-body">
         <h6>
           <router-link :to="{ path: `ads/${adData.id}` }">
-            <span class="primaryColor"> {{ adData.title }}</span>
+            <span class="primaryColor limitText"> {{ adData.title }}</span>
           </router-link>
         </h6>
 

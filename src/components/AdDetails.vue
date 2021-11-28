@@ -6,11 +6,13 @@
           ><h4 class="generalColorBrown">Details</h4></b-col
         >
         <div id="detail">
-          <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto"
-            ><p>
-              {{ adData.description }}
-            </p></b-col
-          >
+          <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto">
+            <div style="width:1150px;    word-wrap: break-word;">
+              <p>
+                {{ adData.description }}
+              </p>
+            </div>
+          </b-col>
         </div>
       </div>
     </b-container>

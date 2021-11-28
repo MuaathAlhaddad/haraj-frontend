@@ -13,7 +13,7 @@
           <b-row class="d-flex justify-content-between mx-1">
             <h6>
               <router-link :to="{ path: `ads/${ad.id}` }">
-                <span class="primaryColor"> {{ ad.title }}</span>
+                <span class="primaryColor limitText"> {{ ad.title }}</span>
               </router-link>
             </h6>
             <!-- <div><i class="fa fa-user"> Amer</i></div> -->

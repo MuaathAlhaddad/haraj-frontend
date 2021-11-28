@@ -66,6 +66,13 @@ h5,
 span {
   font-family: Helvetica, Arial;
 }
+.limitText {
+  display: block;
+  width: 105px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .generalBackgroundOrange {
   background-color: #f8f9fa !important;
 }
