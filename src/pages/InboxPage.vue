@@ -71,7 +71,6 @@
             </div>
           </div>
         </b-card>
-        {{ senders }}
       </b-container>
     </template>
   </div>

@@ -145,7 +145,13 @@
 <script>
 import ProgressBar from "../ProgressBar.vue";
 import { validationMixin } from "vuelidate";
-import { required, minLength, sameAs, email } from "vuelidate/lib/validators";
+import {
+  required,
+  minLength,
+  maxLength,
+  sameAs,
+  email,
+} from "vuelidate/lib/validators";
 export default {
   mixins: [validationMixin],
   components: { ProgressBar },
@@ -155,14 +161,17 @@ export default {
       name: {
         required,
         minLength: minLength(5),
+        maxLength: maxLength(30),
       },
       email: {
         required,
         email,
+        maxLength: maxLength(30),
       },
       password: {
         required,
         minLength: minLength(6),
+        maxLength: maxLength(30),
       },
       repeatPassword: {
         sameAsPassword: sameAs("password"),

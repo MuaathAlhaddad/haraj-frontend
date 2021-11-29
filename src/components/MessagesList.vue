@@ -9,7 +9,6 @@
       <div ref="scrollToMe">
         <div class="px-4 py-5 chat-box bg-white">
           <div v-for="(message, index) in messages.messages.data" :key="index">
-            
             <div class="media w-50 mb-3" v-if="message.sender.id != user.id">
               <b-img
                 blank
@@ -18,7 +17,10 @@
                 alt="placeholder"
               ></b-img>
               <div class="media-body ml-3">
-                <div class="bg-light rounded py-2 px-3 mb-2">
+                <div
+                  style="width:300px;    word-wrap: break-word;"
+                  class="bg-light rounded py-2 px-3 mb-2"
+                >
                   <p class="text-small mb-0 text-muted">
                     {{ message.body }}
                   </p>
@@ -32,7 +34,10 @@
               v-if="message.sender.id == user.id"
             >
               <div class="media-body">
-                <div class="rounded py-2 px-3 mb-2 secondaryBackgroundColor">
+                <div
+                  style="width:300px;    word-wrap: break-word;"
+                  class="rounded py-2 px-3 mb-2 secondaryBackgroundColor"
+                >
                   <p class="text-small mb-0 text-white  ">
                     {{ message.body }}
                   </p>
