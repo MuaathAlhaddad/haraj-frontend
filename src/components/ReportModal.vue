@@ -127,8 +127,6 @@ export default {
         })
         // eslint-disable-next-line no-unused-vars
         .then((data) => {
-          console.log(data);
-          this.$refs["modal"].hide();
           this.$bvModal
             .msgBoxOk("Your report was submitted successfully", {
               title: "Well Done!",
@@ -141,6 +139,7 @@ export default {
             })
             .then((value) => {
               location.reload();
+              this.$refs["modal"].hide();
               this.boxTwo = value;
             })
             .catch(() => {});
@@ -158,12 +157,11 @@ export default {
               reporterId: this.user.id,
               body: this.body,
               type: "ad",
-              id: this.$props.adId,
+              adId: this.$props.adId,
             },
           })
           // eslint-disable-next-line no-unused-vars
           .then(() => {
-            location.reload();
             this.$bvModal
               .msgBoxOk("Your report was submitted successfully", {
                 title: "Well Done!",
@@ -175,10 +173,11 @@ export default {
                 centered: true,
               })
               .then((value) => {
+                location.reload();
+                this.$refs["modal"].hide();
                 this.boxTwo = value;
               })
               .catch(() => {});
-            this.$refs["modal"].hide();
           })
           .catch((errors) => {
             console.log(errors);

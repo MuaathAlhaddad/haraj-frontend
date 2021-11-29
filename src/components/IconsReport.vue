@@ -1,6 +1,6 @@
 ><template>
   <span v-if="user">
-     <button class=" primaryBackgroundColor" v-b-modal="`modal-${id}`">
+    <button class=" primaryBackgroundColor" v-b-modal="`modal-${id}`">
       <i class="fa fa-flag icon generalColorBrown" aria-hidden="true"> </i>
     </button>
 
@@ -127,8 +127,6 @@ export default {
           // eslint-disable-next-line no-unused-vars
           .then((data) => {
             this.test = data;
-            console.log(data);
-            this.$refs["modal"].hide();
             this.$bvModal
               .msgBoxOk("Your report was submitted successfully", {
                 title: "Well Done!",
@@ -140,6 +138,8 @@ export default {
                 centered: true,
               })
               .then((value) => {
+                location.reload();
+                this.$refs["modal"].hide();
                 this.boxTwo = value;
               })
               .catch(() => {});
@@ -161,8 +161,6 @@ export default {
           })
           // eslint-disable-next-line no-unused-vars
           .then((data) => {
-            console.log(data);
-            this.$refs["modal"].hide();
             this.$bvModal
               .msgBoxOk("Your report was submitted successfully", {
                 title: "Well Done!",
@@ -174,6 +172,8 @@ export default {
                 centered: true,
               })
               .then((value) => {
+                location.reload();
+                this.$refs["modal"].hide();
                 this.boxTwo = value;
               })
               .catch(() => {});
@@ -196,7 +196,6 @@ export default {
           })
           // eslint-disable-next-line no-unused-vars
           .then((data) => {
-            console.log(data);
             this.$bvModal
               .msgBoxOk("Your report was submitted successfully", {
                 title: "Well Done!",
@@ -208,10 +207,11 @@ export default {
                 centered: true,
               })
               .then((value) => {
+                location.reload();
+                this.$refs["modal"].hide();
                 this.boxTwo = value;
               })
               .catch(() => {});
-            this.$refs["modal"].hide();
           })
           .catch((errors) => {
             console.log(errors);
