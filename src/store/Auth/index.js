@@ -15,7 +15,7 @@ const getters = {
 const actions = {
     async login({ commit }, token) {
         commit('SET_TOKEN', token);
-        await localStorage.setItem('apollo-token', "Bearer " + token)
+        await localStorage.setItem('apollo-token', token)
         window.location.reload()
 
     },
