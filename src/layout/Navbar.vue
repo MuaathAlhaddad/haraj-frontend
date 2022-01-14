@@ -1,11 +1,7 @@
 <template>
   <div>
     <b-navbar class="generalBackgroundOrange" toggleable="lg" type="light">
-      <b-navbar-brand class="d-lg-none">
-        <div class="bg-light">
-          <img v-bind:src="logo" width="80px" />
-        </div>
-      </b-navbar-brand>
+      <b-navbar-brand class="d-lg-none"> </b-navbar-brand>
       <b-navbar-toggle target="collapse-area"></b-navbar-toggle>
       <b-collapse id="collapse-area" is-nav>
         <b-navbar-nav class="pl-5">
@@ -79,19 +75,6 @@
                 aria-hidden="true"
               ></b-icon>
             </b-button>
-            <!-- <b-button variant="light hoverButton" class="mr-3">
-              <router-link :to="{ path: `/user/${user.id}` }">
-                <span class="secondaryColor mr-1 h5"
-                  >Favorite
-                </span></router-link
-              >
-              <b-icon
-                icon="heart-fill"
-                class="primaryColor"
-                scale="1.0"
-                aria-hidden="true"
-              ></b-icon>
-            </b-button> -->
             <b-button
               variant="light hoverButton"
               class="mr-3"

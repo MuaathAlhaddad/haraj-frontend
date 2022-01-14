@@ -10,10 +10,10 @@
             <div class="footer-col col-md-4">
               <div>
                 <router-link
-                  :to="{
-                    name: 'about',
-                  }"
-                  >About
+                  :to="{ path: `/about` }"
+                  onClick="window.location.reload();"
+                >
+                  About
                 </router-link>
               </div>
               <div>
@@ -69,8 +69,8 @@
                 href="http://areebtech.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Areebtech.io</a
-              >
+                >Areebtech.io
+              </a>
             </div>
           </div>
         </div>

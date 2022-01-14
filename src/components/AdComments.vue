@@ -62,8 +62,8 @@
             </template>
             <router-link
               :to="{
-                name: 'user-profile',
-                params: { id: `{{ comment.user.id }}` },
+                name: 'seller-profile',
+                params: { sellerId: comment.user.id },
               }"
             >
               <span
