@@ -1,0 +1,23 @@
+name: Build & Deploy
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy: 
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2 
+      - name: Deploy haraj-frontend app (vuejs)
+        with: 
+          host: ${{ secrets.SSH_HOST }}
+          key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.USERNAME }}
+          
+          script: |
+            git clone git@github.com:MuaathAlhaddad/haraj-frontend.git
+            echo 'Deployment successful to digital ocean'
