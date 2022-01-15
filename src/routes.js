@@ -9,6 +9,8 @@ import InboxPage from './pages/InboxPage'
 import Signup from './pages/authPages/Signup';
 import Login from './pages/authPages/SignIn';
 import About from './pages/static pages/About.vue'
+import PrivacyPolicy from './pages/static pages/PrivacyPolicy.vue'
+import PaymentPolicy from './pages/static pages/PaymentPolicy.vue'
 import ProhibitedAds from './pages/static pages/ProhibitedAds.vue'
 import TermsConditions from './pages/static pages/TermsConditions.vue'
 import UsageAgreement from './pages/static pages/UsageAgreement.vue'
@@ -24,6 +26,20 @@ export default [
     {
         path: '/about', component: About,
         name: 'about',
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/payment-policy', component: PaymentPolicy,
+        name: 'payment-policy',
+        meta: {
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/privacy-policy', component: PrivacyPolicy,
+        name: 'privacy-policy',
         meta: {
             requiresAuth: true
         }

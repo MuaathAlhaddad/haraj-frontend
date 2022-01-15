@@ -1,45 +1,35 @@
 <template>
   <div class="container my-5">
-    <b-card
-      header="Usage Agreement"
-      header-tag="header"
-      title="Usage Agreement"
-    >
-      <b>Agreement to Terms</b> <br />
-      The Suuuqfuran.com provides access and use of this site ("Site") subject
-      to your agreement to the following "Terms of Use" (the "Terms"). Please
-      read these Terms carefully before accessing or using the Site. By
-      accessing or using the Site, you agree to be bound by these Terms. The
-      Terms, as well as the Site (and information contained within the Site) may
-      be updated or revised from time to time without notice to you. You agree
-      to periodically review these Terms, and your continued access to or use of
-      the Site shall constitute your acceptance of the updated or revised
-      Terms.<br /><br />
-      <b>Contact Information </b> <br />
-      If asked to provide your email address during your use of the site, please
-      provide an accurate and complete email address.<br /><br />
-      <b>Use of Information and Services</b> <br />
-      Third parties may provide certain information displayed on the Site.
-      Although the Suuuqfuran.com believes that such information comes from
-      trustworthy sources, the third-party information is not necessarily
-      sponsored, endorsed, recommended, or licensed by the Suuuqfuran.com. You
-      should directly contact the third parties and/or their references for the
-      most accurate information.<br /><br />
-      <b>Advice</b> <br />
-      Neither the Suuuqfuran.com nor its information sources or users are
-      engaged in giving legal, medical, counseling or other professional
-      services or advice in this Site.<br /><br />
-      <b>No Liability</b> <br />
-
-      Under no circumstances will Suuuqfuran.com be liable for any consequence
-      relating directly or indirectly to any action or inaction you take based
-      on the information, services or other material on the Site. While the
-      Suuuqfuran.com will attempt to keep its Site current, accurate, and
-      complete, the Suuuqfuran.com and its suppliers cannot guarantee, and will
-      not be responsible for any damage or loss related to, the timeliness,
-      accuracy, or completeness of the information, services, or other material
-      on the Site.<br /><br />
-      <b>Site Conduct </b> <br />
+    <b-card header="Payment Policy" header-tag="header" title="Payment Policy">
+      <b>Pay cash</b> <br />
+      In online classifieds, it's best to pay cash and to keep the payment
+      simple. Do not use personal checks, money wires, Western Union or
+      Moneygrams. Do not give out any personally identifiable information such
+      as bank numbers or credit card numbers. Terms.<br /><br />
+      <b>For big purchases, use cashier's checks</b> <br />
+      For big purchases, use cashier's checks. <br /><br />
+      <b>Protect your personally identifiable information</b> <br />
+      . Don't give out your social security number, bank numbers, credit card
+      numbers, etc. If someone like a landlord asks for your social security
+      number, give them a copy of your credit report instead, with your social
+      security number blacked out. If the seller seems evasive or suspicious or
+      makes you uncomfortable at any point during the transaction, walk away
+      from the deal. Always trust your instincts.
+      <br /><br />
+      <b>"Do it in person and do it in public."</b> <br />
+      If you follow this mantra, you should be safe. But sometimes a scammer
+      will have a convincing scam up their sleeve, which is why you should also
+      follow these additional precautions. Be extra cautious of people who make
+      up reasons for why they suddenly can't meet in person and pressure you to
+      decide fast, especially if shipping to a foreign country is involved.<br /><br />
+      <b>Sellers</b> <br />
+      • Beware of checks. It takes a few weeks for your bank to notify you that
+      you deposited a fake check. It's best to go to the bank with the buyer and
+      get a cashier's check issued in person.
+      <br />• Never accept extra payment with complicated excuses. <br />• Never
+      send a portion of the money back to the buyer, a shipping agent, or any
+      other person. <br /><br />
+      <b>Renters</b> <br />
 
       When using the Site, you agree to abide by the following rules: (a) you
       may not post or transmit content (e.g., information, data, text, software,

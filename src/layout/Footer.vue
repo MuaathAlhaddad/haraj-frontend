@@ -10,10 +10,10 @@
             <div class="footer-col col-md-4">
               <div>
                 <router-link
-                  :to="{ path: `/about` }"
-                  onClick="window.location.reload();"
-                >
-                  About
+                  :to="{
+                    name: 'about',
+                  }"
+                  >About
                 </router-link>
               </div>
               <div>
@@ -23,6 +23,24 @@
                   }"
                 >
                   Terms & Conditions
+                </router-link>
+              </div>
+              <div>
+                <router-link
+                  :to="{
+                    name: 'payment-policy',
+                  }"
+                >
+                  Payment & Policy
+                </router-link>
+              </div>
+              <div>
+                <router-link
+                  :to="{
+                    name: 'privacy-policy',
+                  }"
+                >
+                  Privacy & Policy
                 </router-link>
               </div>
 
@@ -69,8 +87,8 @@
                 href="http://areebtech.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                >Areebtech.io
-              </a>
+                >Areebtech.io</a
+              >
             </div>
           </div>
         </div>
