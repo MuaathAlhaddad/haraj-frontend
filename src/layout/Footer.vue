@@ -5,7 +5,7 @@
         <div class="container">
           <div class="row">
             <div class="footer-col col-md-4">
-              <img v-bind:src="logo" width="150px" />
+              <img v-bind:src="logo" width="200px" />
             </div>
             <div class="footer-col col-md-4">
               <div>

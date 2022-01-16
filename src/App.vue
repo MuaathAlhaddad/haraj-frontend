@@ -105,4 +105,32 @@ span {
 .hoverButton:hover {
   background-color: #f1bea0 !important;
 }
+
+/* Haraj scroll */
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 1.25rem;
+  overflow: auto;
+}
+.logo-div {
+  position: relative;
+  height: 50px;
+}
+.logo {
+  position: absolute;
+  top: -60px;
+  width: 180px;
+}
+@media screen and (max-width: 1275px) {
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap !important;
+    /* min-width: 300px; */
+    overflow: auto;
+  }
+}
+/*  */
 </style>
