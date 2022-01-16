@@ -4,14 +4,25 @@
     <div>
       <div>
         <b-row class="d-flex justify-content-center find-section">
-          <div>
-            <b-form-select
-              id="inline-form-custom-select-pref"
-              class="mb-2 mr-sm-2 mb-sm-0"
-              v-model="searchData.state"
-              :options="allStates"
-              :value="null"
-            ></b-form-select>
+          <div v-if="isAuth">
+            <router-link :to="{ path: `/create-ad` }">
+              <b-button
+                class="add-post mr-1 px-4 secondaryBackgroundColor hoverButton"
+                type="submit"
+              >
+                Add Post
+              </b-button>
+            </router-link>
+          </div>
+          <div v-if="!isAuth">
+            <router-link :to="{ path: `/login` }">
+              <b-button
+                class="add-post mr-1 px-4 secondaryBackgroundColor hoverButton"
+                type="submit"
+              >
+                Add Post
+              </b-button>
+            </router-link>
           </div>
           <!--Input-->
           <div>
@@ -34,6 +45,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   props: ["states", "ads"],
   data() {
@@ -71,6 +84,11 @@ export default {
       console.log(this.searchData.state);
       this.$emit("searchHomeAds", this.filteredAds);
     },
+  },
+  computed: {
+    ...mapGetters({
+      isAuth: "Auth/isAuth",
+    }),
   },
   mounted() {
     const insert = (arr, index, newItem) => [

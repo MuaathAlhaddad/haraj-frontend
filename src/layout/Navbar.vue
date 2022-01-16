@@ -10,8 +10,8 @@
               :to="{ path: `/` }"
               onClick="window.location.reload();"
             >
-              <div class="bg-light">
-                <img v-bind:src="logo" width="100px" />
+              <div class="bg-light logo-div">
+                <img class="logo" v-bind:src="logo" />
               </div>
             </router-link>
           </b-nav-item>

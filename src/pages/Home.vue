@@ -142,7 +142,6 @@ export default {
       },
     },
   },
-
   methods: {
     getHaraj(haraj) {
       this.harajStyleTitle = haraj;
