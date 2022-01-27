@@ -134,6 +134,11 @@
                   >Next</b-button
                 >
               </div>
+              <b-form-group>
+                <router-link :to="{ path: `/login` }">
+                  <p class="primaryColor ">Click here if you have an account</p>
+                </router-link>
+              </b-form-group>
             </b-form>
           </div>
         </b-card-text>

@@ -32,8 +32,6 @@
                   </i>
                   <span v-if="duration.days"> {{ duration.days }}d</span>
                   <span v-if="duration.hours"> {{ duration.hours }}h</span>
-                  <span v-if="duration.mins"> {{ duration.mins }}m</span>
-                  <span v-if="duration.secs"> {{ duration.secs }}s</span>
                   <span v-if="duration.secs"> ago</span>
                 </small>
               </b-col>

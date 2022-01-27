@@ -20,12 +20,7 @@
         <b-navbar-nav class="ml-auto" v-if="!user">
           <b-nav-item>
             <router-link :to="{ path: `/login` }">
-              <b-button class="primaryBackgroundColor">Login</b-button>
-            </router-link>
-          </b-nav-item>
-          <b-nav-item>
-            <router-link :to="{ path: `/signup` }">
-              <b-button class="primaryBackgroundColor">Sign Up</b-button>
+              <b-button class="primaryBackgroundColor"> Add Post</b-button>
             </router-link>
           </b-nav-item>
         </b-navbar-nav>
@@ -104,7 +99,7 @@
         <b-navbar-nav v-if="isAuth">
           <router-link :to="{ path: `/create-ad` }">
             <b-button
-              class="add-post mr-5 primaryBackgroundColor hoverButton"
+              class="add-post-nav mr-5 primaryBackgroundColor hoverButton"
               type="submit"
             >
               Add Post
@@ -276,7 +271,7 @@ export default {
 };
 </script>
 <style scoped>
-.add-post {
+.add-post-nav {
   width: 130px !important;
 }
 

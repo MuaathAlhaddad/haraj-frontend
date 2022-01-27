@@ -93,7 +93,13 @@
                 </div>
               </b-col>
             </b-col>
-            <b-col col lg="4" cstyle="border:1px solid">
+            <b-col
+              cols="12"
+              lg="4"
+              sm="12"
+              xs="12"
+              style="border:1px solid justify-content-center"
+            >
               <b-card style="max-width: 20rem;" class="mbt-2 m-3">
                 <ul class="list-unstyled">
                   <b-media tag="li">

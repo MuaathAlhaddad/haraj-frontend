@@ -2,18 +2,15 @@
   <div class="detailsComp">
     <b-container class="bv-example-row mt-3">
       <div class="row">
-        <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto"
-          ><h4 class="generalColorBrown">Details</h4></b-col
-        >
-        <div id="detail">
-          <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto">
-            <div style="width:1150px;    word-wrap: break-word;">
-              <p>
-                {{ adData.description }}
-              </p>
-            </div>
-          </b-col>
-        </div>
+        <b-col class="text-center" col lg="12" md="12" sm="12" xs="auto">
+          <h4 class="generalColorBrown">Details</h4>
+          <div id="detail">
+            <p>
+              {{ adData.description }}
+            </p>
+          </div>
+        </b-col>
+        <br />
       </div>
     </b-container>
   </div>

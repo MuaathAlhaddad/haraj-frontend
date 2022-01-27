@@ -12,7 +12,7 @@
       <template v-else>
         <hr />
         <div>
-          <b-row class="wrap" ref="wrap">
+          <b-row class="wrap categories-tabs" ref="wrap" >
             <b-tabs>
               <categories-harajs
                 :harajs="harajs"

@@ -15,7 +15,7 @@
           />
           <b-row>
             <b-col cols="12"
-              ><b-card>
+              ><b-card class="tabs-body-card">
                 <template v-slot:header>
                   <b-row class="d-flex justify-content-between">
                     <div class="ml-2 secondaryColor h6">
@@ -53,7 +53,10 @@
                     </div>
                   </b-row>
                 </template>
-                <div class="row" v-if="isFiltered == false">
+                <div
+                  class="row justify-content-center"
+                  v-if="isFiltered == false"
+                >
                   <span v-for="(ad, index) in ads" :key="index">
                     <AdItem :ad="ad" v-if="isFiltered == false" />
                   </span>

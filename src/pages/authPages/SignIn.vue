@@ -53,6 +53,13 @@
                     This is a required!.
                   </b-form-invalid-feedback>
                 </b-form-group>
+                <b-form-group>
+                  <router-link :to="{ path: `/signup` }">
+                    <p class="primaryColor ">
+                      Click here if you haven't an account?
+                    </p>
+                  </router-link>
+                </b-form-group>
               </b-col>
 
               <hr />

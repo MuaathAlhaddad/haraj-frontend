@@ -2,13 +2,19 @@
   <div>
     <div class="col">
       <b-card
-        :img-src="ad.attachments.data[0].path"
         img-alt="Image"
         img-height="150"
         img-width="100"
         img-top
         style="width: 15rem; height: 25rem ; color:black"
       >
+        <router-link :to="{ path: `ads/${ad.id}` }">
+          <b-card-img
+            :src="ad.attachments.data[0].path"
+            height="140"
+            class="mb-3"
+          />
+        </router-link>
         <b-card-text>
           <b-row class="d-flex justify-content-between mx-1">
             <h6>
@@ -36,8 +42,6 @@
               <i class="far fa-clock">{{ calDuration(ad.created_at) }} </i>
               <span v-if="duration.days"> {{ duration.days }}d</span>
               <span v-if="duration.hours"> {{ duration.hours }}h</span>
-              <span v-if="duration.mins"> {{ duration.mins }}m</span>
-              <span v-if="duration.secs"> {{ duration.secs }}s</span>
               <span v-if="duration.secs"> ago</span>
             </small>
           </p>
@@ -59,10 +63,6 @@
         </template>
       </b-card>
       <br />
-      <div class=" card-body ">
-        <h4 class=" card-title text-truncate"></h4>
-        <p class="card-text text-truncate"></p>
-      </div>
     </div>
   </div>
 </template>

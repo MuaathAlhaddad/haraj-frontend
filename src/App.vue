@@ -57,6 +57,11 @@ export default {
 </script>
 
 <style>
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
 p,
 h1,
 h2,
@@ -107,13 +112,33 @@ span {
 }
 
 /* Haraj scroll */
+::-webkit-scrollbar {
+  width: 10px;
+}
 
-.card-body {
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #fc7843;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #fc7843;
+}
+.tabs-body-card {
   flex: 1 1 auto;
   min-height: 1px;
   padding: 1.25rem;
-  overflow: auto;
+  overflow-x: hidden !important;
 }
+
 .logo-div {
   position: relative;
   height: 50px;
@@ -123,14 +148,35 @@ span {
   top: -60px;
   width: 180px;
 }
-@media screen and (max-width: 1275px) {
+/* .categories-tabs {
+  position: relative !important;
+  box-sizing: border-box;
+  margin: 0;
+} */
+.nav-tabs {
+  display: flex;
+  white-space: nowrap;
+  display: block !important;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* @media screen and (max-width: 500px) {
   .nav-tabs {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap !important;
-    /* min-width: 300px; */
-    overflow: auto;
+    white-space: nowrap;
+    display: block !important;
+    flex-wrap: nowrap;
+    width: 600px;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+} */
+@media screen and (max-width: 357px) {
+  .add-post {
+    margin: 10px;
   }
 }
+
 /*  */
 </style>
