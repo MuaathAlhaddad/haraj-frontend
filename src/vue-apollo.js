@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueApollo from 'vue-apollo'
-import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client'
+import {createApolloClient, restartWebsockets} from 'vue-cli-plugin-apollo/graphql-client'
 
 // Install the vue plugin
 Vue.use(VueApollo)
@@ -10,6 +10,9 @@ const AUTH_TOKEN = 'apollo-token'
 
 // Http endpoint
 const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:8000/graphql'
+
+// for production
+// const httpEndpoint = process.env.VUE_APP_GRAPHQL_HTTP || 'http://api.suuqfuran.com/graphql'
 // Files URL root
 export const filesRoot = process.env.VUE_APP_FILES_ROOT || httpEndpoint.substr(0, httpEndpoint.indexOf('/graphql'))
 
