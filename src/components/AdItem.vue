@@ -6,7 +6,7 @@
           class="mr-3 align-self-start"
           width="110px"
           height="110px"
-          :src="adData.attachments.data[0].path"
+          :src="`ads/${adData.attachments.data[0].path}`"
         />
       </router-link>
 

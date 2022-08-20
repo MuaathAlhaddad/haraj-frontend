@@ -10,7 +10,7 @@
       >
         <router-link :to="{ path: `ads/${ad.id}` }">
           <b-card-img
-            :src="ad.attachments.data[0].path"
+            :src="`ads/${ad.attachments.data[0].path}`"
             height="140"
             class="mb-3"
           />

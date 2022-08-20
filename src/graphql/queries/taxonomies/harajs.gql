@@ -1,5 +1,5 @@
 query {
-  taxonomyContents {
+  taxonomyContents(taxonomy: { column: TYPE, operator: EQ, value: "harajs" }) {
     data {
       id
       title
